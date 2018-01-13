@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+  <ul>
+    {% for category in categories %}
+      <li>
+        <a href="{{ path('category_post', { 'id' : category.id }) }}"><h2>{{ category.name }}</h2></a>
+        <a href="{{ path('edit_category', {'id' : category.id }) }}"><button type="button" name="button" class="btn btn-primary">Editer</button></a>
+        <a href="{{ path('remove_category', {'id' : category.id }) }}"><button type="button" name="button" class="btn btn-danger">Supprimer</button></a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <a href="{{ path('add_category') }}"><button class="btn btn-primary" type="button" name="button">Ajouter</button></a>
+
+{% endblock %}

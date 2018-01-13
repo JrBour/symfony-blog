@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+<ul>
+  <h1>{{ category.name }}</h1>
+
+  {% if posts %}
+    {% for post in posts %}
+      <a href="{{ path('show_id', { 'id' : post.id }) }}"><li>{{ post.title }}</li></a>
+    {% endfor %}
+  {% else %}
+    <p>Aucun article n'est relié à cette catégorie.</p>
+  {% endif %}
+</ul>
+
+{% endblock %}

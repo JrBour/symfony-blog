@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+  <h1>Blog</h1>
+  <ul>
+
+
+      {% for post in posts %}
+      <li>
+        <a href="{{ path('show_id', { 'id' : post.id } ) }}"> <h2>{{ post.title }}</h2></a> <br>
+        {% if post.description|length > 200 %}
+          {{post.description|slice(0,200) }}...
+        {% else %}
+          {{ post.description }}
+        {% endif %}<br>
+        <a href="{{ path('edit_post', { 'id' : post.id}) }}"> <button class="btn btn-primary">Editer</button></a>
+        <a href="{{ path('remove_post', { 'id' : post.id }) }}"> <button class="btn btn-danger">Supprimer</button></a>
+      </li>
+
+      {% endfor %}
+  </ul>
+  <a href="{{ path('blog_add') }}"><button type="button" name="button" class="btn btn-primary">Ajouter</button></a>
+{% endblock %}
