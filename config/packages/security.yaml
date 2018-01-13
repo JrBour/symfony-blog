@@ -17,17 +17,20 @@ security:
                         password: kitten
                         roles: 'ROLE_ADMIN'
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-        main:
-            anonymous: ~
-            form_login:
-              login_path: login
-              check_path: login
-            pattern:    ^/
-            http_basic: ~
-            provider: our_db_provider
+      dev:
+          pattern: ^/(_(profiler|wdt)|css|images|js)/
+          security: false
+      main:
+          anonymous: ~
+          form_login:
+            login_path: login
+            check_path: login
+          logout:
+              path: /logout
+              target: /login
+          pattern:    ^/
+          http_basic: ~
+          provider: our_db_provider
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, roles: ROLE_ADMIN }
