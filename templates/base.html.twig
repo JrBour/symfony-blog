@@ -8,6 +8,9 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -26,7 +29,18 @@
               <li ><a href="{{ path('home') }}">Accueil </a></li>
               <li><a href="{{ path('blog') }}">Blog</a></li>
               <li><a href="{{ path('category') }}">Catégories</a></li>
-              <li ><a href="{{ path('user_registration') }}">Inscription</a></li>
+              {% if app.user.id is not defined %}
+                <li ><a href="{{ path('user_registration') }}">Inscription</a></li>
+              {% else %}
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{app.user.username}}
+                  <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+                  </ul>
+                </li>
+              {% endif %}
             </ul>
           </div>
         </div>
