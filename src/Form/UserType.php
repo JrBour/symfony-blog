@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -21,6 +22,13 @@ class UserType extends AbstractType
         'type' => PasswordType::class,
         'first_options' => array('label' => 'password'),
         'second_options' => array('label' => 'Repeat password')
+      ))
+      ->add('role', ChoiceType::class, array(
+        'label' => 'Categories',
+        'choices' => $options['choices'],
+        'choice_label' => function($value) {
+            return $value->getName();
+          }
       ));
   }
 
@@ -28,6 +36,7 @@ class UserType extends AbstractType
   {
     $resolver->setDefaults(array(
         'data_class' => User::class,
+        'choices' => array()
     ));
   }
 }

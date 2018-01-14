@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+  <h1 class="text-center">{{ app.user.username }}</h1>
+  <h2 class="text-center">{{ app.user.email }}</h2>
+  <h2 class="text-center">{{ app.user.role.name }}</h2>
+{% endblock %}

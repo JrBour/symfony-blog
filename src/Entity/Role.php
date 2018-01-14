@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\RoleRepository")
  */
-class Category
+class Role
 {
     /**
      * @ORM\Id
@@ -20,17 +21,17 @@ class Category
 
     /**
     * @ORM\Column(type="string")
-    **/
+    */
     private $name;
 
     /**
-    * @ORM\OneToMany(targetEntity="App\Entity\Blog", mappedBy="category")
+    * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="role")
     **/
-    private $blog;
+    private $user;
 
     public function __construct()
     {
-      $this->blog = new ArrayCollection();
+      $this->user = new ArrayCollection();
     }
 
     public function getId()
@@ -41,7 +42,6 @@ class Category
     public function setId(int $id)
     {
       $this->id = $id;
-      return $this;
     }
 
     public function getName()
@@ -52,14 +52,14 @@ class Category
     public function setName(string $name)
     {
       $this->name = $name;
-      return $this;
+      return $this->name;
     }
 
     /**
-     * @return Collection|Blog[]
+     * @return Collection|User[]
      */
-    public function getBlog()
+    public function getUser()
     {
-      return $this->blog;
+      return $this->user;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\UserType;
 use App\Entity\User;
+use App\Entity\Role;
 use App\Controlle\DefaultController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -60,12 +61,17 @@ class RegistrationController extends Controller
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user =  new User();
-        $form = $this->createForm(UserType::class, $user);
+        $roles = $this->getDoctrine()
+            ->getRepository(Role::class)
+            ->findAll();
+
+        $form = $this->createForm(UserType::class, $user, array('choices' => $roles));
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
           $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
           $user->setPassword($password);
+          $user->setRole($user->getRole());
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($user);

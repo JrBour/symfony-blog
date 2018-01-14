@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -43,6 +44,12 @@ class User implements UserInterface
     * @ORM\Column(type="string", length=64)
     */
     private $password;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="user")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $role;
 
     public function getId()
     {
@@ -108,6 +115,16 @@ class User implements UserInterface
     public function getRoles()
     {
       return array('ROLE_USER');
+    }
+
+    public function getRole()
+    {
+      return $this->role;
+    }
+
+    public function setRole(Role $role)
+    {
+      $this->role = $role;
     }
 
     public function eraseCredentials()

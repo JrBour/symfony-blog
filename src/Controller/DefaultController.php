@@ -19,6 +19,14 @@ class DefaultController extends Controller
   }
 
   /**
+  * @Route("/profil", name="profil")
+  */
+  public function profile()
+  {
+    return $this->render('login/profile.html.twig');
+  }
+
+  /**
   * @Route("/admin")
   */
   public function admin()
