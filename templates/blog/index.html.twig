@@ -12,11 +12,14 @@
         {% else %}
           {{ post.description }}
         {% endif %}<br>
-        <a href="{{ path('edit_post', { 'id' : post.id}) }}"> <button class="btn btn-primary">Editer</button></a>
-        <a href="{{ path('remove_post', { 'id' : post.id }) }}"> <button class="btn btn-danger">Supprimer</button></a>
+        {% if app.user and app.user.role.name == 'ROLE_ADMIN' %}
+          <a href="{{ path('edit_post', { 'id' : post.id}) }}"> <button class="btn btn-primary">Editer</button></a>
+          <a href="{{ path('remove_post', { 'id' : post.id }) }}"> <button class="btn btn-danger">Supprimer</button></a>
+        {% endif %}
       </li>
-
       {% endfor %}
   </ul>
-  <a href="{{ path('blog_add') }}"><button type="button" name="button" class="btn btn-primary">Ajouter</button></a>
+  {% if app.user %}
+    <a href="{{ path('blog_add') }}"><button type="button" name="button" class="btn btn-primary">Ajouter</button></a>
+  {% endif %}
 {% endblock %}
