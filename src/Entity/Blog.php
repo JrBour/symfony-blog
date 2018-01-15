@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Category;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,6 +38,12 @@ class Blog
      * @ORM\JoinColumn(nullable=true)
      */
     private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="blog")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $author;
 
     public function getId()
     {
@@ -90,5 +97,15 @@ class Blog
     public function setCategory(Category $category)
     {
       $this->category = $category;
+    }
+
+    public function getAuthor()
+    {
+      return $this->author;
+    }
+
+    public function setAuthor(User $author)
+    {
+      $this->author = $author;
     }
 }

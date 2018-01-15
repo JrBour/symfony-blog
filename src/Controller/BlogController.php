@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\BlogType;
 use App\Entity\Blog;
+use App\Entity\User;
 use App\Entity\Category;
 
 use \DateTime;
@@ -51,12 +54,14 @@ class BlogController extends Controller
 
     if ($form->isSubmitted() && $form->isValid()) {
       $post = $form->getData();
+      $user = $this->getUser();
 
       $post->setTitle($post->getTitle());
       $post->setDescription($post->getDescription());
       $date = new DateTime(date("Y-m-d H:i:s"));
       $post->setDate($date);
       $post->setCategory($post->getCategory());
+      $post->setAuthor($user);
 
       $em->persist($post); // Query : INSERT INTO …
       $em->flush(); // Send the query

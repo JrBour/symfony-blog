@@ -26,7 +26,7 @@ class BlogType extends AbstractType
                 return $value->getName();
               }
           ))
-          ->add('save', SubmitType::class);
+          ->add('Enregistrer', SubmitType::class);
   }
 
   public function configureOptions(OptionsResolver $resolver)

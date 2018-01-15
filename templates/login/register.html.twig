@@ -8,4 +8,6 @@
     {{ form_row(form.role) }}
     <button type="submit">Register !</button>
   {{ form_end(form) }}
+
+  <p>Déjà un compte ?<a href="{{ path('login')}}"> Connectez-vous !</a></p>
 {% endblock %}

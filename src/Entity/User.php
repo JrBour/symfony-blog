@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Role;
+use App\Entity\Blog;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -46,10 +49,19 @@ class User implements UserInterface
     private $password;
 
     /**
+    * @ORM\OneToMany(targetEntity="App\Entity\Blog", mappedBy="user")
+    **/
+    private $blog;
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="user")
      * @ORM\JoinColumn(nullable=true)
      */
     private $role;
+
+    public function __construct()
+    {
+      $this->blog = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -129,6 +141,14 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    /**
+    * @return Collection|Blog[]
+    **/
+    public function getBlog()
+    {
+      return $this->blog;
     }
 
 }
