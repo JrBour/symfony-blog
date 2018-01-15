@@ -6,12 +6,13 @@
 
       {% for post in posts %}
       <li>
-        <a href="{{ path('show_id', { 'id' : post.id } ) }}"> <h2>{{ post.title }}</h2></a> <br>
+        <a href="{{ path('show_id', { 'id' : post.id } ) }}"> <h2>{{ post.title }}</h2></a>
         {% if post.description|length > 200 %}
           {{post.description|slice(0,200) }}...
         {% else %}
           {{ post.description }}
         {% endif %}<br>
+        <h4>by <a href="{{ path('profil_user', {'id' : post.author.id}) }}"><em>{{ post.author.username }}</em></a></h4>
         {% if app.user and app.user.role.name == 'ROLE_ADMIN' %}
           <a href="{{ path('edit_post', { 'id' : post.id}) }}"> <button class="btn btn-primary">Editer</button></a>
           <a href="{{ path('remove_post', { 'id' : post.id }) }}"> <button class="btn btn-danger">Supprimer</button></a>

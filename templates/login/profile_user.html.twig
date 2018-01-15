@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+  {% if user %}
+    <h1>{{ user.username }}</h1>
+    <h2>Ces publications</h2>
+    <ul>
+      {% for post in posts %}
+        <li>
+          <a href="{{ path('show_id', {'id' : post.id}) }}"><h3>{{ post.title }}</h3></a>
+          {% if post.description|length > 200 %}
+            {{post.description|slice(0,200) }}...
+          {% else %}
+            {{ post.description }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+
+  {% else %}
+    <h1 class="text-center">Cette page est momentanément indisponible</h1>
+    <p><a href="{{ path('home') }}">Accueil</a></p>
+  {% endif %}
+
+{% endblock %}

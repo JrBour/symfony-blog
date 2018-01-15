@@ -24,4 +24,14 @@ class BlogRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByAuthor(int $id)
+    {
+        return $this->createQueryBuilder('b')
+            ->where('b.author = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+        ;
+    }
+
 }

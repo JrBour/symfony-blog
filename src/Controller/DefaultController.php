@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use App\Entity\User;
+use App\Entity\Blog;
 
 class DefaultController extends Controller
 {
@@ -31,6 +33,24 @@ class DefaultController extends Controller
   public function admin()
   {
      return new Response('<html><body>Admin page!</body></html>');
+  }
+
+  /**
+  * @Route("/profil/{id}", name="profil_user")
+  */
+  public function profileUserAction(int $id)
+  {
+    $user = $this->getDoctrine()
+          ->getRepository(User::class)
+          ->find($id);
+    $posts = $this->getDoctrine()
+            ->getRepository(Blog::class)
+            ->findByAuthor($id);
+
+    return $this->render('login/profile_user.html.twig', array(
+        'user' => $user,
+        'posts' => $posts
+    ));
   }
 
 }

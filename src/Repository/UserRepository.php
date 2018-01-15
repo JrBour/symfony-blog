@@ -13,16 +13,13 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    /*
-    public function findBySomething($value)
+    public function findByCategory(int $id)
     {
-        return $this->createQueryBuilder('u')
-            ->where('u.something = :value')->setParameter('value', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('b')
+            ->where('b.category = :id')
+            ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
+            ->getResult();
         ;
     }
-    */
 }
