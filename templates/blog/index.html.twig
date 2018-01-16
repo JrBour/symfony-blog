@@ -7,6 +7,7 @@
       {% for post in posts %}
       <li>
         <a href="{{ path('show_id', { 'id' : post.id } ) }}"> <h2>{{ post.title }}</h2></a>
+        <div style="background:url('{{ asset('images/posts/' ~ post.image) }}'); height: 200px; width: 200px; background-position: center; background-size: cover"></div>
         {% if post.description|length > 200 %}
           {{post.description|slice(0,200) }}...
         {% else %}
