@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use App\Entity\Category;
 use App\Entity\User;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BlogRepository")
@@ -32,6 +34,14 @@ class Blog
     * @ORM\Column(type="datetime")
     **/
     private $date;
+
+    /**
+    * @ORM\Column(type="string")
+    *
+    * @Assert\NotBlank(message="Please, upload a new image")
+    * @Assert\File(mimeTypes={ "image/png" })
+    **/
+    private $image;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="blog")
@@ -87,6 +97,16 @@ class Blog
     {
       $this->date = $date;
       return $this;
+    }
+
+    public function setImage($image)
+    {
+      $this->image = $image;
+    }
+
+    public function getImage()
+    {
+      return $this->image;
     }
 
     public function getCategory()

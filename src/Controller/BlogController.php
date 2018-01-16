@@ -56,6 +56,14 @@ class BlogController extends Controller
       $post = $form->getData();
       $user = $this->getUser();
 
+      $file = $post->getImage();
+      $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+      $file->move(
+        $this->getParameter('images'),
+        $fileName
+      );
+
+      $post->setImage($fileName);
       $post->setTitle($post->getTitle());
       $post->setDescription($post->getDescription());
       $date = new DateTime(date("Y-m-d H:i:s"));

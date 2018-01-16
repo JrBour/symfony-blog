@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class BlogType extends AbstractType
@@ -19,6 +20,7 @@ class BlogType extends AbstractType
       $builder
           ->add('title')
           ->add('description', TextareaType::class)
+          ->add('image', FileType::class, array('label' => 'Mets moi ta putain d\'image à la con'))
           ->add('category', ChoiceType::class, array(
             'label' => 'Categories',
             'choices' => $options['choices'],
