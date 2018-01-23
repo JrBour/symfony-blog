@@ -7,10 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Form\CategoryType;
 use App\Entity\Category;
 use App\Entity\Blog;
 use App\Entity\User;
-use App\Form\CategoryType;
 
 class CategoryController extends Controller
 {
@@ -92,10 +92,6 @@ class CategoryController extends Controller
       $em = $this->getDoctrine()->getManager();
       $category = $em->getRepository(Category::class)->find($id);
 
-      if (!$category) {
-        throw $this->createNotFoundException(
-          'Pas de category correspondant avec l\'id n° :' . $id );
-      }
       $form = $this->createForm(CategoryType::class, $category);
       $form->handleRequest($request);
 
@@ -118,8 +114,7 @@ class CategoryController extends Controller
       }
 
       return $this->render('category/add.html.twig', array(
-        'form' => $form->createView(),
-        'id' => $id
+        'form' => $form->createView()
       ));
     }
 

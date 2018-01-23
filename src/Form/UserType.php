@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
@@ -21,16 +22,16 @@ class UserType extends AbstractType
     $builder
       ->add('email', EmailType::class)
       ->add('username', TextType::class)
+      ->add('image', FileType::class, array(
+        'label' => 'Image de MAIS PUTAIN FONCTIONNE TA MERE LA',
+        'data_class' => null
+      ))
       ->add('role', ChoiceType::class, array(
-        'label' => 'Categories',
+        'label' => 'Role',
         'choices' => $options['choices'],
         'choice_label' => function($value) {
             return $value->getName();
           }
-      ))
-      ->add('image', FileType::class, array(
-          'label' => 'Veuillez insérez une photo de profil',
-          'data_class' => null
       ))
       ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) use ($options) {
                 $form = $event->getForm();
@@ -47,7 +48,7 @@ class UserType extends AbstractType
                     );
                 } else {
                     $form->add(
-                        'password',
+                        'plainPassword',
                         RepeatedType::class,
                         array(
                              'type' => PasswordType::class,
@@ -56,7 +57,8 @@ class UserType extends AbstractType
                         )
                     );
                 }
-            });
+            })
+            ->add('save', SubmitType::class);
   }
 
   public function configureOptions(OptionsResolver $resolver)

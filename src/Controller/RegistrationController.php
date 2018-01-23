@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Form\UserType;
 use App\Entity\User;
 use App\Entity\Role;
+use App\Form\UserType;
 use App\Controlle\DefaultController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -66,82 +66,85 @@ class RegistrationController extends Controller
             ->findAll();
 
         $form = $this->createForm(UserType::class, $user, array('choices' => $roles));
-
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-          $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-
-          $file = $user->getImage();
-          $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-          $file->move(
-            $this->getParameter('images'),
-            $fileName
-          );
-          $name = "/images/posts/" . $fileName;
-
-          $user->setImage($name);
-          $user->setPassword($password);
-          $user->setRole($user->getRole());
-
-
-          $em = $this->getDoctrine()->getManager();
-          $em->persist($user);
-          $em->flush();
-
-          return $this->redirectToRoute('login');
-        }
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //   $user = $form->getData();
+        //
+        //   $file = $user->getImage();
+        //   if($file) {
+        //     $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+        //     $file->move(
+        //       $this->getParameter('images'),
+        //       $fileName
+        //     );
+        //     $name = "/images/posts/" . $fileName;
+        //     $user->setImage($name);
+        //   } else {
+        //     $user->setImage($user->getImage());
+        //   }
+        //   if($user->getPassword()) {
+        //     $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+        //     $user->setPassword($password);
+        //   } else {
+        //     $user->setPassword($user->getPassword());
+        //   }
+        //   $user->setRole($user->getRole());
+        //
+        //   $em = $this->getDoctrine()->getManager();
+        //   $em->flush();
+        //
+        //   return $this->redirectToRoute('user_show');
+        // }
         return $this->render('login/register.html.twig',
             array(
               'form' => $form->createView()
             )
         );
     }
-
     /**
     * @Route("/user/{id}", name="user_edit")
     **/
-    public function editUserAction(int $id, Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function editUserAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, int $id)
     {
-      $newUser = new User();
-      $em = $this->getDoctrine();
-      $user = $em->getRepository(User::class)->find($id);
+      $em = $this->getDoctrine()->getManager();
+      $title = 'edit';
       $roles = $em->getRepository(Role::class)->findAll();
+      $user = $em->getRepository(User::class)->find($id);
 
       $form = $this->createForm(UserType::class, $user, array('choices' => $roles));
       $form->handleRequest($request);
 
       if ($form->isSubmitted() && $form->isValid()) {
+        $user->setPassword($password);
+
         $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+
         $file = $user->getImage();
+        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+        $file->move(
+          $this->getParameter('images'),
+          $fileName
+        );
+        $name = "/images/posts/" . $fileName;
 
-        if($file) {
-          $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-          $file->move(
-            $this->getParameter('images'),
-            $fileName
-          );
-          $name = "/images/posts/" . $fileName;
-          $newUser->setImage($name);
-        } else {
-          $newUser->setImage($user->getImage());
-        }
-        
-        $newUser->setRole($user->getRole());
-        $newUser->setPassword($password);
-        $fm = $this->getDoctrine()->getManager();
-        $fm->persist($newUser);
-        $fm->flush();
+        $user->setImage($name);
+        $user->setRole($user->getRole());
 
-        return $this->redirectToRoute('home');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute('login');
       }
+
       return $this->render('login/register.html.twig', array(
-        'title' => 'edite',
-        'form' => $form->createView(),
-        'user' => $user
+        'form' => $form->createView()
       ));
     }
-    /**
-     * @Route("/logout", name="logout")
+
+  /**
+    * @Route("/logout", name="logout")
    */
   public function logoutAction()
   {

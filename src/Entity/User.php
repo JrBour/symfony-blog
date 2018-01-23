@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Role;
 use App\Entity\Blog;
 use App\Entity\Category;
-use Symfony\Component\HttpFoundation\File\File;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -53,7 +53,7 @@ class User implements UserInterface
     /**
     * @ORM\Column(type="string")
     *
-    * @Assert\NotBlank(message="Je ne sais vraiment pas du tout pourquoi je remplis ce message étant donné que je ne sais pas du tout ou il s'affiche")
+    * @Assert\NotBlank(message="Please, upload a new image")
     * @Assert\File(mimeTypes={ "image/jpeg" })
     **/
     private $image;
@@ -160,17 +160,16 @@ class User implements UserInterface
     }
 
     /**
-    * Return the path of the profil picture
+    * Return the path of the image
     *
     * @return String
     **/
-    public function getImage()
-    {
+    public function getImage(){
       return $this->image;
     }
 
     /**
-    * Set the path of the user's profil picture
+    * Set the path of the image
     *
     * @var String
     *

@@ -101,6 +101,7 @@ class Category
     public function getImage(){
       return $this->image;
     }
+    
     /**
     * Set the path of the image
     *
