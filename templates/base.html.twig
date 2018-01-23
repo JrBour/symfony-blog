@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
@@ -38,6 +38,7 @@
                   {% endif %}
                   <span class="caret"></span></a>
                   <ul class="dropdown-menu">
+                    <li><a href="{{ path('user_edit', {'id' : app.user.id}) }}">Editer</a></li>
                     <li><a href="{{ path('profil') }}">Profil</a></li>
                     <li><a href="{{ path('logout') }}">Déconnexion</a></li>
                   </ul>

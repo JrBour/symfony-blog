@@ -106,7 +106,7 @@ class RegistrationController extends Controller
       $user = $em->getRepository(User::class)->find($id);
       $roles = $em->getRepository(Role::class)->findAll();
 
-      $form = $this->createForm(UserType::class, $user);
+      $form = $this->createForm(UserType::class, $user, array('choices' => $roles));
       $form->handleRequest($request);
       if ($form->isSubmitted() && $form->isValid()) {
         $password = $passwordEncoder->encodePassword($user, $user->getPlaiPassword());
@@ -123,6 +123,7 @@ class RegistrationController extends Controller
         } else {
           $user->setImage($user->getImage());
         }
+        $user->setRole($user->getRole());
         $user->setPassword($password);
         $fm = $this->getDoctrine()->getManager();
         $fm->persist($user);
@@ -130,10 +131,11 @@ class RegistrationController extends Controller
 
         return $this->redirectToRoute('home');
       }
-      return $this->render('login/edit.html.twig', array(
+      return $this->render('login/register.html.twig', array(
+        'title' => 'edite',
         'form' => $form->createView(),
         'user' => $user
-      ))
+      ));
     }
     /**
      * @Route("/logout", name="logout")
