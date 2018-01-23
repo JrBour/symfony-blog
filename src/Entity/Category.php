@@ -34,7 +34,7 @@ class Category
     /**
     * @ORM\Column(type="string")
     *
-    * @Assert\NotBlank(message="Je ne sais vraiment pas du tout pourquoi je remplis ce message étant donné que je ne sais pas du tout ou il s'affiche")
+    * @Assert\NotBlank(message="Please, upload a new image")
     * @Assert\File(mimeTypes={ "image/jpeg" })
     **/
     private $image;
@@ -90,7 +90,7 @@ class Category
     **/
     public function setAuthor(User $author)
     {
-      $this->author = $author->getId();
+      $this->author = $author;
     }
 
     /**
@@ -108,7 +108,7 @@ class Category
     *
     * @return String
     **/
-    public function setimage($image)
+    public function setImage($image)
     {
       $this->image = $image;
     }

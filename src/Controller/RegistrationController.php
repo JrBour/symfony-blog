@@ -100,18 +100,20 @@ class RegistrationController extends Controller
     /**
     * @Route("/user/{id}", name="user_edit")
     **/
-    public function editUserAction(int $id,Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function editUserAction(int $id, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+      $newUser = new User();
       $em = $this->getDoctrine();
       $user = $em->getRepository(User::class)->find($id);
       $roles = $em->getRepository(Role::class)->findAll();
 
       $form = $this->createForm(UserType::class, $user, array('choices' => $roles));
       $form->handleRequest($request);
-      if ($form->isSubmitted() && $form->isValid()) {
-        $password = $passwordEncoder->encodePassword($user, $user->getPlaiPassword());
 
+      if ($form->isSubmitted() && $form->isValid()) {
+        $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
         $file = $user->getImage();
+
         if($file) {
           $fileName = md5(uniqid()) . '.' . $file->guessExtension();
           $file->move(
@@ -119,14 +121,15 @@ class RegistrationController extends Controller
             $fileName
           );
           $name = "/images/posts/" . $fileName;
-          $user->setImage($name);
+          $newUser->setImage($name);
         } else {
-          $user->setImage($user->getImage());
+          $newUser->setImage($user->getImage());
         }
-        $user->setRole($user->getRole());
-        $user->setPassword($password);
+        
+        $newUser->setRole($user->getRole());
+        $newUser->setPassword($password);
         $fm = $this->getDoctrine()->getManager();
-        $fm->persist($user);
+        $fm->persist($newUser);
         $fm->flush();
 
         return $this->redirectToRoute('home');

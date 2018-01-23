@@ -2,6 +2,8 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,11 +21,6 @@ class UserType extends AbstractType
     $builder
       ->add('email', EmailType::class)
       ->add('username', TextType::class)
-      ->add('plainPassword', RepeatedType::class, array(
-        'type' => PasswordType::class,
-        'first_options' => array('label' => 'password'),
-        'second_options' => array('label' => 'Repeat password')
-      ))
       ->add('role', ChoiceType::class, array(
         'label' => 'Categories',
         'choices' => $options['choices'],
@@ -34,7 +31,32 @@ class UserType extends AbstractType
       ->add('image', FileType::class, array(
           'label' => 'Veuillez insérez une photo de profil',
           'data_class' => null
-      ));
+      ))
+      ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) use ($options) {
+                $form = $event->getForm();
+                if (!empty($form->getData()) && !empty($form->getData()->getUsername())) {
+                    $form->add(
+                        'plainPassword',
+                        RepeatedType::class,
+                        array(
+                             'type' => PasswordType::class,
+                             'required' => false,
+                             'first_options' => array('label' => 'Mot de passe'),
+                             'second_options' => array('label' => 'Mot de passe'),
+                            )
+                    );
+                } else {
+                    $form->add(
+                        'password',
+                        RepeatedType::class,
+                        array(
+                             'type' => PasswordType::class,
+                             'first_options' => array('label' => 'Mot de passe'),
+                             'second_options' => array('label' => 'Mot de passe'),
+                        )
+                    );
+                }
+            });
   }
 
   public function configureOptions(OptionsResolver $resolver)

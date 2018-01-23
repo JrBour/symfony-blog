@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Category;
 use App\Entity\Blog;
+use App\Entity\User;
 use App\Form\CategoryType;
 
 class CategoryController extends Controller
@@ -59,6 +60,7 @@ class CategoryController extends Controller
       if ($form->isSubmitted() && $form->isValid()) {
         $category = $form->getData();
         $file = $category->getImage();
+        $user = $this->getUser();
 
         $fileName = md5(uniqid()) . '.' . $file->guessExtension();
         $file->move(
@@ -69,7 +71,8 @@ class CategoryController extends Controller
 
         $category->setImage($name);
         $category->setName($category->getName());
-        $category->setAuthor($this->getUser());
+        var_dump($user->getId());
+        $category->setAuthor($user);
 
         $em->persist($category);
         $em->flush();
