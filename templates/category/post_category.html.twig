@@ -5,9 +5,29 @@
   <h1>{{ category.name }}</h1>
 
   {% if posts %}
-    {% for post in posts %}
-      <a href="{{ path('show_id', { 'id' : post.id }) }}"><li>{{ post.title }}</li></a>
-    {% endfor %}
+      <ul class="articles">
+          {% for post in posts %}
+          <a href="{{ path('show_id', { 'id' : post.id } ) }}">
+            <li class="post">
+                <div style="background:url('{{ asset(post.image) }}'); height: 200px; width: 100%; background-position: center; background-size: cover"></div>
+                <div class="text_post">
+                  <h2>{{ post.title }}</h2>
+                  {% if post.description|length > 200 %}
+                    {{post.description|slice(0,200) }}...
+                  {% else %}
+                    {{ post.description }}
+                  {% endif %}<br>
+                  <h4>by <a href="{{ path('profil_user', {'id' : post.author.id}) }}"><em>{{ post.author.username }}</em></a></h4>
+                  {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <hr>
+                      <a href="{{ path('edit_post', { 'id' : post.id}) }}">Editer</a>
+                      <a href="{{ path('remove_post', { 'id' : post.id }) }}">Supprimer</a>
+                  {% endif %}
+                </div>
+            </li>
+          </a>
+          {% endfor %}
+      </ul>
   {% else %}
     <p>Aucun article n'est relié à cette catégorie.</p>
   {% endif %}

@@ -7,15 +7,9 @@ security:
           entity:
             class: App\Entity\User
             property: username
-        in_memory:
-          memory:
-                users:
-                    ryan:
-                        password: ryanpass
-                        roles: 'ROLE_USER'
-                    admin:
-                        password: kitten
-                        roles: 'ROLE_ADMIN'
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN        
     firewalls:
       dev:
           pattern: ^/(_(profiler|wdt)|css|images|js)/

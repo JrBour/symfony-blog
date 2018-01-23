@@ -62,8 +62,9 @@ class BlogController extends Controller
         $this->getParameter('images'),
         $fileName
       );
+      $name = "/images/posts/" . $fileName;
 
-      $post->setImage($fileName);
+      $post->setImage($name);
       $post->setTitle($post->getTitle());
       $post->setDescription($post->getDescription());
       $date = new DateTime(date("Y-m-d H:i:s"));
@@ -91,11 +92,6 @@ class BlogController extends Controller
         ->getRepository(Blog::class)
         ->find($id);
 
-      if (!$blog) {
-        throw $this->createNotFoundException(
-          'Aucun produit n\'a était trouvé pour l\'id n° : ' . $id
-        );
-      }
       return $this->render('blog/show.html.twig', array(
         'blog' => $blog
       ));
@@ -107,20 +103,32 @@ class BlogController extends Controller
   public function editPost(Request $request, int $id)
   {
     $em = $this->getDoctrine()->getManager();
+    $currentBlog = $this->getDoctrine()
+        ->getRepository(Blog::class)
+        ->find($id);
+    $categories = $this->getDoctrine()
+        ->getRepository(Category::class)
+        ->findAll();
     $post = $em->getRepository(Blog::class)->find($id);
 
-    if (!$post) {
-      throw $this->createNotFoundException(
-        'Aucun produit n\'a était trouvé pour l\'id n° : ' . $id
-      );
-    }
-
-    $form = $this->createForm(BlogType::class, $post);
+    $form = $this->createForm(BlogType::class, $post, array( 'choices' => $categories ));
     $form->handleRequest($request);
-
     if ($form->isSubmitted() && $form->isValid()) {
       $post = $form->getData();
+      $file = $post->getImage();
+      if ($file) {
+        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+        $file->move(
+          $this->getParameter('images'),
+          $fileName
+        );
+        $name = "/images/posts/" . $fileName;
+        $post->setImage($name);
+      } else {
+        $post->setImage($currentBlog->getImage());
+      }
 
+      $post->setCategory($post->getCategory());
       $post->setTitle($post->getTitle());
       $post->setDescription($post->getDescription());
 
@@ -129,7 +137,8 @@ class BlogController extends Controller
       return $this->redirectToRoute('blog');
     }
 
-    return $this->render('blog/edit.html.twig', array(
+    return $this->render('blog/add.html.twig', array(
+      'title' => 'edit',
       'form' => $form->createView(),
       'blog' => $post
     ));
@@ -143,11 +152,6 @@ class BlogController extends Controller
     $em = $this->getDoctrine()->getManager();
     $post = $em->getRepository(Blog::class)->find($id);
 
-    if (!$post) {
-      throw $this->createNotFoundException(
-        'Aucun produit n\'a était trouvé pour l\'id n° : ' . $id
-      );
-    }
     $em->remove($post);
     $em->flush();
 

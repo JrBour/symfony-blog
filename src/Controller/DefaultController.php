@@ -14,9 +14,15 @@ class DefaultController extends Controller
   /**
   * @Route("/", name="home")
   **/
-  public function home()
+  public function home(Request $request)
   {
-    return $this->render('home.html.twig');
+    $posts = $this->getDoctrine()
+        ->getRepository(Blog::class)
+        ->findByLastThree();
+
+    return $this->render('home.html.twig', array(
+      'posts' => $posts
+    ));
   }
 
   /**

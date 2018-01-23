@@ -2,9 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use App\Entity\User;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
@@ -27,6 +30,20 @@ class Category
     * @ORM\OneToMany(targetEntity="App\Entity\Blog", mappedBy="category")
     **/
     private $blog;
+
+    /**
+    * @ORM\Column(type="string")
+    *
+    * @Assert\NotBlank(message="Je ne sais vraiment pas du tout pourquoi je remplis ce message étant donné que je ne sais pas du tout ou il s'affiche")
+    * @Assert\File(mimeTypes={ "image/jpeg" })
+    **/
+    private $image;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="category")
+    * @ORM\JoinColumn(nullable=true)
+    **/
+    private $author;
 
     public function __construct()
     {
@@ -53,6 +70,47 @@ class Category
     {
       $this->name = $name;
       return $this;
+    }
+    /**
+    * Return the author of the category
+    *
+    * @return String
+    **/
+    public function getAuthor()
+    {
+      return $this->author;
+    }
+
+    /**
+    * Set the author of the category
+    *
+    * @var String
+    *
+    * @return String
+    **/
+    public function setAuthor(User $author)
+    {
+      $this->author = $author->getId();
+    }
+
+    /**
+    * Return the path of the image
+    *
+    * @return String
+    **/
+    public function getImage(){
+      return $this->image;
+    }
+    /**
+    * Set the path of the image
+    *
+    * @var String
+    *
+    * @return String
+    **/
+    public function setimage($image)
+    {
+      $this->image = $image;
     }
 
     /**

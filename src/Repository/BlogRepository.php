@@ -24,14 +24,14 @@ class BlogRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findByAuthor(int $id)
+    public function findByLastThree()
     {
-        return $this->createQueryBuilder('b')
-            ->where('b.author = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getResult();
-        ;
+
+        $query =  $this->createQueryBuilder('b')
+                  ->setMaxResults(3)
+                  ->getQuery();
+
+        return $query->getResult();
     }
 
 }

@@ -39,7 +39,7 @@ class Blog
     * @ORM\Column(type="string")
     *
     * @Assert\NotBlank(message="Please, upload a new image")
-    * @Assert\File(mimeTypes={ "image/png" })
+    * @Assert\File(mimeTypes={ "image/jpeg" })
     **/
     private $image;
 
@@ -99,14 +99,14 @@ class Blog
       return $this;
     }
 
-    public function setImage($image)
-    {
-      $this->image = $image;
-    }
-
     public function getImage()
     {
       return $this->image;
+    }
+
+    public function setImage($image)
+    {
+      $this->image = $image;
     }
 
     public function getCategory()

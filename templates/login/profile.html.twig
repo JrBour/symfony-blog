@@ -3,7 +3,7 @@
   <h1 class="text-center">{{ app.user.username }}</h1>
   <h2 class="text-center">{{ app.user.email }}</h2>
   <h2 class="text-center">
-  {% if app.user.role.name == 'ROLE_ADMIN' %}
+  {% if is_granted('ROLE_ADMIN') %}
     ADMIN
   {% else %}
     Utilisateur

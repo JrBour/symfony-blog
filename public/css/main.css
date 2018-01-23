@@ -1,7 +1,7 @@
 body {
   background: black;
 }
-/* @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700");
+ @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700");
 
 html {
     font-family: sans-serif;
@@ -6924,4 +6924,74 @@ a.list-group-item-danger.active:focus {
 }
 .popover {
     color: #333333;
-} */
+}
+.articles, .categories {
+  display: flex;
+  flex-flow: row wrap;
+  flex: 3 0px;
+  width: 90%;
+  margin-bottom: 20px;
+  padding: 0;
+}
+.text_post {
+  padding: 10px;
+}
+.text_post h2 {
+  padding-top: 0;
+  margin-top: 0;
+}
+.post, .category  {
+  margin: 10px;
+  list-style: none;
+  width: 30%;
+  box-shadow:0 20px 20px rgba(0,0,0,.08);
+  transition: .6s ease;
+}
+.category {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  overflow: hidden;
+  text-align: center;
+  min-height: 15vh;
+}
+.post_edit {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: rgba(0,0,0,0.7);
+  transition: .4s ease;
+}
+.post_edit a {
+  padding: 10px;
+  margin: 0 20px;
+  color: white;
+}
+.category:hover .post_edit {
+  bottom: 0;
+}
+.post_edit a:hover {
+  color: white;
+}
+.post h2 {
+  text-transform: capitalize;
+}
+.post:hover {
+  transform: scale(1.03);
+}
+a{
+  color: black;
+}
+a:hover {
+  text-decoration: none;
+  color: black;
+}
+hr {
+  padding: 0;
+  margin: 10px 0;
+}

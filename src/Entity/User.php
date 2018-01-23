@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Role;
 use App\Entity\Blog;
+use App\Entity\Category;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -49,9 +51,22 @@ class User implements UserInterface
     private $password;
 
     /**
+    * @ORM\Column(type="string")
+    *
+    * @Assert\NotBlank(message="Please, upload a new image")
+    * @Assert\File(mimeTypes={ "image/jpeg" })
+    **/
+    private $image;
+
+    /**
     * @ORM\OneToMany(targetEntity="App\Entity\Blog", mappedBy="user")
     **/
     private $blog;
+
+    /**
+    * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="user")
+    **/
+    private $category;
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="user")
      * @ORM\JoinColumn(nullable=true)
@@ -61,6 +76,7 @@ class User implements UserInterface
     public function __construct()
     {
       $this->blog = new ArrayCollection();
+      $this->category = new ArrayCollection();
     }
 
     public function getId()
@@ -126,7 +142,7 @@ class User implements UserInterface
 
     public function getRoles()
     {
-      return array('ROLE_USER');
+      return array($this->role->getName());
     }
 
     public function getRole()
@@ -144,11 +160,41 @@ class User implements UserInterface
     }
 
     /**
+    * Return the path of the profil picture
+    *
+    * @return String
+    **/
+    public function getImage()
+    {
+      return $this->image;
+    }
+
+    /**
+    * Set the path of the user's profil picture
+    *
+    * @var String
+    *
+    * @return String
+    **/
+    public function setImage($image)
+    {
+      $this->image = $image;
+    }
+
+    /**
     * @return Collection|Blog[]
     **/
     public function getBlog()
     {
       return $this->blog;
+    }
+
+    /**
+    * @return Collection|Blog[]
+    **/
+    public function getCategory()
+    {
+      return $this->category;
     }
 
 }

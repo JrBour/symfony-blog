@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-  <ul>
+  <ul class="categories">
     {% for category in categories %}
-      <li>
-        <a href="{{ path('category_post', { 'id' : category.id }) }}"><h2>{{ category.name }}</h2></a>
-        {% if app.user and app.user.role.name == 'ROLE_ADMIN' %}
-          <a href="{{ path('edit_category', {'id' : category.id }) }}"><button type="button" name="button" class="btn btn-primary">Editer</button></a>
-          <a href="{{ path('remove_category', {'id' : category.id }) }}"><button type="button" name="button" class="btn btn-danger">Supprimer</button></a>
-        {% endif %}
-      </li>
+        <li class="category" style="background: url('{{asset(category.image)}}'); background-position: center; background-size: cover')">
+          <a href="{{ path('category_post', { 'id' : category.id }) }}"><h2>{{ category.name }}</h2></a>
+          {% if app.user and app.user.id == category.author.id %}
+            <div class="post_edit">
+              <a href="{{ path('edit_category', {'id' : category.id }) }}">Editer</a>
+              <a href="{{ path('remove_category', {'id' : category.id }) }}">Supprimer</a>
+            </div>
+          {% endif %}
+        </li>
     {% endfor %}
   </ul>
 {% if app.user %}

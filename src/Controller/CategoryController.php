@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Category;
@@ -20,12 +21,6 @@ class CategoryController extends Controller
       $categories = $this->getDoctrine()
         ->getRepository(Category::class)
         ->findAll();
-
-        if (!$categories) {
-          throw  $this->createNotFoundException('
-            Vous n\'avez actuellement aucune catégore de créer, veuillez en créez une pour commencer.
-          ');
-        }
 
         return $this->render('category/index.html.twig', array(
           'categories' => $categories
@@ -61,10 +56,20 @@ class CategoryController extends Controller
 
       $form = $this->createForm(CategoryType::class, $category);
       $form->handleRequest($request);
-
       if ($form->isSubmitted() && $form->isValid()) {
         $category = $form->getData();
+        $file = $category->getImage();
+
+        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+        $file->move(
+          $this->getParameter('images'),
+          $fileName
+        );
+        $name = "/images/posts/" . $fileName;
+
+        $category->setImage($name);
         $category->setName($category->getName());
+        $category->setAuthor($this->getUser());
 
         $em->persist($category);
         $em->flush();
@@ -93,6 +98,16 @@ class CategoryController extends Controller
 
       if ($form->isSubmitted() && $form->isValid()) {
         $category = $form->getData();
+        $file = $category->getImage();
+
+        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+        $file->move(
+          $this->getParameter('images'),
+          $fileName
+        );
+        $name = "/images/posts/" . $fileName;
+
+        $category->setImage($name);
         $category->setName($category->getName());
         $em->flush();
 

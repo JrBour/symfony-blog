@@ -32,7 +32,7 @@ class RegistrationController extends Controller
 
         if (!$users) {
           throw  $this->createNotFoundException('
-            Vous n\'avez actuellement aucun utilisateur de créer, veuillez en créez une pour commencer.
+            Vous n\'avez actuellement aucun utilisateur de créer, veuillez en créez un pour commencer.
           ');
         }
 
@@ -70,8 +70,19 @@ class RegistrationController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
           $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+
+          $file = $user->getImage();
+          $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+          $file->move(
+            $this->getParameter('images'),
+            $fileName
+          );
+          $name = "/images/posts/" . $fileName;
+
+          $user->setImage($name);
           $user->setPassword($password);
           $user->setRole($user->getRole());
+
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($user);
@@ -84,6 +95,45 @@ class RegistrationController extends Controller
               'form' => $form->createView()
             )
         );
+    }
+
+    /**
+    * @Route("/user/{id}", name="user_edit")
+    **/
+    public function editUserAction(int $id,Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    {
+      $em = $this->getDoctrine();
+      $user = $em->getRepository(User::class)->find($id);
+      $roles = $em->getRepository(Role::class)->findAll();
+
+      $form = $this->createForm(UserType::class, $user);
+      $form->handleRequest($request);
+      if ($form->isSubmitted() && $form->isValid()) {
+        $password = $passwordEncoder->encodePassword($user, $user->getPlaiPassword());
+
+        $file = $user->getImage();
+        if($file) {
+          $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+          $file->move(
+            $this->getParameter('images'),
+            $fileName
+          );
+          $name = "/images/posts/" . $fileName;
+          $user->setImage($name);
+        } else {
+          $user->setImage($user->getImage());
+        }
+        $user->setPassword($password);
+        $fm = $this->getDoctrine()->getManager();
+        $fm->persist($user);
+        $fm->flush();
+
+        return $this->redirectToRoute('home');
+      }
+      return $this->render('login/edit.html.twig', array(
+        'form' => $form->createView(),
+        'user' => $user
+      ))
     }
     /**
      * @Route("/logout", name="logout")

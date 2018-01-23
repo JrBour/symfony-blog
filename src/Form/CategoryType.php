@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class CategoryType extends AbstractType
 {
@@ -13,6 +15,10 @@ class CategoryType extends AbstractType
   {
       $builder
           ->add('name')
+          ->add('image', FileType::class, array(
+            'label' => 'Image de fond de la catégorie',
+            'data_class' => null
+          ))
           ->add('save', SubmitType::class);
   }
 
