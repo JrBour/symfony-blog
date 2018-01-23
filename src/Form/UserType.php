@@ -23,7 +23,8 @@ class UserType extends AbstractType
       ->add('email', EmailType::class)
       ->add('username', TextType::class)
       ->add('image', FileType::class, array(
-        'label' => 'Image de MAIS PUTAIN FONCTIONNE TA MERE LA',
+        'label' => 'Image de fond de la catégorie',
+        'required' => false,
         'data_class' => null
       ))
       ->add('role', ChoiceType::class, array(

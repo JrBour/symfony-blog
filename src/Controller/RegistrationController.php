@@ -7,6 +7,7 @@ use App\Entity\Role;
 use App\Form\UserType;
 use App\Controlle\DefaultController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -67,34 +68,34 @@ class RegistrationController extends Controller
 
         $form = $this->createForm(UserType::class, $user, array('choices' => $roles));
         $form->handleRequest($request);
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //   $user = $form->getData();
-        //
-        //   $file = $user->getImage();
-        //   if($file) {
-        //     $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-        //     $file->move(
-        //       $this->getParameter('images'),
-        //       $fileName
-        //     );
-        //     $name = "/images/posts/" . $fileName;
-        //     $user->setImage($name);
-        //   } else {
-        //     $user->setImage($user->getImage());
-        //   }
-        //   if($user->getPassword()) {
-        //     $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-        //     $user->setPassword($password);
-        //   } else {
-        //     $user->setPassword($user->getPassword());
-        //   }
-        //   $user->setRole($user->getRole());
-        //
-        //   $em = $this->getDoctrine()->getManager();
-        //   $em->flush();
-        //
-        //   return $this->redirectToRoute('user_show');
-        // }
+        if ($form->isSubmitted() && $form->isValid()) {
+          $user = $form->getData();
+
+          $file = $user->getImage();
+          if($file) {
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move(
+              $this->getParameter('images'),
+              $fileName
+            );
+            $name = "/images/posts/" . $fileName;
+            $user->setImage($name);
+          } else {
+            $user->setImage($user->getImage());
+          }
+          if($user->getPassword()) {
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+          } else {
+            $user->setPassword($user->getPassword());
+          }
+          $user->setRole($user->getRole());
+
+          $em = $this->getDoctrine()->getManager();
+          $em->flush();
+
+          return $this->redirectToRoute('user_show');
+        }
         return $this->render('login/register.html.twig',
             array(
               'form' => $form->createView()
@@ -115,9 +116,8 @@ class RegistrationController extends Controller
       $form->handleRequest($request);
 
       if ($form->isSubmitted() && $form->isValid()) {
-        $user->setPassword($password);
-
         $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+        $user->setPassword($password);
 
         $file = $user->getImage();
         $fileName = md5(uniqid()) . '.' . $file->guessExtension();
@@ -135,7 +135,7 @@ class RegistrationController extends Controller
         $em->persist($user);
         $em->flush();
 
-        return $this->redirectToRoute('login');
+        return $this->redirectToRoute('home');
       }
 
       return $this->render('login/register.html.twig', array(
