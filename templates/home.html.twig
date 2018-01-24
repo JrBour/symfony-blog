@@ -2,27 +2,49 @@
 {% block body %}
   <h1>Bienvenue sur l'accueil</h1>
   <h2>Derniers articles publiés</h2>
-  <ul class="articles">
-      {% for post in posts %}
-      <a href="{{ path('show_id', { 'id' : post.id } ) }}">
-        <li class="post">
-            <div style="background:url('{{ asset(post.image) }}'); height: 200px; width: 100%; background-position: center; background-size: cover"></div>
-            <div class="text_post">
-              <h2>{{ post.title }}</h2>
-              {% if post.description|length > 200 %}
-                {{post.description|slice(0,200) }}...
-              {% else %}
-                {{ post.description }}
-              {% endif %}<br>
-              <h4>by <a href="{{ path('profil_user', {'id' : post.author.id}) }}"><em>{{ post.author.username }}</em></a></h4>
-              {% if app.user and is_granted('ROLE_ADMIN') %}
-                <hr>
-                  <a href="{{ path('edit_post', { 'id' : post.id}) }}">Editer</a>
-                  <a href="{{ path('remove_post', { 'id' : post.id }) }}">Supprimer</a>
+  {% if posts %}
+    <ul class="articles">
+        {% for post in posts %}
+          <a href="{{ path('show_id', { 'id' : post.id } ) }}">
+            <li class="post">
+                <div style="background:url('{{ asset(post.image) }}'); height: 200px; width: 100%; background-position: center; background-size: cover"></div>
+                <div class="text_post">
+                  <h2>{{ post.title }}</h2>
+                  {% if post.description|length > 200 %}
+                    {{post.description|slice(0,200) }}...
+                  {% else %}
+                    {{ post.description }}
+                  {% endif %}<br>
+                  <h4>by <a href="{{ path('profil_user', {'id' : post.author.id}) }}"><em>{{ post.author.username }}</em></a></h4>
+                  {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <hr>
+                      <a href="{{ path('edit_post', { 'id' : post.id}) }}">Editer</a>
+                      <a href="{{ path('remove_post', { 'id' : post.id }) }}">Supprimer</a>
+                  {% endif %}
+                </div>
+            </li>
+          </a>
+        {% endfor %}
+    </ul>
+    {% else  %}
+      <p>Aucun post n'as était publié pour l'instant</p>
+    {% endif %}
+    <h2>Derniers catégories publiés</h2>
+    {% if categories %}
+      <ul class="categories">
+        {% for category in categories %}
+            <li class="category" style="background: url('{{asset(category.image)}}'); background-position: center; background-size: cover')">
+              <a href="{{ path('category_post', { 'id' : category.id }) }}"><h2>{{ category.name }}</h2></a>
+              {% if app.user and app.user.id == category.author.id %}
+                <div class="post_edit">
+                  <a href="{{ path('edit_category', {'id' : category.id }) }}">Editer</a>
+                  <a href="{{ path('remove_category', {'id' : category.id }) }}">Supprimer</a>
+                </div>
               {% endif %}
-            </div>
-        </li>
-      </a>
-      {% endfor %}
-  </ul>
+            </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Aucune catégorie n'a été crée pour l'instant.</p>
+    {% endif %}
 {% endblock %}

@@ -20,12 +20,13 @@ class DefaultController extends Controller
     $posts = $this->getDoctrine()
         ->getRepository(Blog::class)
         ->findByLastThree();
-      $posts = $this->getDoctrine()
-          ->getRepository(Blog::class)
-          ->findByLastThree();
+    $categories = $this->getDoctrine()
+        ->getRepository(Category::class)
+        ->findByLastThree();
 
     return $this->render('home.html.twig', array(
-      'posts' => $posts
+      'posts' => $posts,
+      'categories' => $categories
     ));
   }
 

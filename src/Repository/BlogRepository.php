@@ -21,17 +21,14 @@ class BlogRepository extends ServiceEntityRepository
             ->setParameter('id', $id)
             ->getQuery()
             ->getResult();
-        ;
     }
 
     public function findByLastThree()
     {
-
-        $query =  $this->createQueryBuilder('b')
-                  ->setMaxResults(3)
-                  ->getQuery();
-
-        return $query->getResult();
+      return $this->createQueryBuilder('b')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
     }
 
 }

@@ -21,4 +21,12 @@ class CategoryRepository extends ServiceEntityRepository
           ->getQuery()
           ->getResult();
     }
+
+    public function findByLastThree()
+    {
+      return $this->createQueryBuilder('c')
+          ->setMaxResults(3)
+          ->getQuery()
+          ->getResult();
+    }
 }
