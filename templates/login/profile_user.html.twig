@@ -4,43 +4,51 @@
   {% if user %}
     <h1 class="text-center" style="text-transform:uppercase;">{{ user.username }}</h1>
     <h2>Ses publications</h2>
-    <ul class="articles">
+    {% if post %}
+      <ul class="articles">
         {% for post in posts %}
-        <a href="{{ path('show_id', { 'id' : post.id } ) }}">
-          <li class="post">
-              <div style="background:url('{{ asset(post.image) }}'); height: 200px; width: 100%; background-position: center; background-size: cover"></div>
-              <div class="text_post">
-                <h2>{{ post.title }}</h2>
-                {% if post.description|length > 200 %}
-                  {{post.description|slice(0,200) }}...
-                {% else %}
-                  {{ post.description }}
-                {% endif %}<br>
-                <h4>by <a href="{{ path('profil_user', {'id' : post.author.id}) }}"><em>{{ post.author.username }}</em></a></h4>
-                {% if app.user and is_granted('ROLE_ADMIN') %}
-                  <hr>
-                    <a href="{{ path('edit_post', { 'id' : post.id}) }}">Editer</a>
-                    <a href="{{ path('remove_post', { 'id' : post.id }) }}">Supprimer</a>
-                {% endif %}
-              </div>
-          </li>
-        </a>
-        {% endfor %}
-    </ul>
+          <a href="{{ path('show_id', { 'id' : post.id } ) }}">
+            <li class="post">
+                <div style="background:url('{{ asset(post.image) }}'); height: 200px; width: 100%; background-position: center; background-size: cover"></div>
+                <div class="text_post">
+                  <h2>{{ post.title }}</h2>
+                  {% if post.description|length > 200 %}
+                    {{post.description|slice(0,200) }}...
+                  {% else %}
+                    {{ post.description }}
+                  {% endif %}<br>
+                  <h4>by <a href="{{ path('profil_user', {'id' : post.author.id}) }}"><em>{{ post.author.username }}</em></a></h4>
+                  {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <hr>
+                      <a href="{{ path('edit_post', { 'id' : post.id}) }}">Editer</a>
+                      <a href="{{ path('remove_post', { 'id' : post.id }) }}">Supprimer</a>
+                  {% endif %}
+                </div>
+            </li>
+          </a>
+          {% endfor %}
+      </ul>
+    {% else %}
+      <p>Cette utilisateur n'as publié aucun article.</p>
+    {% endif %}
     <h2>Ses catégories</h2>
-    <ul class="categories">
-      {% for category in categories %}
-          <li class="category" style="background: url('{{asset(category.image)}}'); background-position: center; background-size: cover')">
-            <a href="{{ path('category_post', { 'id' : category.id }) }}"><h2>{{ category.name }}</h2></a>
-            {% if app.user and app.user.id == category.author.id %}
-              <div class="post_edit">
-                <a href="{{ path('edit_category', {'id' : category.id }) }}">Editer</a>
-                <a href="{{ path('remove_category', {'id' : category.id }) }}">Supprimer</a>
-              </div>
-            {% endif %}
-          </li>
-      {% endfor %}
-    </ul>
+    {% if categories %}
+      <ul class="categories">
+        {% for category in categories %}
+            <li class="category" style="background: url('{{asset(category.image)}}'); background-position: center; background-size: cover')">
+              <a href="{{ path('category_post', { 'id' : category.id }) }}"><h2>{{ category.name }}</h2></a>
+              {% if app.user and app.user.id == category.author.id %}
+                <div class="post_edit">
+                  <a href="{{ path('edit_category', {'id' : category.id }) }}">Editer</a>
+                  <a href="{{ path('remove_category', {'id' : category.id }) }}">Supprimer</a>
+                </div>
+              {% endif %}
+            </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Cette utilisateur n'as créer aucune catégorie.</p>
+    {% endif %}
   {% else %}
     <h1 class="text-center">Cette page est momentanément indisponible</h1>
     <p><a href="{{ path('home') }}">Accueil</a></p>

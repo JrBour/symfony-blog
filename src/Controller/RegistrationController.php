@@ -139,7 +139,8 @@ class RegistrationController extends Controller
       }
 
       return $this->render('login/register.html.twig', array(
-        'form' => $form->createView()
+        'form' => $form->createView(),
+        'title' => 'edit'
       ));
     }
 
