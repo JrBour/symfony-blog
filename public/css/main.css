@@ -6995,3 +6995,12 @@ hr {
   padding: 0;
   margin: 10px 0;
 }
+.container_picture {
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+}
+.profil_picutre {
+
+}
