@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
+use App\Entity\Category;
 use App\Entity\Blog;
 
 class DefaultController extends Controller
@@ -52,10 +53,14 @@ class DefaultController extends Controller
     $posts = $this->getDoctrine()
             ->getRepository(Blog::class)
             ->findByAuthor($id);
+    $categories = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->findByAuthor($id);
 
     return $this->render('login/profile_user.html.twig', array(
         'user' => $user,
-        'posts' => $posts
+        'posts' => $posts,
+        'categories' => $categories
     ));
   }
 
