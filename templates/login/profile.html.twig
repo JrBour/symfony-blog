@@ -2,7 +2,7 @@
 {% block body %}
   <h1 class="text-center">{{ app.user.username }}</h1>
   <h2 class="text-center">{{ app.user.email }}</h2>
-  <img src="{{ asset(app.user.image)}}" alt="{{app.user.image}}">
+  <img src="{{ asset(app.user.image)}}" alt="{{app.user.image}}" style="border-radius: 50%;">
   <h2 class="text-center">
   {% if is_granted('ROLE_ADMIN') %}
     ADMIN
