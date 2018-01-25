@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Contact;
-use App\Form\FormType;
+use App\Form\ContactType;
 
 class ContactController extends Controller
 {
@@ -20,7 +20,7 @@ class ContactController extends Controller
     $contacts = $em->getRepository(Contact::class)->findAll();
     $contact = new Contact();
 
-    $form = $this->createForm(FormType::class, $contact);
+    $form = $this->createForm(ContactType::class, $contact);
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       $contact = $form->getData();
@@ -33,13 +33,14 @@ class ContactController extends Controller
       $em->persist($contact);
       $em->flush();
 
-      return $this->render('contact', array(
+      return $this->render('contact/index.html.twig', array(
+          'form' => $form->createView(),
           'success' => 'Le message a bien était envoyé !'
       ));
     }
 
     return $this->render('contact/index.html.twig', array(
-      'form' => $this->createView()
+      'form' => $form->createView()
     ));
   }
 }

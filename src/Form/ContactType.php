@@ -21,7 +21,7 @@ class ContactType extends AbstractType
       ->add('message', TextType::class)
       ->add('submit', SubmitType::class);
   }
-  public function configureOptions(OptionsResolver $options)
+  public function configureOptions(OptionsResolver $resolver)
   {
     $resolver->setDefaults(array(
         'data_class' => Contact::class
