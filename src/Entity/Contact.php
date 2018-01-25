@@ -106,6 +106,29 @@ class Contact
     }
 
     /**
+    * Return the mail of the user
+    *
+    * @return String
+    */
+    public function getMail()
+    {
+      return $this->mail;
+    }
+
+    /**
+    * Set the mail of user
+    *
+    * @var String
+    *
+    * @return String
+    */
+    public function setMail(string $mail)
+    {
+      $this->mail = $mail;
+      return $this;
+    }
+
+    /**
     * Return the message
     *
     * @return String
