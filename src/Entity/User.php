@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields="email", message="Email already taken")
  * @UniqueEntity(fields="username", message="Username already taken")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -40,7 +40,6 @@ class User implements UserInterface
     private $username;
 
     /**
-    * @Assert\NotBlank()
     * @Assert\Length(max=4096)
     */
     private $plainPassword;
@@ -165,6 +164,24 @@ class User implements UserInterface
     **/
     public function getImage(){
       return $this->image;
+    }
+
+    public function serialize()
+    {
+      return serialize(array(
+        $this->id,
+        $this->username,
+        $this->password
+      ));
+    }
+
+    public function unserialize($serialized)
+    {
+      list(
+        $this->id,
+        $this->username,
+        $this->password
+        ) = unserialize($serialized);
     }
 
     /**
