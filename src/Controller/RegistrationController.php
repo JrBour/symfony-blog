@@ -116,18 +116,25 @@ class RegistrationController extends Controller
       $form->handleRequest($request);
 
       if ($form->isSubmitted() && $form->isValid()) {
-        $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-        $user->setPassword($password);
-
+        
+        if ($user->getPlainPassword()) {
+          $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+          $user->setPassword($password);
+        } else {
+          $user->setPassword($user->getPassword());
+        }
         $file = $user->getImage();
-        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-        $file->move(
-          $this->getParameter('images'),
-          $fileName
-        );
-        $name = "/images/posts/" . $fileName;
-
-        $user->setImage($name);
+        if($file) {
+          $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+          $file->move(
+            $this->getParameter('images'),
+            $fileName
+          );
+          $name = "/images/posts/" . $fileName;
+          $user->setImage($name);
+        } else {
+          $user->setImage($user->getImage());
+        }
         $user->setRole($user->getRole());
 
 

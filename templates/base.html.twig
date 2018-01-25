@@ -34,9 +34,7 @@
               {% else %}
                 <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  {% if app.user and app.user.image is defined %}
-                    <img src="{{ app.user.image }}" alt="" style="height: 20px;">
-                  {% endif %}
+                    Mon compte
                   <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="{{ path('user_edit', {'id' : app.user.id}) }}">Editer</a></li>
