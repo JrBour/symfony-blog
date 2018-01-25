@@ -39,7 +39,7 @@ class Contact
     /**
     * Return id of the message
     *
-    * @return int
+    * @return Int
     **/
     public function getId()
     {
@@ -62,7 +62,7 @@ class Contact
     /**
     * Return firstname of the user who has send the message
     *
-    * @return string
+    * @return String
     */
     public function getFirstname()
     {
@@ -102,7 +102,7 @@ class Contact
     public function setLastname(string $lastname)
     {
       $this->lastname = $lastname;
-      return $this;>
+      return $this;
     }
 
     /**
