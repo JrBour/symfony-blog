@@ -43,4 +43,19 @@ class ContactController extends Controller
       'form' => $form->createView()
     ));
   }
+
+  /**
+  * @Route(""/contact/all", name="show_contact")
+  **/
+  public function showAction()
+  {
+    $contacts = $this->getDoctine()
+                      ->getManager()
+                      ->getRepository(Contact::class)
+                      ->findAll();
+    return $this->render('contact/show.html.twig', array(
+          'contacts' => $contacts
+    ));
+
+  }
 }
