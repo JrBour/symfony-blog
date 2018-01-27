@@ -49,7 +49,7 @@ class ContactController extends Controller
   **/
   public function showAction()
   {
-    $contacts = $this->getDoctine()
+    $contacts = $this->getDoctrine()
                       ->getManager()
                       ->getRepository(Contact::class)
                       ->findAll();
