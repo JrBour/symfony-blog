@@ -29,6 +29,7 @@
       'class' : 'btn btn-primary'
   }}) }}
   {{ form_end(form) }}
-
-  <a href="{{ path('show_contact') }}">Voir tous les messages</a>
+  {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('show_all_contact') }}"><button type="button" class="btn btn-info">Voir tous les messages</button></a>
+  {% endif %}
 {% endblock %}

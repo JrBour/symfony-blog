@@ -45,7 +45,7 @@ class ContactController extends Controller
   }
 
   /**
-  * @Route("/contact/all", name="show_contact")
+  * @Route("/contact/all", name="show_all_contact")
   **/
   public function showAction()
   {
@@ -53,9 +53,19 @@ class ContactController extends Controller
                       ->getManager()
                       ->getRepository(Contact::class)
                       ->findAll();
-    return $this->render('contact/show.html.twig', array(
+    return $this->render('contact/show_all.html.twig', array(
           'contacts' => $contacts
     ));
-
+  }
+  /**
+  * @Route("/contact/show/{id}", name="show_contact")
+  **/
+  public function showMessageAction(int $id)
+  {
+    $contact = $this->getDoctrine()
+                    ->getManager()
+                    ->getRepository(Contact::class)
+                    ->find($id);
+    return $this->render('contact/show.html.twig');
   }
 }
