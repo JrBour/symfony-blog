@@ -66,6 +66,8 @@ class ContactController extends Controller
                     ->getManager()
                     ->getRepository(Contact::class)
                     ->find($id);
-    return $this->render('contact/show.html.twig');
+    return $this->render('contact/show.html.twig', array(
+      'contact' => $contact
+    ));
   }
 }
