@@ -3,7 +3,7 @@
   <ul>
     {% for contact in contacts %}
         <a href="{{ path('show_contact', {id: contact.id}) }}"><li>{{ contact.firstname }}</li></a>
-        <button type="button" name="btn btn-danger">Supprimer</button>
+        <a href="{{ path('remove_contact', {id: contact.id}) }}"><button type="button" class="btn btn-danger">Supprimer</button></a>
     {% endfor %}
   </ul>
 

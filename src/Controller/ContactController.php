@@ -70,4 +70,18 @@ class ContactController extends Controller
       'contact' => $contact
     ));
   }
+
+  /**
+  * @Route("/contact/remove/{id}", name="remove_contact")
+  **/
+  public function deleteAction(int $id)
+  {
+    $em = $this->getDoctrine()->getManager();
+    $contact = $em->getRepository(Contact::class)->find($id);
+
+    $em->remove($contact);
+    $em->flush();
+
+    return $this->redirectToRoute('show_all_contact');
+  }
 }
