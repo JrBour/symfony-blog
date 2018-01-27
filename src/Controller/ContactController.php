@@ -45,7 +45,7 @@ class ContactController extends Controller
   }
 
   /**
-  * @Route(""/contact/all", name="show_contact")
+  * @Route("/contact/all", name="show_contact")
   **/
   public function showAction()
   {
