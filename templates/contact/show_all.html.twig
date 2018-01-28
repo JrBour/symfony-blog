@@ -2,9 +2,15 @@
 {% block body %}
   <ul>
     {% for contact in contacts %}
-        <a href="{{ path('show_contact', {id: contact.id}) }}"><li>{{ contact.firstname }}</li></a>
-        <a href="{{ path('remove_contact', {id: contact.id}) }}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+      <div class="">
+        <a href="{{ path('show_contact', {id: contact.id}) }}"><li style="display: inline-block">{{ contact.firstname }}</li></a>
+        <a href="{{ path('remove_contact', {id: contact.id}) }}"><button type="button" class="btn btn-danger">X</button></a>
+      </div>
     {% endfor %}
   </ul>
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
 
+</script>
 {% endblock %}
