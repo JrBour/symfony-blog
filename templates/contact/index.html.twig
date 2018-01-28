@@ -42,7 +42,6 @@
       dataContact['lastname'] = $('#contact_lastname').val();
       dataContact['mail'] = $('#contact_mail').val();
       dataContact['message'] = $('#contact_message').val();
-      console.log(dataContact['title']);
 
       $.ajax({
           method: "POST",
@@ -50,6 +49,7 @@
           data: dataContact
         }).done(function(response) {
           $('.success').text(response['output']);
+          $('#contact_firstname, #contact_lastname, #contact_mail, #contact_message').val('');
         });
     });
 

@@ -35,7 +35,7 @@ class ContactController extends Controller
       $em->persist($contact);
       $em->flush();
       $success = ['output' => 'Le formulaire a était envoyé !'];
-      return new JsonResponse($success);
+      return new JsonResponse($success, 200);
     }
 
     return $this->render('contact/index.html.twig', array(
