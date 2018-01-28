@@ -1,9 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block body %}
   <h2>Contact</h2>
-    {% if success is defined %}
-      <p>{{success}}</p>
-    {% endif %}
+  <p class="success"></p>
+
   {{ form_start(form) }}
   <div class="form-group">
     {{ form_row(form.firstname, { 'attr': {
@@ -32,4 +31,27 @@
   {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('show_all_contact') }}"><button type="button" class="btn btn-info">Voir tous les messages</button></a>
   {% endif %}
+{% endblock %}
+{% block javascripts %}
+  <script type="text/javascript">
+
+    $('form[name="contact"]').on('submit', function(e){
+      e.preventDefault();
+      let dataContact = {};
+      dataContact['firstname'] = $('#contact_firstname').val();
+      dataContact['lastname'] = $('#contact_lastname').val();
+      dataContact['mail'] = $('#contact_mail').val();
+      dataContact['message'] = $('#contact_message').val();
+      console.log(dataContact['title']);
+
+      $.ajax({
+          method: "POST",
+          url: "/contact",
+          data: dataContact
+        }).done(function(response) {
+          $('.success').text(response['output']);
+        });
+    });
+
+  </script>
 {% endblock %}

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Contact;
 use App\Form\ContactType;
 
@@ -22,21 +23,19 @@ class ContactController extends Controller
 
     $form = $this->createForm(ContactType::class, $contact);
     $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
+    if($request->isXmlHttpRequest()) {
+      $data = $request->request->all();
       $contact = $form->getData();
 
-      $contact->setFirstname($contact->getFirstname());
-      $contact->setLastname($contact->getLastname());
-      $contact->setMail($contact->getMail());
-      $contact->setMessage($contact->getMessage());
+      $contact->setFirstname($data['firstname']);
+      $contact->setLastname($data['lastname']);
+      $contact->setMail($data['mail']);
+      $contact->setMessage($data['message']);
 
       $em->persist($contact);
       $em->flush();
-
-      return $this->render('contact/index.html.twig', array(
-          'form' => $form->createView(),
-          'success' => 'Le message a bien était envoyé !'
-      ));
+      $success = ['output' => 'Le formulaire a était envoyé !'];
+      return new JsonResponse($success);
     }
 
     return $this->render('contact/index.html.twig', array(
