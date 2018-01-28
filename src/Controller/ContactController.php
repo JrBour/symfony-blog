@@ -73,14 +73,17 @@ class ContactController extends Controller
   /**
   * @Route("/contact/remove/{id}", name="remove_contact")
   **/
-  public function deleteAction(int $id)
+  public function deleteAction(int $id, Request $request)
   {
-    $em = $this->getDoctrine()->getManager();
-    $contact = $em->getRepository(Contact::class)->find($id);
+    if($request->isXmlHttpRequest()) {
+        $em = $this->getDoctrine()->getManager();
+        $data = $request->request->all();
+        $contact = $em->getRepository(Contact::class)->find($data['id']);
+        $response['success'] = 'Le message a bien était supprimé';
 
-    $em->remove($contact);
-    $em->flush();
-
-    return $this->redirectToRoute('show_all_contact');
+        $em->remove($contact);
+        $em->flush();
+        return new JsonResponse($response, 200);
+    }
   }
 }

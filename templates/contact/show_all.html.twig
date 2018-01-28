@@ -1,16 +1,30 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+  <p class="success"></p>
   <ul>
     {% for contact in contacts %}
       <div class="">
         <a href="{{ path('show_contact', {id: contact.id}) }}"><li style="display: inline-block">{{ contact.firstname }}</li></a>
-        <a href="{{ path('remove_contact', {id: contact.id}) }}"><button type="button" class="btn btn-danger">X</button></a>
+        <a href="{{ path('remove_contact', {id: contact.id}) }}"><button type="button" class="btn btn-danger" data-id="{{contact.id}}">X</button></a>
       </div>
     {% endfor %}
   </ul>
 {% endblock %}
 {% block javascripts %}
 <script type="text/javascript">
+
+  $('.btn-danger').on('click', function(e){
+    e.preventDefault();
+    let dataContact = {};
+    dataContact['id'] = $(this).attr('data-id');
+    $.ajax({
+      method : "POST",
+      url : "/contact/remove/" + dataContact['id'],
+      data: dataContact
+    }).done(function(response) {
+      $('.success').text(response['success'])
+    })
+  })
 
 </script>
 {% endblock %}
