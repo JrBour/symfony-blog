@@ -3,7 +3,7 @@
   <p class="success"></p>
   <ul>
     {% for contact in contacts %}
-      <div class="">
+      <div class="message" data-id="{{contact.id}}">
         <a href="{{ path('show_contact', {id: contact.id}) }}"><li style="display: inline-block">{{ contact.firstname }}</li></a>
         <a href="{{ path('remove_contact', {id: contact.id}) }}"><button type="button" class="btn btn-danger" data-id="{{contact.id}}">X</button></a>
       </div>
@@ -22,8 +22,9 @@
       url : "/contact/remove/" + dataContact['id'],
       data: dataContact
     }).done(function(response) {
-      $('.success').text(response['success'])
-    })
+      $('.success').text(response['success']);
+      $(this).parent('div').remove();
+    });
   })
 
 </script>
