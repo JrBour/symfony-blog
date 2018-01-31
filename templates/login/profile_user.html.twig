@@ -4,7 +4,7 @@
   {% if user %}
     <h1 class="text-center" style="text-transform:uppercase;">{{ user.username }}</h1>
     <h2>Ses publications</h2>
-    {% if post %}
+    {% if posts %}
       <ul class="articles">
         {% for post in posts %}
           <a href="{{ path('show_id', { 'id' : post.id } ) }}">

@@ -35,7 +35,19 @@ class DefaultController extends Controller
   */
   public function profile()
   {
-    return $this->render('login/profile.html.twig');
+    $user = $this->getUser();
+    $id = $user->getId();
+    $posts = $this->getDoctrine()
+              ->getRepository(Blog::class)
+              ->findByAuthor($id);
+    $categories = $this->getDoctrine()
+              ->getRepository(Category::class)
+              ->findByAuthor($id);
+
+    return $this->render('login/profile.html.twig', array(
+      'posts' => $posts,
+      'categories' => $categories
+    ));
   }
 
   /**
