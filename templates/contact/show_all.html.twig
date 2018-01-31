@@ -12,18 +12,17 @@
 {% endblock %}
 {% block javascripts %}
 <script type="text/javascript">
-
   $('.btn-danger').on('click', function(e){
     e.preventDefault();
     let dataContact = {};
     dataContact['id'] = $(this).attr('data-id');
+    $(this).closest('div').remove();
     $.ajax({
       method : "POST",
       url : "/contact/remove/" + dataContact['id'],
       data: dataContact
     }).done(function(response) {
       $('.success').text(response['success']);
-      $(this).parent('div').remove();
     });
   })
 
