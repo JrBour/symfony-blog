@@ -23,7 +23,7 @@ class BlogRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByLastThree()
+    public function findByThreeLast()
     {
       return $this->createQueryBuilder('b')
             ->setMaxResults(3)

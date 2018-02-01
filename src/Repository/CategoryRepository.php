@@ -22,7 +22,7 @@ class CategoryRepository extends ServiceEntityRepository
           ->getResult();
     }
 
-    public function findByLastThree()
+    public function findByThreeLast()
     {
       return $this->createQueryBuilder('c')
           ->setMaxResults(3)
