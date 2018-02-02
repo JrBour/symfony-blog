@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\BlogType;
+use App\Form\CommentType;
 use App\Entity\Blog;
 use App\Entity\User;
 use App\Entity\Category;
@@ -86,11 +87,18 @@ class BlogController extends Controller
   /**
   * @Route("/blog/{id}", name="show_id")
   **/
-  public function showPost(int $id)
+  public function showPost(Request $request, int $id)
   {
       $blog = $this->getDoctrine()
         ->getRepository(Blog::class)
         ->find($id);
+
+      // $comment = new Comment();
+      // $form = $this->createForm(CommentType::class, $comment);
+      //
+      // if ($form->isSubmitted() && $form->isValid()) {
+      //
+      // }
 
       return $this->render('blog/show.html.twig', array(
         'blog' => $blog

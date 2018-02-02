@@ -3,4 +3,8 @@
   <h1>{{ blog.title }}</h1>
   <p>{{ blog.description }}</p>
   <p>{{ blog.date|date("d-m-Y")  }}</p>
+
+  {{form_start(form)}}
+  {{form_row(form.content)}}
+  {{form_end(form)}}
 {% endblock %}
