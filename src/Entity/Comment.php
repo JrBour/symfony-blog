@@ -9,7 +9,7 @@ use App\Entity\Blog;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentsRepository")
  */
-class Comments
+class Comment
 {
     /**
      * @ORM\Id
@@ -24,13 +24,13 @@ class Comments
     private $content;
 
     /**
-    * @ORM\OneToOne(targetEntity="App\Entity\Blog", inversedBy="comments")
+    * @ORM\OneToOne(targetEntity="App\Entity\Blog", inversedBy="comment")
     * @ORM\JoinColumn(nullable=true)
     **/
     private $blog;
 
     /**
-    * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="comments")
+    * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="comment")
     * @ORM\JoinColumn(nullable=true)
     **/
     private $author;
