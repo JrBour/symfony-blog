@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Category;
 use App\Entity\User;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -54,6 +56,16 @@ class Blog
      * @ORM\JoinColumn(nullable=true)
      */
     private $author;
+
+    /**
+    * @ORM\OneToMany(targetEntity="App\Entity\Comment", inversedBy="blog")
+    **/
+    private $comment;
+
+    public function __construct()
+    {
+      $this->comment = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -127,5 +139,13 @@ class Blog
     public function setAuthor(User $author)
     {
       $this->author = $author;
+    }
+
+    /**
+    * @return Collection|Comment[]
+    **/
+    public function getCollection()
+    {
+      
     }
 }

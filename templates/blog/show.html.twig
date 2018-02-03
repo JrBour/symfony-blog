@@ -5,6 +5,13 @@
   <p>{{ blog.date|date("d-m-Y")  }}</p>
 
   {{form_start(form)}}
-  {{form_row(form.content)}}
+  <div class="form-group">
+    {{form_row(form.content,{ 'attr' : {
+      'class' : 'form-control'
+    }})}}
+  </div>
+  {{form_row(form.submit,{ 'attr' : {
+    'class' : 'btn btn-primary'
+  }})}}
   {{form_end(form)}}
 {% endblock %}

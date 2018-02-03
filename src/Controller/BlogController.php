@@ -12,6 +12,7 @@ use App\Form\BlogType;
 use App\Form\CommentType;
 use App\Entity\Blog;
 use App\Entity\User;
+use App\Entity\Comment;
 use App\Entity\Category;
 
 use \DateTime;
@@ -89,20 +90,33 @@ class BlogController extends Controller
   **/
   public function showPost(Request $request, int $id)
   {
-      $blog = $this->getDoctrine()
-        ->getRepository(Blog::class)
-        ->find($id);
+    $em = $this->getDoctrine()->getManager();
+    $blog = $this->getDoctrine()
+      ->getRepository(Blog::class)
+      ->find($id);
 
-      // $comment = new Comment();
-      // $form = $this->createForm(CommentType::class, $comment);
-      //
-      // if ($form->isSubmitted() && $form->isValid()) {
-      //
-      // }
+    $comment = new Comment();
+    $form = $this->createForm(CommentType::class, $comment);
+    $form->handleRequest($request);
 
-      return $this->render('blog/show.html.twig', array(
-        'blog' => $blog
-      ));
+    if ($form->isSubmitted() && $form->isValid()) {
+      $comment = $form->getData();
+      $user = $this->getUser();
+
+      $comment->setContent($comment->getContent());
+      $comment->setAuthor($user);
+      $comment->setBlog($blog);
+
+      $em->persist($comment);
+      $em->flush();
+
+      return $this->redirectToRoute('blog');
+    }
+
+    return $this->render('blog/show.html.twig', array(
+      'blog' => $blog,
+      'form' => $form->createView()
+    ));
   }
 
   /**

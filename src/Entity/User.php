@@ -65,6 +65,12 @@ class User implements UserInterface, \Serializable
     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="user")
     **/
     private $category;
+
+    /**
+    * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="user")
+    **/
+    private $comment;
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="user")
      * @ORM\JoinColumn(nullable=true)
@@ -74,6 +80,7 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
       $this->blog = new ArrayCollection();
+      $this->comment = new ArrayCollection();
       $this->category = new ArrayCollection();
     }
 
@@ -197,6 +204,14 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+    * @return Collection|Comment[]
+    **/
+    public function getComment()
+    {
+      return $this->comment;
+    }
+
+    /**
     * @return Collection|Blog[]
     **/
     public function getBlog()
@@ -205,7 +220,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-    * @return Collection|Blog[]
+    * @return Collection|Category[]
     **/
     public function getCategory()
     {

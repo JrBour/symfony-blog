@@ -64,7 +64,7 @@ class Comment
     *
     * @return String
     **/
-    public fucntion getContent()
+    public function getContent()
     {
       return $this->content;
     }
