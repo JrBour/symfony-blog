@@ -58,7 +58,7 @@ class Blog
     private $author;
 
     /**
-    * @ORM\OneToMany(targetEntity="App\Entity\Comment", inversedBy="blog")
+    * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="blog")
     **/
     private $comment;
 
@@ -146,6 +146,6 @@ class Blog
     **/
     public function getCollection()
     {
-      
+      return $this->comment;
     }
 }

@@ -24,13 +24,13 @@ class Comment
     private $content;
 
     /**
-    * @ORM\OneToOne(targetEntity="App\Entity\Blog", inversedBy="comment")
+    * @ORM\ManyToOne(targetEntity="App\Entity\Blog", inversedBy="comment")
     * @ORM\JoinColumn(nullable=true)
     **/
     private $blog;
 
     /**
-    * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="comment")
+    * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comment")
     * @ORM\JoinColumn(nullable=true)
     **/
     private $author;
