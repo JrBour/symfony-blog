@@ -26,9 +26,10 @@
             </div>
             <div class="card">
               <div class="card-body">
-                <p class="card-text"><a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil" >{{ comment.author.username}}</a> {{ comment.content }}</p>
+                <p class="card-text"><a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil">{{comment.author.username}}</a> {{ comment.content }}</p>
               </div>
             </div>
+            <a href="{{ path('comment_remove', {id: comment.id, idBlog : blog.id}) }}"><button type="button" name="button">X</button></a>
           </div>
       {% endfor %}
     </div>
