@@ -4,6 +4,19 @@
   <p>{{ blog.description }}</p>
   <p>{{ blog.date|date("d-m-Y")  }}</p>
 
+  {% if comments %}
+    {% for comment in comments %}
+    <div class="card border-primary mb-3">
+      <div class="card-header">
+          <p class="card-title">{{ comment.author.username}}</p>
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{ comment.content }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+
   {{form_start(form)}}
   <div class="form-group">
     {{form_row(form.content,{ 'attr' : {
