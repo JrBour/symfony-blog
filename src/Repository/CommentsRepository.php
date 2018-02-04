@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Comments;
+use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -10,19 +10,26 @@ class CommentsRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Comments::class);
+        parent::__construct($registry, Comment::class);
     }
 
-    /*
-    public function findBySomething($value)
+    /**
+    * Return comments by post
+    *
+    * @var Int | Id of the post
+    *
+    * @return Object
+    **/
+    public function findByPost(int $id)
     {
-        return $this->createQueryBuilder('c')
-            ->where('c.something = :value')->setParameter('value', $value)
+        $row = $this->createQueryBuilder('c')
+            ->where('c.blog = :id')->setParameter('id', $id)
             ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+        if ($row) {
+          return $row;
+        }
+        return false;
     }
-    */
 }
