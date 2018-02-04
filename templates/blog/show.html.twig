@@ -1,30 +1,34 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-  <h1>{{ blog.title }}</h1>
+  <header style="background: url('{{blog.image}}'); background-position: center;background-size: cover;" class="header_post">
+      <h1>{{ blog.title }}</h1>
+  </header>
   <p>{{ blog.description }}</p>
   <p>{{ blog.date|date("d-m-Y")  }}</p>
 
-  {% if comments %}
-    {% for comment in comments %}
-    <div class="card">
-      <div class="card-header">
-        <img src="{{ comment.author.image}}" alt="" class="profil_picture">
-      </div>
-      <div class="card-body">
-        <p class="card-text"><a href="#">{{ comment.author.username}}</a> {{ comment.content }}</p>
-      </div>
-    </div>
-    {% endfor %}
-  {% endif %}
-
   {{form_start(form)}}
-  <div class="form-group">
-    {{form_row(form.content,{ 'attr' : {
-      'class' : 'form-control'
-    }})}}
-  </div>
+    <div class="form-group">
+      {{form_row(form.content,{ 'attr' : {
+        'class' : 'form-control'
+      }})}}
+    </div>
   {{form_row(form.submit,{ 'attr' : {
     'class' : 'btn btn-primary'
   }})}}
   {{form_end(form)}}
+
+  {% if comments %}
+    {% for comment in comments %}
+        <div class="comments">
+          <div class="card-header">
+            <img src="{{ comment.author.image}}" alt="" class="profil_picture_post">
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text"><a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil" >{{ comment.author.username}}</a> {{ comment.content }}</p>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+  {% endif %}
 {% endblock %}
