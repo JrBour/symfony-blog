@@ -29,7 +29,7 @@
                 <p class="card-text"><a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil">{{comment.author.username}}</a> {{ comment.content }}</p>
               </div>
             </div>
-            <a href="{{ path('comment_remove', {id: comment.id, idBlog : blog.id}) }}"><button type="button" name="button">X</button></a>
+            <button data-id="{{comment.id}}" type="button" name="button" class="remove_comment">X</button>
           </div>
       {% endfor %}
     </div>
@@ -42,7 +42,6 @@
       let dataComment = {};
       let url = window.location.href;
       let split = url.split('/');
-
       dataComment['content'] = $('#comment_content').val();
 
       $.ajax({
@@ -65,5 +64,20 @@
         </div>`);
       })
     });
+
+    $('.remove_comment').on('click', function(e){
+      e.preventDefault();
+      let dataComment = {};
+      dataComment['id'] = $(this).data('id');
+      $(this).closest('div.comments').remove();
+
+      $.ajax({
+        method: "POST",
+        data: dataComment,
+        url: `/comment/remove/${dataComment['id']} `
+      }).done(function(response){
+        console.log('Bien joué mon grand !');
+      })
+    })
 </script>
 {% endblock %}

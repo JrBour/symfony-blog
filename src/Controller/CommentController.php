@@ -25,9 +25,9 @@ class CommentController extends Controller
     }
 
     /**
-    * @Route("/comment/remove/{id}/{idBlog}", name="comment_remove")
+    * @Route("/comment/remove/{id}}", name="comment_remove")
     **/
-    public function commentRemoveAction(int $id, int $idBlog)
+    public function commentRemoveAction(int $id)
     {
       $em = $this->getDoctrine()->getManager();
       $comment = $em->getRepository(Comment::class)->find($id);
@@ -35,6 +35,5 @@ class CommentController extends Controller
       $em->remove($comment);
       $em->flush();
 
-      return $this->redirect('/blog/' . $idBlog);
     }
 }
