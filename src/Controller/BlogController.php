@@ -105,35 +105,22 @@ class BlogController extends Controller
 
     if ($request->isXmlHttpRequest()) {
       $data = $request->request->all();
-      $user = $this->getUser();
+      $data['user'] = $this->getUser();
+      $data['id'] = $data['user']->getId();
+      $data['username'] = $data['user']->getUsername();
+      $data['image'] = $data['user']->getImage();
       $date = new DateTime(date("Y-m-d H:i:s"));
 
       $comment->setContent($data['content']);
-      $comment->setAuthor($user);
+      $comment->setAuthor($data['user']);
       $comment->setBlog($blog);
       $comment->setDate($date);
 
       $em->persist($comment);
       $em->flush();
 
-      return new JsonResponse($data,200);
+      return new JsonResponse($data, 200);
     }
-
-    // if ($form->isSubmitted() && $form->isValid()) {
-    //   $comment = $form->getData();
-    //   $user = $this->getUser();
-    //   $date = new DateTime(date("Y-m-d H:i:s"));
-    //
-    //   $comment->setContent($comment->getContent());
-    //   $comment->setAuthor($user);
-    //   $comment->setBlog($blog);
-    //   $comment->setDate($date);
-    //
-    //   $em->persist($comment);
-    //   $em->flush();
-    //
-    //   return $this->redirectToRoute('blog');
-    // }
 
     return $this->render('blog/show.html.twig', array(
       'blog' => $blog,
