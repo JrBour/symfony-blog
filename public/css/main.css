@@ -7004,3 +7004,26 @@ hr {
 .profil_picture {
   height: 30px;
 }
+.card {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-top: 5vh;
+  box-shadow:0 20px 20px rgba(0,0,0,.08);
+}
+.card-header {
+  flex-grow: 1;
+}
+.card-body {
+  flex-grow: 9;
+}
+.card-title {
+  color: blue;
+}
+.profil_picture {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
