@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Comment;
 
 class CommentController extends Controller
@@ -25,15 +26,22 @@ class CommentController extends Controller
     }
 
     /**
-    * @Route("/comment/remove/{id}}", name="comment_remove")
+    * @Route("/comment/remove/{id}", name="comment_remove")
     **/
-    public function commentRemoveAction(int $id)
+    public function commentRemoveAction(Request $request, int $id)
     {
-      $em = $this->getDoctrine()->getManager();
-      $comment = $em->getRepository(Comment::class)->find($id);
+      if($request->isXmlHttpRequest()){
+        $data = $request->request->all();
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository(Comment::class)->find($data['id']);
 
-      $em->remove($comment);
-      $em->flush();
+
+        $em->remove($comment);
+        $em->flush();
+
+        $data['success'] = "Le commentaire a bien était supprimé !";
+        return new JsonResponse($data, 200);
+      }
 
     }
 }

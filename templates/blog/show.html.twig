@@ -49,7 +49,6 @@
         url: `/blog/${parseFloat(split[split.length - 1])}`,
         data : dataComment,
       }).done(function(response){
-        console.log(response['content']);
 
         $('#comment_content').val('');
         $('.comments_list').append(`<div class="comments">
@@ -73,10 +72,10 @@
 
       $.ajax({
         method: "POST",
-        data: dataComment,
-        url: `/comment/remove/${dataComment['id']} `
+        url: `/comment/remove/${dataComment['id']} `,
+        data: dataComment
       }).done(function(response){
-        console.log('Bien joué mon grand !');
+        console.log(response);
       })
     })
 </script>
