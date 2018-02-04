@@ -102,10 +102,12 @@ class BlogController extends Controller
     if ($form->isSubmitted() && $form->isValid()) {
       $comment = $form->getData();
       $user = $this->getUser();
+      $date = new DateTime(date("Y-m-d H:i:s"));
 
       $comment->setContent($comment->getContent());
       $comment->setAuthor($user);
       $comment->setBlog($blog);
+      $comment->setDate($date);
 
       $em->persist($comment);
       $em->flush();

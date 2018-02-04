@@ -36,6 +36,11 @@ class Comment
     private $author;
 
     /**
+    * @ORM\Column(type="datetime")
+    **/
+    private $date;
+
+    /**
     * Return id
     *
     * @return int
@@ -80,6 +85,29 @@ class Comment
     {
       $this->content = $content;
       return $this->content;
+    }
+
+    /**
+    * Get the date
+    *
+    * @return DateTime
+    **/
+    public function getDate()
+    {
+      return $this->date;
+    }
+
+    /**
+    * Set the date
+    *
+    * @var DateTime
+    *
+    * @return DateTime
+    **/
+    public function setDate($date)
+    {
+      $this->date = $date;
+      return $this;
     }
 
     /**
