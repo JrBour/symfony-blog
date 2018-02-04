@@ -32,3 +32,23 @@
     {% endfor %}
   {% endif %}
 {% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+    $('form[name="comment"]').on('submit', function(e){
+      e.preventDefault();
+      let dataComment = {};
+      let url = window.location.href;
+      let split = url.split('/');
+
+      dataComment['content'] = $('#comment_content').val();
+
+      $.ajax({
+        method: "POST",
+        url: `/blog/${parseFloat(split[split.length - 1])}`,
+        data : dataComment,
+      }).done(function(response){
+        console.log(`ça a marché mon grand`);
+      })
+    });
+</script>
+{% endblock %}

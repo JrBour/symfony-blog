@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\BlogType;
@@ -102,12 +103,12 @@ class BlogController extends Controller
     $form = $this->createForm(CommentType::class, $comment);
     $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-      $comment = $form->getData();
+    if ($request->isXmlHttpRequest()) {
+      $data = $request->request->all();
       $user = $this->getUser();
       $date = new DateTime(date("Y-m-d H:i:s"));
 
-      $comment->setContent($comment->getContent());
+      $comment->setContent($data['content']);
       $comment->setAuthor($user);
       $comment->setBlog($blog);
       $comment->setDate($date);
@@ -115,8 +116,24 @@ class BlogController extends Controller
       $em->persist($comment);
       $em->flush();
 
-      return $this->redirectToRoute('blog');
+      return new JsonResponse($data,200);
     }
+
+    // if ($form->isSubmitted() && $form->isValid()) {
+    //   $comment = $form->getData();
+    //   $user = $this->getUser();
+    //   $date = new DateTime(date("Y-m-d H:i:s"));
+    //
+    //   $comment->setContent($comment->getContent());
+    //   $comment->setAuthor($user);
+    //   $comment->setBlog($blog);
+    //   $comment->setDate($date);
+    //
+    //   $em->persist($comment);
+    //   $em->flush();
+    //
+    //   return $this->redirectToRoute('blog');
+    // }
 
     return $this->render('blog/show.html.twig', array(
       'blog' => $blog,
