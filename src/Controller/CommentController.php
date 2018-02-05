@@ -42,6 +42,22 @@ class CommentController extends Controller
         $data['success'] = "Le commentaire a bien était supprimé !";
         return new JsonResponse($data, 200);
       }
+    }
 
+    /**
+    * @Route("/comment/edit/{id}", name="comment_edit")
+    **/
+    public function commentEditAction(Request $request, int $id)
+    {
+      if($request->isXmlHttpRequest()){
+        $data = $request->request->all();
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository(Comment::class)->find($data['id']);
+
+        $comment->setContent($data['content']);
+        $em->flush();
+        
+        return new JsonResponse($data, 200);
+      }
     }
 }
