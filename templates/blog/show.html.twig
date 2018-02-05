@@ -28,8 +28,11 @@
               <div class="card-body">
                 <p class="card-text"><a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil">{{comment.author.username}}</a> {{ comment.content }}</p>
               </div>
+
+              {% if app.user.id is defined and app.user.id == comment.author.id %}
+                <button data-id="{{comment.id}}" type="button" name="button" class="remove_comment">X</button>
+              {% endif %}
             </div>
-            <button data-id="{{comment.id}}" type="button" name="button" class="remove_comment">X</button>
           </div>
       {% endfor %}
     </div>
