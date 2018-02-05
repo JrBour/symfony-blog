@@ -49,7 +49,6 @@
         url: `/blog/${parseFloat(split[split.length - 1])}`,
         data : dataComment,
       }).done(function(response){
-
         $('#comment_content').val('');
         $('.comments_list').append(`<div class="comments">
           <div class="card-header">
@@ -75,7 +74,7 @@
         url: `/comment/remove/${dataComment['id']} `,
         data: dataComment
       }).done(function(response){
-        console.log(response);
+        console.log(response['success']);
       })
     })
 </script>
