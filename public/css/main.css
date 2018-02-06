@@ -7052,3 +7052,6 @@ hr {
   color: white;
   align-self: flex-end;
 }
+.comments_list {
+  margin-bottom: 9vh;
+}

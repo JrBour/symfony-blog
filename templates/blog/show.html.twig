@@ -65,16 +65,26 @@
         </div>`);
       })
     });
+
     $('.edit').on('click', function(e){
       e.preventDefault();
       let dataId = $(this).data('id');
       let card = $(this).parent(".card");
-      let cardBody = $(this).siblings('.card-body');
-      let cardText = cardBody.children('p.card-text');
+      let cardText = $(this).siblings('.card-body').children('p.card-text');
       let content = cardText.children('span.content');
       let textContent = content.text();
+      let dataComment = {};
+
+      dataComment['id'] = dataId;
+      dataComment['content'] = textContent;
+
+      $.ajax({
+        method: "POST",
+        url: `comment/edit/${dataId}`
+      })
+      console.log(textContent);
       content.text('')
-      content.prepend(`<input type="text" value="${textContent}"/>`);
+      content.prepend(`<input type="text" value="${textContent}" name="editContent"/>`);
     });
 
     $('.remove_comment').on('click', function(e){
