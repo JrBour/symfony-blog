@@ -48,7 +48,12 @@
     $('.show').on('click', function(e){
       e.preventDefault();
       let features = $(this).siblings('.features');
-      features.show();
+
+      if(features.is(":visible")) {
+        features.hide();
+      }else {
+        features.show();
+      }
     })
 
     $('form[name="comment"]').on('submit', function(e){
