@@ -7005,6 +7005,7 @@ hr {
   height: 30px;
 }
 .card {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -7054,4 +7055,16 @@ hr {
 }
 .comments_list {
   margin-bottom: 9vh;
+}
+.features {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background: black;
+  color: white;
+  padding: 2px 5px;
+  right: -2%;
+  bottom: -100%;
 }
