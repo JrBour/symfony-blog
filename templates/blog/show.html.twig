@@ -29,8 +29,11 @@
                 <p class="card-text"><a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil">{{comment.author.username}}</a><span class="content">{{ comment.content }}</span></p>
               </div>
               {% if app.user.id is defined and app.user.id == comment.author.id %}
-                <p class="edit" data-id="{{comment.id}}">Editer</p>
-                <button data-id="{{comment.id}}" type="button" name="button" class="remove_comment">X</button>
+                <button type="button" name="button" class="show">...</button>
+                <div class="features" style="display:none">
+                  <p class="edit" data-id="{{comment.id}}">Editer</p>
+                  <button data-id="{{comment.id}}" type="button" name="button" class="remove_comment">X</button>
+                </div>
               {% endif %}
             </div>
           </div>
@@ -40,6 +43,7 @@
 {% endblock %}
 {% block javascripts %}
 <script type="text/javascript">
+    
     $('form[name="comment"]').on('submit', function(e){
       e.preventDefault();
       let dataComment = {};
