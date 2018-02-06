@@ -30,7 +30,7 @@
               </div>
               {% if app.user.id is defined and app.user.id == comment.author.id %}
                 <button type="button" name="button" class="show">...</button>
-                <div class="features" style="display:none">
+                <div class="features">
                   <p class="edit" data-id="{{comment.id}}">Editer</p>
                   <button data-id="{{comment.id}}" type="button" name="button" class="remove_comment">X</button>
                 </div>
@@ -43,7 +43,14 @@
 {% endblock %}
 {% block javascripts %}
 <script type="text/javascript">
-    
+    $('.features').hide();
+
+    $('.show').on('click', function(e){
+      e.preventDefault();
+      let features = $(this).siblings('.features');
+      features.show();
+    })
+
     $('form[name="comment"]').on('submit', function(e){
       e.preventDefault();
       let dataComment = {};
