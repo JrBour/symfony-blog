@@ -96,15 +96,16 @@
       alert('coucou');
       e.preventDefault();
       let dataComment = {};
-      let dataId = $(this).children('input').data('id');
-      let textContent = $(this).val();
+      let dataId = $('input.editContent').data('id');
+      console.log(dataId);
+      let textContent = $('input.editContent').val();
 
       dataComment['id'] = dataId;
       dataComment['content'] = textContent;
 
       $.ajax({
         method: "POST",
-        url: `comment/edit/${dataId}`,
+        url: `/comment/edit/${dataId}`,
         data: dataComment,
       }).done((response)=>{
         console.log(response);
