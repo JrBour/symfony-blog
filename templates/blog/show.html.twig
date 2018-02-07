@@ -88,17 +88,17 @@
       let cardText = card.children('.card-body').children('p.card-text');
       let content = cardText.children('span.content');
       let textContent = content.text();
-
+      content.text('');
       content.prepend(`<form name="editContent"><input type="text" value="${textContent}" data-id="${dataId}" class="editContent"/></form>`);
     });
 
     $(document).submit('form[name="editContent"]', function(e){
-      alert('coucou');
       e.preventDefault();
       let dataComment = {};
       let dataId = $('input.editContent').data('id');
-      console.log(dataId);
       let textContent = $('input.editContent').val();
+      let input = $('input.editContent');
+      let content = input.parent('form[name="editContent"]').parent('span.content');
 
       dataComment['id'] = dataId;
       dataComment['content'] = textContent;
@@ -108,9 +108,10 @@
         url: `/comment/edit/${dataId}`,
         data: dataComment,
       }).done((response)=>{
-        console.log(response);
+        content.text(input.val())
+        input.parent('form[name="editContent"]').remove();
       }).error((response)=>{
-        console.log(response);
+        console.log(response)
       })
 
     })
