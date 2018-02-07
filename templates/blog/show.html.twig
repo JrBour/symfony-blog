@@ -48,7 +48,6 @@
     $('.show').on('click', function(e){
       e.preventDefault();
       let features = $(this).siblings('.features');
-
       if(features.is(":visible")) {
         features.hide();
       }else {
@@ -82,6 +81,29 @@
       })
     });
 
+    $('input[name="editContent"]').keypress(function (e) {
+      e.preventDefault();
+      if (e.which == 13) {
+        let dataComment = {};
+        let dataId = $(this).data('id');
+        let textContent = $(this).val();
+
+        dataComment['id'] = dataId;
+        dataComment['content'] = textContent;
+
+        $.ajax({
+          method: "POST",
+          url: `comment/edit/${dataId}`,
+          data: dataComment,
+        }).done((response)=>{
+          console.log(response);
+        }).error((response)=>{
+          console.log(response);
+        })
+
+      }
+    });
+
     $('.edit').on('click', function(e){
       e.preventDefault();
       let dataId = $(this).data('id');
@@ -89,18 +111,10 @@
       let cardText = $(this).siblings('.card-body').children('p.card-text');
       let content = cardText.children('span.content');
       let textContent = content.text();
-      let dataComment = {};
 
-      dataComment['id'] = dataId;
-      dataComment['content'] = textContent;
-
-      $.ajax({
-        method: "POST",
-        url: `comment/edit/${dataId}`
-      })
       console.log(textContent);
       content.text('')
-      content.prepend(`<input type="text" value="${textContent}" name="editContent"/>`);
+      content.prepend(`<input type="text" value="${textContent}" data-id="${dataId}" name="editContent"/>`);
     });
 
     $('.remove_comment').on('click', function(e){
