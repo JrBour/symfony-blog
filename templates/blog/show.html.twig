@@ -49,15 +49,6 @@
     $('.features').hide();
     $('.success').hide()
 
-    if($('.success').is(':visible')){
-      setTimeout(()=>{
-        $('.success').animate({
-          left: "-100%",
-          opacity: "0"
-        });
-      }, 1000)
-    }
-
     $('.show').on('click', function(e){
       e.preventDefault();
       let features = $(this).siblings('.features');
@@ -123,9 +114,8 @@
       }).done((response)=>{
         content.text(input.val())
         input.parent('form[name="editContent"]').remove();
-        $('.success').show()
+        $('.success').show(0).delay(9000).hide(0);
         $('.success p').text('Votre commentaire a bien était édité !');
-        console.log(response);
       }).error((response)=>{
         console.log('gg')
       })

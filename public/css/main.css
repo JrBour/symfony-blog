@@ -7080,7 +7080,37 @@ hr {
   width: 20%;
   margin-left: 20%;
   top: 9vh;
-  background: green;
-  color: white;
+  background: white;
+  border-radius: 5px;
+  min-height: 9vh;
   text-align: center;
+  transition: .6s;
+  /* animation: fadeInDown 2s; */
+}
+.success p {
+  padding-top: 20px;
+}
+.success::after{
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  background: black;
+  top: -20px;
+}
+
+@keyframes fadeInDown{
+  from{
+    opacity: 0;
+    transform: translate3d(-50%, -100%, 0);
+  }
+  20, 80%{
+    opacity: 1;
+    transform: translate3d(-50%,0,0);
+  }
+  to{
+    opacity: 0;
+    transform: translate3d(-50%, -100%, 0);
+  }
 }
