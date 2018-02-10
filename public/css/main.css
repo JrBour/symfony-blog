@@ -7068,3 +7068,7 @@ hr {
   right: -2%;
   bottom: -100%;
 }
+.editContent {
+  width: 100%;
+  border: none;
+}

@@ -92,7 +92,7 @@
       let content = cardText.children('span.content');
       let textContent = content.text();
       content.text('');
-      content.prepend(`<form name="editContent"><input type="text" value="${textContent}" data-id="${dataId}" class="editContent"/></form>`);
+      content.prepend(`<form name="editContent"><input type="text" value="${textContent}" data-id="${dataId}" class="editContent" autofocus/></form>`);
     });
     $('.success').hide()
 
@@ -114,8 +114,11 @@
       }).done((response)=>{
         content.text(input.val())
         input.parent('form[name="editContent"]').remove();
+        $('.success').show()
+        $('.success p').text('Votre commentaire a bien était édité !');
+        console.log(response);
       }).error((response)=>{
-        console.log("Message édité !")
+        console.log('gg')
       })
 
     })
