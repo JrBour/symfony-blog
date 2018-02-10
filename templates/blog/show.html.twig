@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+  <div class="success">
+    <p></p>
+  </div>
   <header style="background: url('{{blog.image}}'); background-position: center;background-size: cover;" class="header_post">
       <h1>{{ blog.title }}</h1>
   </header>
@@ -91,6 +94,7 @@
       content.text('');
       content.prepend(`<form name="editContent"><input type="text" value="${textContent}" data-id="${dataId}" class="editContent"/></form>`);
     });
+    $('.success').hide()
 
     $(document).submit('form[name="editContent"]', function(e){
       e.preventDefault();
@@ -127,7 +131,8 @@
         url: `/comment/remove/${dataComment['id']} `,
         data: dataComment
       }).done(function(response){
-        console.log(response['success']);
+        $('.success').show()
+        $('.success p').text(response['success']);
       })
     })
 </script>
