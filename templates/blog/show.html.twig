@@ -47,6 +47,16 @@
 {% block javascripts %}
 <script type="text/javascript">
     $('.features').hide();
+    $('.success').hide()
+
+    if($('.success').is(':visible')){
+      setTimeout(()=>{
+        $('.success').animate({
+          left: "-100%",
+          opacity: "0"
+        });
+      }, 1000)
+    }
 
     $('.show').on('click', function(e){
       e.preventDefault();
@@ -94,7 +104,6 @@
       content.text('');
       content.prepend(`<form name="editContent"><input type="text" value="${textContent}" data-id="${dataId}" class="editContent" autofocus/></form>`);
     });
-    $('.success').hide()
 
     $(document).submit('form[name="editContent"]', function(e){
       e.preventDefault();
@@ -120,7 +129,6 @@
       }).error((response)=>{
         console.log('gg')
       })
-
     })
 
     $('.remove_comment').on('click', function(e){

@@ -7075,3 +7075,12 @@ hr {
 .content{
   padding-left: 1vw;
 }
+.success{
+  position: fixed;
+  width: 20%;
+  margin-left: 20%;
+  top: 9vh;
+  background: green;
+  color: white;
+  text-align: center;
+}
