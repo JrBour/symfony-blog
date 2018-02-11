@@ -47,7 +47,7 @@
 {% block javascripts %}
 <script type="text/javascript">
     $('.features').hide();
-    $('.success').hide()
+    $('.success').hide();
 
     $('.show').on('click', function(e){
       e.preventDefault();
@@ -87,6 +87,7 @@
 
     $('.edit').on('click', function(e){
       e.preventDefault();
+      $('.features').hide();
       let dataId = $(this).data('id');
       let card = $(this).parent(".features").parent(".card");
       let cardText = card.children('.card-body').children('p.card-text');
