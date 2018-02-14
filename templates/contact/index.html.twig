@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block body %}
   <h2>Contact</h2>
-  <p class="success"></p>
+  <div class="success">
+      <p></p>
+  </div>
 
   {{ form_start(form) }}
   <div class="form-group">
@@ -48,7 +50,7 @@
           url: "/contact",
           data: dataContact
         }).done(function(response) {
-          $('.success').text(response['output']);
+          $('.success p').text(response['output']);
           $('#contact_firstname, #contact_lastname, #contact_mail, #contact_message').val('');
         });
     });
