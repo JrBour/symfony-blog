@@ -17,7 +17,7 @@ class Forum
     private $id;
 
     /**
-    * @ORM\Column(type="string", length="200")
+    * @ORM\Column(type="string", length=200)
     **/
     private $title;
 
@@ -76,7 +76,7 @@ class Forum
     *
     * @return String
     **/
-    public function setTitle(string $content)
+    public function setContent(string $content)
     {
         $this->content = $content;
         return $this;
