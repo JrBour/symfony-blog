@@ -26,6 +26,8 @@
         'class' : 'form-control'
     }}) }}
   </div>
+
+
   {{ form_row(form.submit, { 'attr' : {
       'class' : 'btn btn-primary'
   }}) }}
@@ -34,8 +36,12 @@
     <a href="{{ path('show_all_contact') }}"><button type="button" class="btn btn-info">Voir tous les messages</button></a>
   {% endif %}
 {% endblock %}
+
 {% block javascripts %}
   <script type="text/javascript">
+  $(document).ready(function() {
+    $('#summernote').summernote();
+  });
 
     $('form[name="contact"]').on('submit', function(e){
       e.preventDefault();

@@ -7076,6 +7076,7 @@ hr {
   padding-left: 1vw;
 }
 .success{
+  display: none;
   position: fixed;
   width: 20%;
   margin-left: 20%;
