@@ -7100,6 +7100,10 @@ hr {
   background: black;
   top: -20px;
 }
+#time {
+  text-align: center;
+  font-size: 10em;
+}
 
 @keyframes fadeInDown{
   from{
