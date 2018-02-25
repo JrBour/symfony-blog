@@ -15,11 +15,15 @@ class ForumController extends Controller
     /**
      * @Route("/forum", name="forum")
      */
-    public function index()
+    public function indexForumAction()
     {
-        return $this->render('forum/index.html.twig', [
-            'controller_name' => 'ForumController',
-        ]);
+      $topics = $this->getDoctrine()
+        ->getRepository(Forum::class)
+        ->findAll();
+        return $this->render('forum/index.html.twig',
+        array(
+            'forums' => $topics,
+        ));
     }
 
     /**

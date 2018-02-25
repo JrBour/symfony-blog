@@ -4,5 +4,8 @@
 
   <h1 class="text-center">Forum</h1>
   <hr>
+  {% for forum in forums %}
+    <h4>{{ forum.title }}</h4>
+  {% endfor %}
 
 {% endblock %}
