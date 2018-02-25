@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use \DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ForumRepository")
@@ -99,7 +100,7 @@ class Forum
     *
     * @return Datetime
     **/
-    public function setCreatedAt(Datetime $createdAt)
+    public function setCreatedAt(DateTime $createdAt)
     {
       $this->created_at = $createdAt;
       return $this;
@@ -122,7 +123,7 @@ class Forum
     *
     * @return Datetime
     **/
-    public function setUpdatedAt(Datetime $updatedAt)
+    public function setUpdatedAt(DateTime $updatedAt)
     {
       $this->updated_at = $updatedAt;
       return $this;

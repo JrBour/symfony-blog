@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use App\Form\ForumType;
 use App\Entity\Forum;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use \DateTime;
 
 class ForumController extends Controller
 {
@@ -43,6 +44,8 @@ class ForumController extends Controller
 
         $em->persist($forum);
         $em->flush();
+
+        return $this->redirectToRoute('forum');
       }
 
       return $this->render('forum/new.html.twig',
