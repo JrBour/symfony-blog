@@ -20,6 +20,7 @@ class Comment
 
     /**
     * @ORM\Column(type="string")
+    * @Assert\NotBlank(message="Un commentaire est requis")
     **/
     private $content;
 

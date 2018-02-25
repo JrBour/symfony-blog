@@ -24,13 +24,13 @@ class Blog
 
     /**
      * @ORM\Column(type="string", length = 100)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Un titre est requis")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Une description est requise")
      */
     private $description;
 
@@ -43,7 +43,7 @@ class Blog
     * @ORM\Column(type="string")
     *
     * @Assert\NotBlank(message="Please, upload a new image")
-    * @Assert\File(mimeTypes={ "image/jpeg" })
+    * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
     **/
     private $image;
 
