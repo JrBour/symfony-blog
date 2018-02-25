@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 use \DateTime;
 
 /**
@@ -19,8 +21,17 @@ class Forum
 
     /**
     * @ORM\Column(type="string", length=200)
+    *
+    * @Assert\NotBlank(message="Un titre est requis")
     **/
     private $title;
+
+    /**
+    * @ORM\Column(type="string")
+    *
+    * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
+    **/
+    private $picture;
 
     /**
     * @ORM\Column(type="text")
@@ -81,6 +92,29 @@ class Forum
     {
         $this->content = $content;
         return $this;
+    }
+
+    /**
+    * Get the picture
+    *
+    * @return String $this Return the url of the picture
+    **/
+    public function getPicture()
+    {
+      return $this->picture;
+    }
+
+    /**
+    * Set the url of the picture
+    *
+    * @var String $url The url of the picture
+    *
+    * @return String $this Return the url of the new picture
+    **/
+    public function setPicture(string $url)
+    {
+      $this->getPicture = $url;
+      return $this;
     }
 
     /**
