@@ -31,7 +31,7 @@ class ForumController extends Controller
 
       $forum = new Forum();
       $form = $this->createForm(ForumType::class, $forum);
-      $form->handleRequest();
+      $form->handleRequest($request);
 
       if($form->isSubmitted() && $form->isValid()){
         $form->getData();
@@ -48,6 +48,6 @@ class ForumController extends Controller
       return $this->render('forum/new.html.twig',
         array(
           'form' => $form->createView()
-       ))
+       ));
     }
 }
