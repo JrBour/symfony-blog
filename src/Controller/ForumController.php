@@ -32,15 +32,23 @@ class ForumController extends Controller
     public function addForumAction(Request $request)
     {
       $em = $this->getDoctrine()->getManager();
-      $forum = $em->getRepository(Forum::class)->findAll();
 
       $forum = new Forum();
       $form = $this->createForm(ForumType::class, $forum);
       $form->handleRequest($request);
 
       if($form->isSubmitted() && $form->isValid()){
-        $form->getData();
+        $forum = $form->getData();
 
+        $file = $forum->getPicture();
+        $filename = md5(uniqid()) . '.' . $file->guessExtension();
+        $file->move(
+          $this->getParameter('images'),
+          $filename
+        );
+        $picture = "/images/posts/" . $filename;
+
+        $forum->setPicture($picture);
         $forum->setTitle($forum->getTitle());
         $forum->setContent($forum->getContent());
         $dateNow = new DateTime(date('Y-m-d H:i:s'));

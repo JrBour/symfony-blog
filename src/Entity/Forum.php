@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
+use App\Entity\Forum;
 use \DateTime;
 
 /**
@@ -29,7 +30,7 @@ class Forum
     /**
     * @ORM\Column(type="string")
     *
-    * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
+    * @Assert\File(mimeTypes={ "image/jpeg","image/png" })
     **/
     private $picture;
 
@@ -111,9 +112,9 @@ class Forum
     *
     * @return String $this Return the url of the new picture
     **/
-    public function setPicture(string $url)
+    public function setPicture($picture)
     {
-      $this->getPicture = $url;
+      $this->picture = $picture;
       return $this;
     }
 

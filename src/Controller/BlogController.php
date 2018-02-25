@@ -52,7 +52,7 @@ class BlogController extends Controller
 
     $post = new Blog();
 
-    $form = $this->createForm(BlogType::class, $post, array( 'choices' => $categories ));
+    $form = $this->createForm(BlogType::class, $post, array( 'choices' => $categories));
     $form->handleRequest($request); // Permet de manipuler la requête
 
     if ($form->isSubmitted() && $form->isValid()) {
@@ -66,6 +66,7 @@ class BlogController extends Controller
         $fileName
       );
       $name = "/images/posts/" . $fileName;
+
 
       $post->setImage($name);
       $post->setTitle($post->getTitle());
