@@ -17,6 +17,11 @@ class ForumType extends AbstractType
     $builder
       ->add('title', TextType::class, array('label' => 'Sujet'))
       ->add('content', TextareaType::class, array('label' => 'Description du sujet'))
+      ->add('picture', FileType::class, array(
+        'label' => 'Insérer une image',
+        'data_class' => null,
+        'required' => false
+      ))
       ->add('submit', SubmitType::class);
   }
 
