@@ -23,11 +23,13 @@ class Category
 
     /**
     * @ORM\Column(type="string")
+    * @Assert\NotBlank(message="Un nom est requis")
     **/
     private $name;
 
     /**
     * @ORM\OneToMany(targetEntity="App\Entity\Blog", mappedBy="category")
+    * @Assert\NotBlank(message="Une description est requise")
     **/
     private $blog;
 
@@ -101,7 +103,7 @@ class Category
     public function getImage(){
       return $this->image;
     }
-    
+
     /**
     * Set the path of the image
     *
