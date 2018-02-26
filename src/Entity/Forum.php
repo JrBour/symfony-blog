@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use App\Entity\Forum;
+use App\Entity\User;
 use \DateTime;
 
 /**
@@ -49,6 +50,11 @@ class Forum
     **/
     private $updated_at;
 
+    /**
+    * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="forum")
+    * @ORM\JoinColumn(nullable=true)
+    **/
+    private $author;
 
     /**
     * Return the current id
@@ -139,6 +145,29 @@ class Forum
     public function setPicture($picture)
     {
       $this->picture = $picture;
+      return $this;
+    }
+
+    /**
+    * Return the author of the post
+    *
+    * @return User | User | Object's user
+    **/
+    public function getAuthor()
+    {
+      return $this->author;
+    }
+
+    /**
+    * Return the author of the post
+    *
+    * @var Object | $user | Object's user
+    *
+    * @return Object | $this | Object's user
+    **/
+    public function setAuthor(User $user)
+    {
+      $this->user = $user;
       return $this;
     }
 

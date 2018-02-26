@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Role;
 use App\Entity\Blog;
+use App\Entity\Forum;
 use App\Entity\Category;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,8 +16,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields="email", message="Email already taken")
- * @UniqueEntity(fields="username", message="Username already taken")
+ * @UniqueEntity(fields="email", message="L'email est déjàp ris")
+ * @UniqueEntity(fields="username", message="Le pseudo est déjà pris")
  */
 class User implements UserInterface, \Serializable
 {
@@ -67,6 +68,11 @@ class User implements UserInterface, \Serializable
     private $category;
 
     /**
+    * @ORM\OneToMany(targetEntity="App\Entity\Forum", mappedBy="user")
+    **/
+    private $author;
+
+    /**
     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="user")
     **/
     private $comment;
@@ -82,6 +88,7 @@ class User implements UserInterface, \Serializable
       $this->blog = new ArrayCollection();
       $this->comment = new ArrayCollection();
       $this->category = new ArrayCollection();
+      $this->author = new ArrayCollection();
     }
 
     public function getId()
@@ -201,6 +208,16 @@ class User implements UserInterface, \Serializable
     public function setImage($image)
     {
       $this->image = $image;
+    }
+
+    /**
+    * Return the user's forum post
+    *
+    * @return Collection|Forum[]| Array of user's forum post
+    **/
+    public function getForum()
+    {
+      return $this->forum;
     }
 
     /**

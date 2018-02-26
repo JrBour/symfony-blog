@@ -4,4 +4,7 @@
   <h1 class="text-center">{{forum.title}}</h1>
   <hr>
   <p>{{forum.content}}</p>
+  {% if forum.picture %}
+    <img src="{{forum.picture}}" alt="{{forum.content}}" class="">
+  {% endif %}
 {% endblock %}

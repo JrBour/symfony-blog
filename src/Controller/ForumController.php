@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ForumType;
 use App\Entity\Forum;
+use App\Entity\User;
 use \DateTime;
 
 class ForumController extends Controller
@@ -27,19 +28,6 @@ class ForumController extends Controller
     }
 
     /**
-    * @Route("/forum/{id}", name="forum_show")
-    **/
-    public function showForumAction(Request $request, int $id)
-    {
-      $forum = $this->getDoctrine()->getManager()->getRepository(Forum::class)->find($id);
-
-      return $this->render('forum/show.html.twig',
-        array(
-          'forum' => $forum
-      ));
-    }
-
-    /**
     * @Route("/forum/new", name="forum_add")
     **/
     public function addForumAction(Request $request)
@@ -52,6 +40,7 @@ class ForumController extends Controller
 
       if($form->isSubmitted() && $form->isValid()){
         $forum = $form->getData();
+        $user = $this->getUser();
 
         $file = $forum->getPicture();
         $filename = md5(uniqid()) . '.' . $file->guessExtension();
@@ -64,6 +53,7 @@ class ForumController extends Controller
         $forum->setPicture($picture);
         $forum->setTitle($forum->getTitle());
         $forum->setContent($forum->getContent());
+        $forum->setAuthor($user);
         $dateNow = new DateTime(date('Y-m-d H:i:s'));
         $forum->setCreatedAt($dateNow);
 
@@ -77,5 +67,18 @@ class ForumController extends Controller
         array(
           'form' => $form->createView()
        ));
+    }
+
+    /**
+    * @Route("/forum/{id}", name="forum_show")
+    **/
+    public function showForumAction(Request $request, int $id)
+    {
+      $forum = $this->getDoctrine()->getManager()->getRepository(Forum::class)->find($id);
+
+      return $this->render('forum/show.html.twig',
+        array(
+          'forum' => $forum
+      ));
     }
 }
