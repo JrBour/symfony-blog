@@ -31,12 +31,12 @@ class ForumController extends Controller
     **/
     public function showForumAction(Request $request, int $id)
     {
-      $forum = $this->getDoctrine()->getManager()->getRepository(Forum::class)->find($id)
+      $forum = $this->getDoctrine()->getManager()->getRepository(Forum::class)->find($id);
 
-      $this->render('forum/show.html.twig',
+      return $this->render('forum/show.html.twig',
         array(
           'forum' => $forum
-      ))
+      ));
     }
 
     /**

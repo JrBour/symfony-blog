@@ -49,6 +49,30 @@ class Forum
     **/
     private $updated_at;
 
+
+    /**
+    * Return the current id
+    *
+    * @return Int | $id | The current id of forum
+    **/
+    public function getId()
+    {
+      return $this->id;
+    }
+
+    /**
+    * Set the forum's id
+    *
+    * @var Int | $id | Id to add
+    *
+    * @return Object | $this | Return the object
+    **/
+    public function setId(int $id)
+    {
+      $this->id = $id;
+      return $this;
+    }
+
     /**
     * Return the title
     *

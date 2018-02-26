@@ -5,7 +5,7 @@
   <h1 class="text-center">Forum</h1>
   <hr>
   {% for forum in forums %}
-    <h4>{{ forum.title }}</h4>
+    <a href="{{path('forum_show', {'id': forum.id})}}"><h4>{{ forum.title }}</h4></a>
   {% endfor %}
   <a href="{{ path('forum_add') }}"><button type="button" class="btn btn-info">Créer+</button></a>
 
