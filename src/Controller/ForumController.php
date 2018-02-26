@@ -27,6 +27,19 @@ class ForumController extends Controller
     }
 
     /**
+    * @Route("/forum/{id}", name="forum_show")
+    **/
+    public function showForumAction(Request $request, int $id)
+    {
+      $forum = $this->getDoctrine()->getManager()->getRepository(Forum::class)->find($id)
+
+      $this->render('forum/show.html.twig',
+        array(
+          'forum' => $forum
+      ))
+    }
+
+    /**
     * @Route("/forum/new", name="forum_add")
     **/
     public function addForumAction(Request $request)
