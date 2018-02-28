@@ -9,4 +9,12 @@
     <img src="{{forum.picture}}" alt="{{forum.content}}" class="">
   {% endif %}
   <p>{{forum.author.username}}</p>
+  {% if forum.updatedAt %}
+    Modifié le {{forum.updatedAt|date('Y-m-d')}}
+  {% endif %}
+  {% if app.user.id  == forum.author.id %}
+    <a href="{{path('forum_edit', {'id': forum.id})}}">
+      <button type="button" name="button" class="btn btn-info">Editer</button>
+    </a>
+  {% endif %}
 {% endblock %}

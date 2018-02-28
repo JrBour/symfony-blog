@@ -70,16 +70,19 @@ class ForumController extends Controller
           'form' => $form->createView()
        ));
     }
+    /**
+    * @Route("/forum/edit/{id}", name="forum_edit")
+    **/
     public function editForumAction(Request $request, int $id)
     {
       $em = $this->getDoctrine()->getManager();
-      $currentForum = $this->getRepository(Forum::class)->find($id);
+      $currentForum = $em->getRepository(Forum::class)->find($id);
 
       $forum = new Forum();
-      $form = $this->createForm(ForumType::class, $forum);
+      $form = $this->createForm(ForumType::class, $currentForum);
       $form->handleRequest($request);
-      if($form->isSubmitted && $form->isValid()){
-        $form = $form->getData();
+      if($form->isSubmitted() && $form->isValid()){
+        $forum = $form->getData();
         $file = $forum->getPicture();
         if($file){
           $filename = md5(uniqid()) . '.' . $file->guessExtension();
@@ -92,6 +95,7 @@ class ForumController extends Controller
         }
         $forum->setTitle($forum->getTitle());
         $forum->setContent($forum->getContent());
+        $dateNow = new DateTime(date('Y-m-d H:i:s'));
         $forum->setUpdatedAt($dateNow);
 
         $em->persist($forum);
@@ -100,7 +104,7 @@ class ForumController extends Controller
       }
       return $this->render('forum/new.html.twig',
       array(
-        'form' => $this->createView(),
+        'form' => $form->createView(),
         'forum' => $currentForum
       ));
     }
