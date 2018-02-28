@@ -43,14 +43,16 @@ class ForumController extends Controller
         $user = $this->getUser();
 
         $file = $forum->getPicture();
-        $filename = md5(uniqid()) . '.' . $file->guessExtension();
-        $file->move(
-          $this->getParameter('images'),
-          $filename
-        );
-        $picture = "/images/posts/" . $filename;
+        if($file){
+          $filename = md5(uniqid()) . '.' . $file->guessExtension();
+          $file->move(
+            $this->getParameter('images'),
+            $filename
+          );
+          $picture = "/images/posts/" . $filename;
+          $forum->setPicture($picture);
+        }
 
-        $forum->setPicture($picture);
         $forum->setTitle($forum->getTitle());
         $forum->setContent($forum->getContent());
         $forum->setAuthor($user);
@@ -67,6 +69,40 @@ class ForumController extends Controller
         array(
           'form' => $form->createView()
        ));
+    }
+    public function editForumAction(Request $request, int $id)
+    {
+      $em = $this->getDoctrine()->getManager();
+      $currentForum = $this->getRepository(Forum::class)->find($id);
+
+      $forum = new Forum();
+      $form = $this->createForm(ForumType::class, $forum);
+      $form->handleRequest($request);
+      if($form->isSubmitted && $form->isValid()){
+        $form = $form->getData();
+        $file = $forum->getPicture();
+        if($file){
+          $filename = md5(uniqid()) . '.' . $file->guessExtension();
+          $file->move(
+            $this->getParameter('images'),
+            $filename
+          );
+          $picture = "/images/posts/" . $filename;
+          $forum->setPicture($picture);
+        }
+        $forum->setTitle($forum->getTitle());
+        $forum->setContent($forum->getContent());
+        $forum->setUpdatedAt($dateNow);
+
+        $em->persist($forum);
+        $em->flush();
+        return $this->redirectToRoute('forum');
+      }
+      return $this->render('forum/new.html.twig',
+      array(
+        'form' => $this->createView(),
+        'forum' => $currentForum
+      ));
     }
 
     /**
