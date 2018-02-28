@@ -167,7 +167,7 @@ class Forum
     **/
     public function setAuthor(User $user)
     {
-      $this->user = $user;
+      $this->author = $user;
       return $this;
     }
 
