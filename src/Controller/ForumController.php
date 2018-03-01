@@ -37,6 +37,8 @@ class ForumController extends Controller
       $forum = new Forum();
       $form = $this->createForm(ForumType::class, $forum);
       $form->handleRequest($request);
+      // RegEx for find an URL
+      $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
 
       if($form->isSubmitted() && $form->isValid()){
         $forum = $form->getData();
@@ -53,8 +55,14 @@ class ForumController extends Controller
           $forum->setPicture($picture);
         }
 
+        if(preg_match($reg_exUrl, $forum->getContent(), $url)) {
+           $newContent = preg_replace($reg_exUrl, "<a href='{$url[0]}'>{$url[0]}</a>", $forum->getContent());
+           $forum->setContent($newContent);
+        }else{
+          $forum->setContent($forum->getContent());
+        }
+
         $forum->setTitle($forum->getTitle());
-        $forum->setContent($forum->getContent());
         $forum->setAuthor($user);
         $dateNow = new DateTime(date('Y-m-d H:i:s'));
         $forum->setCreatedAt($dateNow);
