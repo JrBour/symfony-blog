@@ -10,7 +10,7 @@
   {% endif %}
   <p>{{forum.author.username}}</p>
   {% if forum.updatedAt %}
-    Modifié le {{forum.updatedAt|date('Y-m-d')}}
+    Modifié le {{forum.updatedAt|date('d/m/Y')}}
   {% endif %}
   {% if app.user.id  == forum.author.id %}
     <a href="{{path('forum_edit', {'id': forum.id})}}">
