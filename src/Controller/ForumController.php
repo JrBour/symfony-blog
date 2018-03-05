@@ -159,7 +159,7 @@ class ForumController extends Controller
             $filename
           );
           $picture = "/images/posts/" . $filename;
-          $forum->setPicture($picture);
+          $answer->setPicture($picture);
         }
 
         $answer->setContent($answer->getContent());
