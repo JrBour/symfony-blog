@@ -23,14 +23,12 @@ class Forum
 
     /**
     * @ORM\Column(type="string", length=200)
-    *
     * @Assert\NotBlank(message="Un titre est requis")
     **/
     private $title;
 
     /**
     * @ORM\Column(type="string", nullable=true)
-    *
     * @Assert\File(mimeTypes={ "image/jpeg","image/png" })
     **/
     private $picture;
