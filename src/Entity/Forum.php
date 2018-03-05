@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\Collection;
 use App\Entity\Forum;
 use App\Entity\User;
 use \DateTime;
@@ -53,6 +55,16 @@ class Forum
     * @ORM\JoinColumn(nullable=true)
     **/
     private $author;
+
+    /**
+    * @ORM\OneToMany(targetEntity="App\Entity\Answer", mappedBy="forum")
+    **/
+    private $answer;
+
+    public function __construct()
+    {
+      $this->answer = new ArrayCollection();
+    }
 
     /**
     * Return the current id
@@ -215,4 +227,13 @@ class Forum
       return $this;
     }
 
+    /**
+    * Return the forum answers
+    *
+    * @return Collection|Answer[]
+    */
+    public function getAnswer()
+    {
+      return $this->answer;
+    }
 }

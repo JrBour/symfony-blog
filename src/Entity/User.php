@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Role;
 use App\Entity\Blog;
 use App\Entity\Forum;
+use App\Entity\Answer;
 use App\Entity\Category;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields="email", message="L'email est déjàp ris")
+ * @UniqueEntity(fields="email", message="L'email est déjàp pris")
  * @UniqueEntity(fields="username", message="Le pseudo est déjà pris")
  */
 class User implements UserInterface, \Serializable
@@ -234,6 +235,16 @@ class User implements UserInterface, \Serializable
     public function getBlog()
     {
       return $this->blog;
+    }
+
+    /**
+    * Get the user answer
+    *
+    * @return Collection|Answer[]
+    */
+    public function getAnswer()
+    {
+      return $this->answer;
     }
 
     /**

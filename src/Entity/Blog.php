@@ -146,7 +146,7 @@ class Blog
     /**
     * @return Collection|Comment[]
     **/
-    public function getCollection()
+    public function getComment()
     {
       return $this->comment;
     }

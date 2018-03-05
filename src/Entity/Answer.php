@@ -51,6 +51,12 @@ class Answer
     private $author;
 
     /**
+    * @ORM\ManyToOne(targetEntity="App\Entity\Forum", inversedBy="answer")
+    * @ORM\JoinColumn(nullable=true)
+    */
+    private $forum;
+
+    /**
     * Get the answer id
     *
     * @return Int $id The answer id
@@ -185,6 +191,29 @@ class Answer
     public function setAuthor(User $author): User
     {
       $this->author = $author;
+      return $this;
+    }
+
+    /**
+    * Return the answer forum
+    *
+    * @return Object $forum The answer forum
+    */
+    public function getForum(): Forum
+    {
+      return $this->forum;
+    }
+
+    /**
+    * Set the answer forum
+    *
+    * @var Object $forum The new answer forum
+    *
+    * @return self
+    */
+    public function setForum(Forum $forum): Forum
+    {
+      $this->forum = $forum;
       return $this;
     }
 }
