@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\ForumType;
 use App\Entity\Forum;
 use App\Entity\User;
+use App\Entity\Answer;
+use App\Form\AnswerType;
 use \DateTime;
 
 class ForumController extends Controller
@@ -135,11 +137,47 @@ class ForumController extends Controller
     **/
     public function showForumAction(Request $request, int $id)
     {
-      $forum = $this->getDoctrine()->getManager()->getRepository(Forum::class)->find($id);
+      $em = $this->getDoctrine()->getManager();
+      $forum = $em->getRepository(Forum::class)->find($id);
+      $answers = $em->getRepository(Answer::class)->findAll();
+
+      $answer = new Answer();
+      $form = $this->createForm(AnswerType::class, $answer);
+      $form->handleRequest($request);
+
+      if($form->isSubmitted() && $form->isValid()){
+        $answer = $form->getData();
+        var_dump($answer);
+        $user = $this->getUser();
+        $dateNow = new DateTime(date('Y-m-d H:i:s'));
+
+        $file = $answer->getPicture();
+        if($file){
+          $filename = md5(uniqid()) . '.' . $file->guessExtension();
+          $file->move(
+            $this->getParameter('images'),
+            $filename
+          );
+          $picture = "/images/posts/" . $filename;
+          $forum->setPicture($picture);
+        }
+
+        $answer->setContent($answer->getContent());
+        $answer->setCreatedAt($dateNow);
+        $answer->setAuthor($user);
+        $answer->setForum($forum);
+
+        $em->persist($answer);
+        $em->flush();
+
+        return $this->redirectToRoute('forum');
+      }
+
 
       return $this->render('forum/show.html.twig',
         array(
-          'forum' => $forum
+          'forum' => $forum,
+          'form' => $form->createView()
       ));
     }
 }

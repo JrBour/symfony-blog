@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="example-wrapper">
-  {% if answers %}
-    {% for answer in answers %}
-    {% endfor %}
-  {% else %}
-    <h2>Aucune réponse n'a était créée</h2>
-  {% endif %}
-</div>
+  <div class="example-wrapper">
+    {% if answers %}
+      <ul>
+        {% for answer in answers %}
+          <li>{{answer.content}}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <h2>Aucune réponse n'a était créée</h2>
+    {% endif %}
+  </div>
 {% endblock %}

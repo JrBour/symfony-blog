@@ -84,7 +84,7 @@ class Answer
     *
     * @return String $content The answer content
     */
-    public function getContent(): string
+    public function getContent()
     {
       return $this->content;
     }
@@ -96,7 +96,7 @@ class Answer
     *
     * @return self
     */
-    public function setContent(string $content): string
+    public function setContent(string $content)
     {
       $this->content = $content;
       return $this;
@@ -107,7 +107,7 @@ class Answer
     *
     * @return String $picture The answer picture
     */
-    public function getPicture(): string
+    public function getPicture()
     {
       return $this->picture;
     }
@@ -119,7 +119,7 @@ class Answer
     *
     * @return self
     */
-    public function setPicture(string $picture): string
+    public function setPicture($picture)
     {
       $this->picture = $picture;
       return $this;
@@ -130,7 +130,7 @@ class Answer
     *
     * @return Datetime $created_at The create date
     */
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt()
     {
       return $this->created_at;
     }
@@ -145,7 +145,7 @@ class Answer
     public function setCreatedAt(Datetime $date): DateTime
     {
       $this->created_at = $date;
-      return $this;
+      return $this->created_at;
     }
 
     /**
@@ -153,7 +153,7 @@ class Answer
     *
     * @return DateTime $updated_at The update date
     */
-    public function getUpdatedAt(): DateTime
+    public function getUpdatedAt()
     {
       return $this->updated_at;
     }
@@ -176,7 +176,7 @@ class Answer
     *
     * @return Object $author The answer author
     */
-    public function getAuthor(): User
+    public function getAuthor()
     {
       return $this->author;
     }
@@ -191,7 +191,7 @@ class Answer
     public function setAuthor(User $author): User
     {
       $this->author = $author;
-      return $this;
+      return $this->author;
     }
 
     /**
@@ -199,7 +199,7 @@ class Answer
     *
     * @return Object $forum The answer forum
     */
-    public function getForum(): Forum
+    public function getForum()
     {
       return $this->forum;
     }
@@ -214,6 +214,6 @@ class Answer
     public function setForum(Forum $forum): Forum
     {
       $this->forum = $forum;
-      return $this;
+      return $this->forum;
     }
 }
