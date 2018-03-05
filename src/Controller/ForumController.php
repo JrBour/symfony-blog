@@ -118,6 +118,19 @@ class ForumController extends Controller
     }
 
     /**
+    * @Route("/forum/delete/{id}", name="forum_delete")
+    **/
+    public function deleteForumAction(Request $request, int $id)
+    {
+      $em = $this->getDoctrine()->getManager();
+      $forum = $em->getRepository()->find($id);
+
+      $em->remove($forum);
+      $em->flush();
+      return $this->redirect('forum');
+    }
+
+    /**
     * @Route("/forum/{id}", name="forum_show")
     **/
     public function showForumAction(Request $request, int $id)
