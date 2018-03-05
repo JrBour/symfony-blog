@@ -16,5 +16,8 @@
     <a href="{{path('forum_edit', {'id': forum.id})}}">
       <button type="button" name="button" class="btn btn-info">Editer</button>
     </a>
+    <a href="{{path('forum_delete', {'id': forum.id })}}">
+      <button type="button" name="button" class="btn btn-danger">Supprimer</button>
+    </a>
   {% endif %}
 {% endblock %}
