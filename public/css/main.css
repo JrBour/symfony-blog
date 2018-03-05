@@ -7104,6 +7104,10 @@ hr {
   text-align: center;
   font-size: 10em;
 }
+.profil_post{
+  display: inline-block;
+  margin-left: 10px;
+}
 
 @keyframes fadeInDown{
   from{

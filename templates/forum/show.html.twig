@@ -8,11 +8,15 @@
   {% if forum.picture %}
     <img src="{{forum.picture}}" alt="{{forum.content}}" class="">
   {% endif %}
-  <p>{{forum.author.username}}</p>
+  <a href="{{path('profil_user',{'id':forum.author.id})}}">
+    <img src="{{forum.author.image}}" alt="{{forum.author.username}}" class="profil_picture">
+    <p class="profil_post">{{forum.author.username}}</p>
+  </a>
   {% if forum.updatedAt %}
     Modifié le {{forum.updatedAt|date('d/m/Y')}}
   {% endif %}
   {% if app.user.id  == forum.author.id %}
+  <hr>
     <a href="{{path('forum_edit', {'id': forum.id})}}">
       <button type="button" name="button" class="btn btn-info">Editer</button>
     </a>
