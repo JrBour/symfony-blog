@@ -22,9 +22,9 @@ class AnswerController extends Controller
     }
 
     /**
-    * @Route("/answer/delete/{id}", name="answer_remove")
+    * @Route("/answer/delete/{id}/{idForum}", name="answer_remove")
     */
-    public function removeAnswerAction(int $id)
+    public function removeAnswerAction(int $id, int $idForum)
     {
       $em = $this->getDoctrine()->getManager();
       $answer = $em->getRepository(Answer::class)->find($id);
@@ -32,6 +32,6 @@ class AnswerController extends Controller
       $em->remove($answer);
       $em->flush();
 
-      return $this->redirectToRoute('forum');
+      return $this->redirectToRoute('forum_show', array('id' => $idForum));
     }
 }

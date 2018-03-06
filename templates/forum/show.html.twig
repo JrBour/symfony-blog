@@ -33,7 +33,7 @@
         <hr>
       </li>
       {% if app.user.id == answer.author.id %}
-        <a href="{{path('answer_remove', {'id' : answer.id})}}">Supprimer</a>
+        <a href="{{path('answer_remove', {'id' : answer.id, 'idForum' : forum.id})}}">Supprimer</a>
       {% endif %}
     {% endfor %}
   </ul>
