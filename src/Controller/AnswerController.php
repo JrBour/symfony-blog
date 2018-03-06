@@ -20,4 +20,18 @@ class AnswerController extends Controller
             'answers' => $answers
         ));
     }
+
+    /**
+    * @Route("/answer/delete/{id}", name="answer_remove")
+    */
+    public function removeAnswerAction(int $id)
+    {
+      $em = $this->getDoctrine()->getManager();
+      $answer = $em->getRepository(Answer::class)->find($id);
+
+      $em->remove($answer);
+      $em->flush();
+
+      return $this->redirectToRoute('forum');
+    }
 }

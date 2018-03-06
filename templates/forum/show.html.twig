@@ -3,18 +3,20 @@
 {% block body %}
   <h1 class="text-center">{{forum.title}}</h1>
   <hr>
-  <p>{{forum.content|raw}}</p>
-  <p>{{forum.createdAt|date('Y-m-d')}}</p>
-  {% if forum.picture %}
-    <img src="{{forum.picture}}" alt="{{forum.content}}" class="">
-  {% endif %}
-  <a href="{{path('profil_user',{'id':forum.author.id})}}">
-    <img src="{{forum.author.image}}" alt="{{forum.author.username}}" class="profil_picture">
-    <p class="profil_post">{{forum.author.username}}</p>
-  </a>
-  {% if forum.updatedAt %}
-    Modifié le {{forum.updatedAt|date('d/m/Y')}}
-  {% endif %}
+  <div class="forum">
+    <p>{{forum.content|raw}}</p>
+    <p>{{forum.createdAt|date('Y-m-d')}}</p>
+    {% if forum.picture %}
+      <img src="{{forum.picture}}" alt="{{forum.content}}" class="">
+    {% endif %}
+    <a href="{{path('profil_user',{'id':forum.author.id})}}">
+      <img src="{{forum.author.image}}" alt="{{forum.author.username}}" class="profil_picture">
+      <p class="profil_post">{{forum.author.username}}</p>
+    </a>
+    {% if forum.updatedAt %}
+      Modifié le {{forum.updatedAt|date('d/m/Y')}}
+    {% endif %}
+  </div>
   <h3>Commentaire</h3>
   <hr>
   <ul>
@@ -30,6 +32,9 @@
         </div>
         <hr>
       </li>
+      {% if app.user.id == answer.author.id %}
+        <a href="{{path('answer_remove', {'id' : answer.id})}}">Supprimer</a>
+      {% endif %}
     {% endfor %}
   </ul>
 
