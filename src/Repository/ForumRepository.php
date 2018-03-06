@@ -19,16 +19,16 @@ class ForumRepository extends ServiceEntityRepository
         parent::__construct($registry, Forum::class);
     }
 
-    /*
-    public function findBySomething($value)
-    {
-        return $this->createQueryBuilder('f')
-            ->where('f.something = :value')->setParameter('value', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+
+    // public function findBy($value)
+    // {
+    //     return $this->createQueryBuilder('f')
+    //         ->where('f.something = :value')->setParameter('value', $value)
+    //         ->orderBy('f.id', 'ASC')
+    //         ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+
 }

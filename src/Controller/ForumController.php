@@ -139,6 +139,7 @@ class ForumController extends Controller
     {
       $em = $this->getDoctrine()->getManager();
       $forum = $em->getRepository(Forum::class)->find($id);
+      $answerByForum = $em->getRepository(Answer::class)->findByForum($id);
       $answers = $em->getRepository(Answer::class)->findAll();
 
       $answer = new Answer();
@@ -177,6 +178,7 @@ class ForumController extends Controller
       return $this->render('forum/show.html.twig',
         array(
           'forum' => $forum,
+          'answers' => $answerByForum,
           'form' => $form->createView()
       ));
     }

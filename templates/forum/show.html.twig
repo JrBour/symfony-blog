@@ -33,6 +33,9 @@
     }})}}
 
   {{form_end(form)}}
+  {% for answer in answers %}
+    <p>{{answer.content}}</p>
+  {% endfor %}
   {% if app.user.id  == forum.author.id %}
   <hr>
     <a href="{{path('forum_edit', {'id': forum.id})}}">

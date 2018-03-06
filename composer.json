@@ -19,13 +19,15 @@
         "symfony/web-profiler-bundle": "^4.0",
         "symfony/yaml": "^4.0",
         "tinymce/tinymce": "^4.7",
-        "vich/uploader-bundle": "^1.8"
+        "vich/uploader-bundle": "^1.8",
+        "helios-ag/fm-elfinder-bundle": "~6"
     },
     "require-dev": {
         "symfony/dotenv": "^4.0",
         "symfony/web-server-bundle": "^4.0"
     },
     "config": {
+        "component-dir": "web/assets",
         "preferred-install": {
             "*": "dist"
         },

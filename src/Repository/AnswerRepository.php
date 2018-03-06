@@ -19,16 +19,15 @@ class AnswerRepository extends ServiceEntityRepository
         parent::__construct($registry, Answer::class);
     }
 
-    /*
-    public function findBySomething($value)
+
+    public function findByForum(int $id)
     {
         return $this->createQueryBuilder('a')
-            ->where('a.something = :value')->setParameter('value', $value)
+            ->where('a.forum = :id')->setParameter('id', $id)
             ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 }
