@@ -15,8 +15,23 @@
   {% if forum.updatedAt %}
     Modifié le {{forum.updatedAt|date('d/m/Y')}}
   {% endif %}
-  {{form_start(form)}}
+  <h3>Commentaire</h3>
+  <hr>
+  <ul>
+    {% for answer in answers %}
+      <li class="answer">
+        <p>{{answer.content}}</p>
+        <a href="{{path('profil_user', {'id' : answer.author.id})}}">
+          <img src="{{answer.author.image}}" alt="{{answer.author.username}}" class="profil_picture">
+          <p class="profil_post">{{answer.author.username}}</p>
+        </a>
+        <p>{{answer.createdAt|date('Y-m-d')}}</p>
+        <hr>
+      </li>
+    {% endfor %}
+  </ul>
 
+  {{form_start(form)}}
     <div class="form-group">
       {{form_row(form.content,{ 'attr' : {
         'class' : 'form-control'
@@ -27,15 +42,11 @@
         'class' : 'form-control'
       }})}}
     </div>
-
     {{form_row(form.submit, {'attr' : {
       'class' : 'btn btn-info'
     }})}}
-
   {{form_end(form)}}
-  {% for answer in answers %}
-    <p>{{answer.content}}</p>
-  {% endfor %}
+
   {% if app.user.id  == forum.author.id %}
   <hr>
     <a href="{{path('forum_edit', {'id': forum.id})}}">
