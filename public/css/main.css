@@ -7108,10 +7108,12 @@ hr {
   display: inline-block;
   margin-left: 10px;
 }
-
 .answer{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+.ulAnswer{
+  padding: 0;
 }
 .answer__content {
   width: 85%;
@@ -7120,8 +7122,8 @@ hr {
   display: flex;
   flex-direction: column;
   float: right;
+  background: rgba(0,0,0,0.2);
 }
-
 .forum {
   display: flex;
   flex-direction: column;

@@ -171,7 +171,7 @@ class ForumController extends Controller
         $em->persist($answer);
         $em->flush();
 
-        return $this->redirectToRoute('forum');
+        return $this->redirectToRoute('forum_show', array('id' => $forum->getId()));
       }
 
 

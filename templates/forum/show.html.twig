@@ -19,22 +19,22 @@
   </div>
   <h3>Commentaire</h3>
   <hr>
-  <ul>
+  <ul class="ulAnswer">
     {% for answer in answers %}
       <li class="answer">
-        <p class="answer__content">{{answer.content}}</p>
         <div class="answer__infos">
           <a href="{{path('profil_user', {'id' : answer.author.id})}}">
             <img src="{{answer.author.image}}" alt="{{answer.author.username}}" class="profil_picture">
             <p class="profil_post">{{answer.author.username}}</p>
           </a>
           <p>{{answer.createdAt|date('Y-m-d')}}</p>
+          {% if app.user.id == answer.author.id %}
+            <a style="text-align: right" href="{{path('answer_remove', {'id' : answer.id, 'idForum' : forum.id})}}">Supprimer</a>
+          {% endif %}
         </div>
+        <p class="answer__content">{{answer.content}}</p>
         <hr>
       </li>
-      {% if app.user.id == answer.author.id %}
-        <a href="{{path('answer_remove', {'id' : answer.id, 'idForum' : forum.id})}}">Supprimer</a>
-      {% endif %}
     {% endfor %}
   </ul>
 
