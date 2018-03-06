@@ -20,12 +20,14 @@
   <ul>
     {% for answer in answers %}
       <li class="answer">
-        <p>{{answer.content}}</p>
-        <a href="{{path('profil_user', {'id' : answer.author.id})}}">
-          <img src="{{answer.author.image}}" alt="{{answer.author.username}}" class="profil_picture">
-          <p class="profil_post">{{answer.author.username}}</p>
-        </a>
-        <p>{{answer.createdAt|date('Y-m-d')}}</p>
+        <p class="answer__content">{{answer.content}}</p>
+        <div class="answer__infos">
+          <a href="{{path('profil_user', {'id' : answer.author.id})}}">
+            <img src="{{answer.author.image}}" alt="{{answer.author.username}}" class="profil_picture">
+            <p class="profil_post">{{answer.author.username}}</p>
+          </a>
+          <p>{{answer.createdAt|date('Y-m-d')}}</p>
+        </div>
         <hr>
       </li>
     {% endfor %}

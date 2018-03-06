@@ -7109,6 +7109,19 @@ hr {
   margin-left: 10px;
 }
 
+.answer{
+  display: flex;
+  flex-direction: row;
+}
+.answer__content {
+  width: 85%;
+}
+.answer__infos{
+  display: flex;
+  flex-direction: column;
+  float: right;
+}
+
 @keyframes fadeInDown{
   from{
     opacity: 0;
