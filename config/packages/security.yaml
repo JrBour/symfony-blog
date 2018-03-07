@@ -24,11 +24,15 @@ security:
               target: /login
           pattern:    ^/
           http_basic: ~
+          remember_me:
+                secret: '%kernel.secret%'
+                secure: true
+                path: /
           provider: our_db_provider
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/blog/, roles: ROLE_ADMIN }
+        - { path: ^/blog, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/forum, roles: ROLE_ADMIN }
         - { path: ^/category, roles: ROLE_ADMIN }
 

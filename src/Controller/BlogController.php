@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\BlogType;
@@ -21,7 +22,7 @@ use \DateTime;
 class BlogController extends Controller
 {
   /**
-  * @Route("/blog/", name="blog")
+  * @Route("/blog", name="blog")
   **/
   public function showListBlog()
   {
@@ -34,6 +35,8 @@ class BlogController extends Controller
         'Aucun post n\'est créer pour l\'instant, pensez à en ajouter un !'
       );
     }
+    //Another way to deny access in controller
+    //$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
 
     return $this->render('blog/index.html.twig', array(
       'posts' => $posts
