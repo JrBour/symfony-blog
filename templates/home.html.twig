@@ -3,6 +3,7 @@
   <h1>Bienvenue sur l'accueil</h1>
   <h2>Derniers articles publiés</h2>
   {% if posts %}
+  {{ test}}
     <ul class="articles">
         {% for post in posts %}
           <a href="{{ path('show_id', { 'id' : post.id } ) }}">

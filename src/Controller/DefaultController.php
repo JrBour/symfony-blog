@@ -32,7 +32,8 @@ class DefaultController extends Controller
 
     return $this->render('home.html.twig', array(
       'posts' => $posts,
-      'categories' => $categories
+      'categories' => $categories,
+      'test' => $test
     ));
   }
 
