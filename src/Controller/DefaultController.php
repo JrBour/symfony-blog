@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ class DefaultController extends Controller
   /**
   * @Route("/", name="home")
   **/
-  public function home(Request $request)
+  public function home(Request $request, TranslatorInterface $translator)
   {
     $posts = $this->getDoctrine()
         ->getRepository(Blog::class)
@@ -23,6 +24,8 @@ class DefaultController extends Controller
     $categories = $this->getDoctrine()
         ->getRepository(Category::class)
         ->findByThreeLast();
+
+    $test = $translator->trans('Symfony est incroyable');
     // $users = $this->getDoctrine()
     //       ->getRepository(User::class)
     //       ->findByLastThree();
