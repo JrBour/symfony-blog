@@ -33,9 +33,21 @@ security:
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/blog, roles: IS_AUTHENTICATED_FULLY }
+
+        - { path: ^/contact, roles: ROLE_ADMIN }
+        - { path: ^/contact/remove, roles: ROLE_ADMIN }
+
+        - { path: ^/blog/add, roles: ROLE_ADMIN }
+        - { path: ^/blog/edit, roles: ROLE_ADMIN }
+        - { path: ^/blog/delete, roles: ROLE_ADMIN }
+
         - { path: ^/forum, roles: ROLE_ADMIN }
+        - { path: ^/forum/add, roles: ROLE_ADMIN }
+        - { path: ^/foru/edit, roles: ROLE_ADMIN }
+
         - { path: ^/category, roles: ROLE_ADMIN }
+        - { path: ^/category/add, roles: ROLE_ADMIN }
+        - { path: ^/category/edit, roles: ROLE_ADMIN }
 
             # activate different ways to authenticate
 

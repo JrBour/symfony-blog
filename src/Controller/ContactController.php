@@ -71,7 +71,7 @@ class ContactController extends Controller
   }
 
   /**
-  * @Route("/contact/remove/{id}", name="remove_contact")
+  * @Route("/contact/delete/{id}", name="remove_contact")
   **/
   public function deleteAction(int $id, Request $request)
   {
