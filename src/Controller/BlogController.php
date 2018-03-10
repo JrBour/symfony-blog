@@ -29,12 +29,7 @@ class BlogController extends Controller
     $posts = $this->getDoctrine()
       ->getRepository(Blog::class)
       ->findAll();
-
-    if (!$posts) {
-      throw $this->createNotFoundException(
-        'Aucun post n\'est créer pour l\'instant, pensez à en ajouter un !'
-      );
-    }
+      
     //Another way to deny access in controller
     //$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
 
