@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -146,33 +147,63 @@ class ForumController extends Controller
       $form = $this->createForm(AnswerType::class, $answer);
       $form->handleRequest($request);
 
-      if($form->isSubmitted() && $form->isValid()){
-        $answer = $form->getData();
-        var_dump($answer);
-        $user = $this->getUser();
+      if($request->isXmlHttpRequest()){
+        $data = $request->request->all();
+        // $file = $request->files;
+        
+        $data['user'] = $this->getUser();
         $dateNow = new DateTime(date('Y-m-d H:i:s'));
 
-        $file = $answer->getPicture();
-        if($file){
-          $filename = md5(uniqid()) . '.' . $file->guessExtension();
-          $file->move(
-            $this->getParameter('images'),
-            $filename
-          );
-          $picture = "/images/posts/" . $filename;
-          $answer->setPicture($picture);
-        }
-
-        $answer->setContent($answer->getContent());
-        $answer->setCreatedAt($dateNow);
-        $answer->setAuthor($user);
+        $answer->setContent($data['content']);
+        $answer->setAuthor($data['user']);
         $answer->setForum($forum);
+        $answer->setCreatedAt($dateNow);
+
+        // $file = $data['picture'];
+        // if($file){
+        //   $filename = md5(uniqid()) . '.' . $file->guessExtension();
+        //   $file->move(
+        //     $this->getParameter('images'),
+        //     $filename
+        //   );
+        //   $picture = "/images/posts/" . $filename;
+        //   $answer->setPicture($picture);
+        // }
+
+        $response = 'Votre commentaire a bien était ajouté !';
 
         $em->persist($answer);
         $em->flush();
 
-        return $this->redirectToRoute('forum_show', array('id' => $forum->getId()));
+        return new JsonResponse($response, 200);
       }
+      // if($form->isSubmitted() && $form->isValid()){
+      //   $answer = $form->getData();
+      //   var_dump($answer);
+      //   $user = $this->getUser();
+      //   $dateNow = new DateTime(date('Y-m-d H:i:s'));
+
+      //   $file = $answer->getPicture();
+      //   if($file){
+      //     $filename = md5(uniqid()) . '.' . $file->guessExtension();
+      //     $file->move(
+      //       $this->getParameter('images'),
+      //       $filename
+      //     );
+      //     $picture = "/images/posts/" . $filename;
+      //     $answer->setPicture($picture);
+      //   }
+
+      //   $answer->setContent($answer->getContent());
+      //   $answer->setCreatedAt($dateNow);
+      //   $answer->setAuthor($user);
+      //   $answer->setForum($forum);
+
+      //   $em->persist($answer);
+      //   $em->flush();
+
+      //   return $this->redirectToRoute('forum_show', array('id' => $forum->getId()));
+      // }
 
 
       return $this->render('forum/show.html.twig',

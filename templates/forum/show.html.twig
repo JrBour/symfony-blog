@@ -64,3 +64,29 @@
     </a>
   {% endif %}
 {% endblock %}
+{% block javascripts %}
+  <script>
+    $('form[name="answer"]').on('submit', function(e){
+      e.preventDefault();
+      let formData = new FormData();
+
+      formData.append("file", document.getElementById("answer_picture").files[0]);
+      formData.append("content", document.getElementById("answer_content").value);
+
+      console.log(document.getElementById("answer_picture").files[0]);
+      
+      let url = window.location.href;
+      let split = url.split('/');
+      $.ajax({
+        data: formData,
+        method: "POST",
+        url: `/forum/${parseFloat(split[split.length-1])}`,
+        processData: false,
+		    contentType: false,
+        cache: false
+      }).done(response=>{
+        console.log(response);
+      })
+    })
+  </script>
+{% endblock %}
