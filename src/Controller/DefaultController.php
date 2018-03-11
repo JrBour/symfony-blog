@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Serializer;
 use App\Entity\User;
 use App\Entity\Category;
 use App\Entity\Blog;
@@ -26,9 +30,9 @@ class DefaultController extends Controller
         ->findByThreeLast();
 
     $test = $translator->trans('Symfony est incroyable');
-    // $users = $this->getDoctrine()
-    //       ->getRepository(User::class)
-    //       ->findByLastThree();
+
+    $user = $this->getUser();
+    $serial = $user->serialize();
 
     return $this->render('home.html.twig', array(
       'posts' => $posts,

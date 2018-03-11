@@ -177,7 +177,8 @@ class User implements UserInterface, \Serializable
     *
     * @return String
     **/
-    public function getImage(){
+    public function getImage()
+    {
       return $this->image;
     }
 
