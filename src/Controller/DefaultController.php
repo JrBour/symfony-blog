@@ -32,12 +32,18 @@ class DefaultController extends Controller
     $test = $translator->trans('Symfony est incroyable');
 
     $user = $this->getUser();
-    $serial = $user->serialize();
+    if($user){
+      $serial = $user->serialize();
+    }else {
+      $serial = 'Not connect';
+    }
+
 
     return $this->render('home.html.twig', array(
       'posts' => $posts,
       'categories' => $categories,
-      'test' => $test
+      'test' => $test,
+      'serial' => $serial
     ));
   }
 

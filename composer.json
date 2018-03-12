@@ -19,8 +19,7 @@
         "symfony/web-profiler-bundle": "^4.0",
         "symfony/yaml": "^4.0",
         "tinymce/tinymce": "^4.7",
-        "vich/uploader-bundle": "^1.8",
-        "helios-ag/fm-elfinder-bundle": "~6"
+        "vich/uploader-bundle": "^1.8"
     },
     "require-dev": {
         "symfony/dotenv": "^4.0",
