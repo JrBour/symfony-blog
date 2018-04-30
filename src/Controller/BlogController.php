@@ -176,7 +176,7 @@ class BlogController extends Controller
   }
 
   /**
-  * @Route("/blog/delete/{id}", name="remove_post")
+  * @Route("/blog/delete/{id}", name="remove_post", methods="DELETE")
   **/
   public function removePost(int $id)
   {
