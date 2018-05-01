@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Test du block{% endblock %}
+{% block title %}Forum{% endblock %}
 {% block body %}
   <h1 class="text-center">{{forum.title}}</h1>
   <hr>
@@ -29,7 +29,7 @@
           </a>
           <p>{{answer.createdAt|date('Y-m-d')}}</p>
           {% if app.user.id == answer.author.id %}
-            <a style="text-align: right" href="{{path('answer_remove', {'id' : answer.id, 'idForum' : forum.id})}}">Supprimer</a>
+            <!--<a style="text-align: right" href="{{path('answer_remove', {'id' : answer.id, 'idForum' : forum.id})}}">Supprimer</a>-->
           {% endif %}
         </div>
         <p class="answer__content">{{answer.content}}</p>
@@ -44,11 +44,11 @@
         'class' : 'form-control'
       }})}}
     </div>
-    <div class="form-group">
+    <!--<div class="form-group">
       {{form_row(form.picture,{ 'attr' : {
         'class' : 'form-control'
       }})}}
-    </div>
+    </div>-->
     {{form_row(form.submit, {'attr' : {
       'class' : 'btn btn-info'
     }})}}
@@ -69,11 +69,8 @@
     $('form[name="answer"]').on('submit', function(e){
       e.preventDefault();
       let formData = new FormData();
-
-      formData.append("file", document.getElementById("answer_picture").files[0]);
       formData.append("content", document.getElementById("answer_content").value);
 
-      console.log(document.getElementById("answer_picture").files[0]);
       
       let url = window.location.href;
       let split = url.split('/');
