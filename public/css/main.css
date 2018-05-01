@@ -6956,6 +6956,9 @@ a.list-group-item-danger.active:focus {
   text-align: center;
   min-height: 15vh;
 }
+.category h2 {
+    color: white;
+}
 .post_edit {
   position: absolute;
   bottom: -50px;
@@ -7133,10 +7136,6 @@ hr {
   from{
     opacity: 0;
     transform: translate3d(-50%, -100%, 0);
-  }
-  20, 80%{
-    opacity: 1;
-    transform: translate3d(-50%,0,0);
   }
   to{
     opacity: 0;
