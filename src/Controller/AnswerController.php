@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\AnswerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Entity\Answer;
 
@@ -11,14 +13,9 @@ class AnswerController extends Controller
     /**
      * @Route("/answer", name="answer")
      */
-    public function listAnswerAction()
+    public function listAnswerAction(AnswerRepository $answerRepository): Response
     {
-        $answers = $this->getDoctrine()->getManager()->getRepository(Answer::class)->findAll();
-
-        return $this->render('answer/index.html.twig',
-          array(
-            'answers' => $answers
-        ));
+        return $this->render('answer/index.html.twig', ['answers' => $answerRepository->findAll()]);
     }
 
     /**
