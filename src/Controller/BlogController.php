@@ -2,18 +2,16 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\BlogRepository;
 use App\Form\BlogType;
 use App\Form\CommentType;
 use App\Entity\Blog;
-use App\Entity\User;
 use App\Entity\Comment;
 use App\Entity\Category;
 
@@ -24,18 +22,9 @@ class BlogController extends Controller
   /**
   * @Route("/blog", name="blog")
   **/
-  public function showListBlog()
+  public function showListBlog(BlogRepository $blogRepository): Response
   {
-    $posts = $this->getDoctrine()
-      ->getRepository(Blog::class)
-      ->findAll();
-      
-    //Another way to deny access in controller
-    //$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
-
-    return $this->render('blog/index.html.twig', array(
-      'posts' => $posts
-    ));
+    return $this->render('blog/index.html.twig', ['posts' => $blogRepository->findAll()]);
   }
 
   /**
