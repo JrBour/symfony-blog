@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\ForumRepository;
 use App\Form\ForumType;
 use App\Entity\Forum;
 use App\Entity\User;
@@ -19,15 +20,9 @@ class ForumController extends Controller
     /**
      * @Route("/forum", name="forum")
      */
-    public function indexForumAction()
+    public function indexForumAction(ForumRepository $forumRepository)
     {
-      $topics = $this->getDoctrine()
-        ->getRepository(Forum::class)
-        ->findAll();
-        return $this->render('forum/index.html.twig',
-        array(
-            'forums' => $topics,
-        ));
+        return $this->render('forum/index.html.twig', ['forums' => $forumRepository]);
     }
 
     /**
