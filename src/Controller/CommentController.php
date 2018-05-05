@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use App\Repository\CommentsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,15 +15,9 @@ class CommentController extends Controller
     /**
      * @Route("/comment", name="comment")
      */
-    public function index()
+    public function index(CommentsRepository $commentsRepository): Response
     {
-      $comments = $this->getDoctrine()
-                        ->getManager()
-                        ->getRepository(Comment::class)
-                        ->findAll();
-      return $this->render('Comment/index.html.twig', array(
-        'comments' => $comments
-      ));
+      return $this->render('Comment/index.html.twig',['comments' => $commentsRepository->findAll() ]);
     }
 
     /**
