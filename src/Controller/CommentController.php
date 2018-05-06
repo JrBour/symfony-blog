@@ -23,18 +23,16 @@ class CommentController extends Controller
     /**
     * @Route("/comment/remove/{id}", name="comment_remove")
     **/
-    public function commentRemoveAction(Request $request, int $id)
+    public function commentRemoveAction(Request $request)
     {
       if($request->isXmlHttpRequest()){
         $data = $request->request->all();
         $em = $this->getDoctrine()->getManager();
         $comment = $em->getRepository(Comment::class)->find($data['id']);
-
-
         $em->remove($comment);
         $em->flush();
-
         $data['success'] = "Le commentaire a bien était supprimé !";
+
         return new JsonResponse($data, 200);
       }
     }
@@ -48,7 +46,6 @@ class CommentController extends Controller
         $data = $request->request->all();
         $em = $this->getDoctrine()->getManager();
         $comment = $em->getRepository(Comment::class)->find($data['id']);
-
         $comment->setContent($data['content']);
         $em->flush();
         

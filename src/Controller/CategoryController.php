@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\CategoryRepository;
+use App\Repository\BlogRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\CategoryType;
 use App\Entity\Category;
@@ -17,34 +18,21 @@ class CategoryController extends Controller
     /**
      * @Route("/category", name="category")
      */
-    public function showCategory()
+    public function showCategory(CategoryRepository $categoryRepository)
     {
-      $categories = $this->getDoctrine()
-        ->getRepository(Category::class)
-        ->findAll();
 
-        return $this->render('category/index.html.twig', array(
-          'categories' => $categories
-        ));
+        return $this->render('category/index.html.twig',['categories' => $categoryRepository->findAll()]);
     }
 
     /**
     * @Route("/category/post/{id}", name="category_post")
     **/
-    public function showPostByCategory(int $id)
+    public function showPostByCategory(int $id , CategoryRepository $categoryRepository, BlogRepository $blogRepository)
     {
-      $category = $this->getDoctrine()
-        ->getRepository(Category::class)
-        ->find($id);
-
-      $posts = $this->getDoctrine()
-        ->getRepository(Blog::class)
-        ->findByCategory($id);
-
-        return $this->render('category/post_category.html.twig', array(
-            'posts' => $posts,
-            'category' => $category
-        ));
+        return $this->render('category/post_category.html.twig',[
+            'posts' => $blogRepository->findByCategory($id),
+            'category' => $categoryRepository->find($id)
+        ]);
     }
 
     /**
@@ -79,18 +67,16 @@ class CategoryController extends Controller
 
         return $this->redirectToRoute('category');
       }
-      return $this->render('category/add.html.twig', array(
-          'form' => $form->createView()
-      ));
+      return $this->render('category/add.html.twig', ['form' => $form->createView()]);
     }
 
     /**
     * @Route("/category/edit/{id}", name="edit_category")
     **/
-    public function editCategory(Request $request, int $id)
+    public function editCategory(Request $request, int $id, CategoryRepository $categoryRepository)
     {
       $em = $this->getDoctrine()->getManager();
-      $category = $em->getRepository(Category::class)->find($id);
+      $category = $categoryRepository->find($id);
 
       $form = $this->createForm(CategoryType::class, $category);
       $form->handleRequest($request);
