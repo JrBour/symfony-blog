@@ -172,40 +172,11 @@ class ForumController extends Controller
 
         return new JsonResponse($response, 200);
       }
-      // if($form->isSubmitted() && $form->isValid()){
-      //   $answer = $form->getData();
-      //   var_dump($answer);
-      //   $user = $this->getUser();
-      //   $dateNow = new DateTime(date('Y-m-d H:i:s'));
-
-      //   $file = $answer->getPicture();
-      //   if($file){
-      //     $filename = md5(uniqid()) . '.' . $file->guessExtension();
-      //     $file->move(
-      //       $this->getParameter('images'),
-      //       $filename
-      //     );
-      //     $picture = "/images/posts/" . $filename;
-      //     $answer->setPicture($picture);
-      //   }
-
-      //   $answer->setContent($answer->getContent());
-      //   $answer->setCreatedAt($dateNow);
-      //   $answer->setAuthor($user);
-      //   $answer->setForum($forum);
-
-      //   $em->persist($answer);
-      //   $em->flush();
-
-      //   return $this->redirectToRoute('forum_show', array('id' => $forum->getId()));
-      // }
-
-
       return $this->render('forum/show.html.twig',
-        array(
+        [
           'forum' => $forum,
           'answers' => $answerByForum,
           'form' => $form->createView()
-      ));
+      ]);
     }
 }
