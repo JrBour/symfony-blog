@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Role;
 use App\Form\UserType;
-use App\Controlle\DefaultController;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,11 +25,9 @@ class RegistrationController extends Controller
     /**
      * @Route("/user/show", name="user_show")
      */
-    public function registerShowAction()
+    public function registerShowAction(UserRepository $userRepository)
     {
-      $users = $this->getDoctrine()
-        ->getRepository(User::class)
-        ->findAll();
+      $users = $userRepository->findAll();
 
         if (!$users) {
           throw  $this->createNotFoundException('
