@@ -64,86 +64,148 @@ class Blog
     **/
     private $comment;
 
+    /**
+     * Blog constructor.
+     */
     public function __construct()
     {
       $this->comment = new ArrayCollection();
     }
 
+    /**
+     * Get the blog id
+     * @return mixed
+     */
     public function getId()
     {
       return $this->id;
     }
 
+    /**
+     * Set the blog id
+     * @param int $id
+     * @return $this
+     */
     public function setId(int $id)
     {
       $this->id = $id;
       return $this;
     }
 
+    /**
+     * Get the blog title
+     * @return mixed
+     */
     public function getTitle()
     {
       return $this->title;
     }
 
+    /**
+     * Set the blog title
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title)
     {
       $this->title = $title;
       return $this;
     }
 
+    /**
+     * get the blog description
+     * @return mixed
+     */
     public function getDescription()
     {
       return $this->description;
     }
 
+    /**
+     * Set the blog description
+     * @param string $description
+     * @return $this
+     */
     public function setDescription(string $description)
     {
       $this->description = $description;
       return $this;
     }
 
+    /**
+     * Get the date where the blog was created
+     * @return mixed
+     */
     public function getDate()
     {
       return $this->date;
     }
 
-    public function setDate($date)
+    /** Set the data where the blog was created
+     * @param $date
+     * @return $this
+     */
+    public function setDate($date): self
     {
       $this->date = $date;
       return $this;
     }
 
+    /**
+     * Get the blog picture
+     * @return mixed
+     */
     public function getImage()
     {
       return $this->image;
     }
 
-    public function setImage($image)
+    /**
+     * Set the blog picture
+     * @param $image
+     */
+    public function setImage(string $image)
     {
       $this->image = $image;
     }
 
+    /** Get the blog category
+     * @return mixed
+     */
     public function getCategory()
     {
       return $this->category;
     }
 
+    /**
+     * Set the blog category
+     * @param \App\Entity\Category $category
+     */
     public function setCategory(Category $category)
     {
       $this->category = $category;
     }
 
+    /**
+     * Get the blog author
+     * @return mixed
+     */
     public function getAuthor()
     {
       return $this->author;
     }
 
+    /**
+     * Set the blog author
+     * @param \App\Entity\User $author
+     */
     public function setAuthor(User $author)
     {
       $this->author = $author;
     }
 
     /**
+     * Get the blog comment in an array
     * @return Collection|Comment[]
     **/
     public function getComment()
