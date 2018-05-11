@@ -79,14 +79,11 @@ class Forum
     /**
     * Set the forum's id
     *
-    * @var Int | $id | Id to add
-    *
-    * @return Object | $this | Return the object
+    * @param Int | $id | Id to add
     **/
     public function setId(int $id)
     {
       $this->id = $id;
-      return $this;
     }
 
     /**
@@ -102,9 +99,7 @@ class Forum
     /**
     * Set the title
     *
-    * @var String
-    *
-    * @return String
+    * @param string     $title      Title to add
     **/
     public function setTitle(string $title)
     {
@@ -115,7 +110,7 @@ class Forum
     /**
     * Get the content
     *
-    * @return String
+    * @return string
     **/
     public function getContent()
     {
@@ -194,14 +189,13 @@ class Forum
     /**
     * Set the date where the questions was created
     *
-    * @var Datetime
+    * @param Datetime       $createdAt      The datetime where the content have been create
     *
     * @return Datetime
     **/
     public function setCreatedAt(DateTime $createdAt)
     {
       $this->created_at = $createdAt;
-      return $this;
     }
 
     /**
@@ -217,14 +211,11 @@ class Forum
     /**
     * Set the update date
     *
-    * @var Datetime
-    *
-    * @return Datetime
+    * @param Datetime   $updatedAt  The datime where the content have been update
     **/
     public function setUpdatedAt(DateTime $updatedAt)
     {
       $this->updated_at = $updatedAt;
-      return $this;
     }
 
     /**
