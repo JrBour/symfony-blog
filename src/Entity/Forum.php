@@ -7,7 +7,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\Collection;
-use App\Entity\Forum;
 use App\Entity\User;
 use \DateTime;
 
@@ -156,7 +155,7 @@ class Forum
     /**
     * Return the author of the post
     *
-    * @return User | User | Object's user
+    * @return User  Object's user
     **/
     public function getAuthor()
     {
