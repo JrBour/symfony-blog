@@ -18,7 +18,7 @@ class CategoryController extends Controller
     /**
      * @Route("/category", name="category")
      */
-    public function showCategory(CategoryRepository $categoryRepository)
+    public function index(CategoryRepository $categoryRepository)
     {
 
         return $this->render('category/index.html.twig',['categories' => $categoryRepository->findAll()]);

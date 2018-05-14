@@ -4,7 +4,9 @@
     <h2>Category</h2>
     <ul>
         {% for category in categories %}
-
+            <a href="{{ path('category_post', {'id' : category.id}) }}">
+                <li>{{ category.name }}</li>
+            </a>
         {% else %}
             <p>Pas de catégorie présente</p>
         {% endfor %}
