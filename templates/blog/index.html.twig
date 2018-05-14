@@ -2,15 +2,17 @@
 {% block body %}
     <h1>Blog</h1>
     <h2>Category</h2>
-    <ul>
-        {% for category in categories %}
-            <a href="{{ path('category_post', {'id' : category.id}) }}">
-                <li>{{ category.name }}</li>
-            </a>
-        {% else %}
-            <p>Pas de catégorie présente</p>
-        {% endfor %}
-    </ul>
+    <div id="category">
+        <ul>
+            {% for category in categories %}
+                <a href="{{ path('category_post', {'id' : category.id}) }}">
+                    <li>{{ category.name }}</li>
+                </a>
+            {% else %}
+                <p>Pas de catégorie présente</p>
+            {% endfor %}
+        </ul>
+    </div>
     <ul class="articles">
         {% for post in posts %}
             <a href="{{ path('show_id', { 'id' : post.id } ) }}">
@@ -37,4 +39,11 @@
     {% if app.user %}
         <a href="{{ path('blog_add') }}"><button type="button" name="button" class="btn btn-primary">Ajouter</button></a>
     {% endif %}
+{% endblock %}
+{% block javascripts %}
+    <script>
+        let cat = document.getElementById('category');
+        cat.style.maxHeight = 0;
+        cat.style.overflow = "hidden";
+    </script>
 {% endblock %}
