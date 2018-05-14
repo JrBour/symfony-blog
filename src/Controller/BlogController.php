@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\BlogRepository;
+use App\Repository\CategoryRepository;
 use App\Form\BlogType;
 use App\Form\CommentType;
 use App\Entity\Blog;
@@ -22,30 +23,27 @@ class BlogController extends Controller
   /**
   * @Route("/blog", name="blog")
   **/
-  public function showListBlog(BlogRepository $blogRepository): Response
+  public function index(BlogRepository $blog, CategoryRepository $category): Response
   {
-    return $this->render('blog/index.html.twig', ['posts' => $blogRepository->findAll()]);
+    return $this->render('blog/index.html.twig', ['posts' => $blog->findAll(), 'categories' => $category->findAll()]);
   }
 
   /**
   * @Route("/blog/add", name="blog_add")
   **/
-  public function addPost(Request $request)
+  public function add(Request $request)
   {
     $em = $this->getDoctrine()->getManager();
     $categories = $this->getDoctrine()
         ->getRepository(Category::class)
         ->findAll();
-
     $post = new Blog();
-
     $form = $this->createForm(BlogType::class, $post, array( 'choices' => $categories));
     $form->handleRequest($request); // Permet de manipuler la requête
 
     if ($form->isSubmitted() && $form->isValid()) {
       $post = $form->getData();
       $user = $this->getUser();
-
       $file = $post->getImage();
       $fileName = md5(uniqid()) . '.' . $file->guessExtension();
       $file->move(
@@ -53,8 +51,6 @@ class BlogController extends Controller
         $fileName
       );
       $name = "/images/posts/" . $fileName;
-
-
       $post->setImage($name);
       $post->setTitle($post->getTitle());
       $post->setDescription($post->getDescription());
