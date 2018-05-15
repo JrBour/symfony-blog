@@ -3,7 +3,7 @@
     <h1>Blog</h1>
     <h2>Category</h2>
     <button id="toggle" class="btn btn-success" onclick="toggleCat()">Click</button>
-    <div id="category">
+    <div id="category" class="cat__hide">
         <ul>
             {% for category in categories %}
                 <a href="{{ path('category_post', {'id' : category.id}) }}">
@@ -44,14 +44,8 @@
 {% block javascripts %}
     <script>
         let cat = document.getElementById('category');
-        cat.style.maxHeight = 0;
-        cat.style.overflow = "hidden";
         function toggleCat() {
-            if (cat.style.maxHeight == '0px') {
-                cat.style.minHeight = '120px';
-            } else {
-                cat.style.minHeight = 0;
-            }
+            cat.classList.toggle('cat__hide');
         }
 
     </script>

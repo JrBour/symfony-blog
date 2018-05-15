@@ -7145,6 +7145,14 @@ hr {
   display: flex;
   flex-direction: column;
 }
+#category{
+    overflow: hidden;
+}
+
+.cat__hide{
+    min-height: 0;
+    height: 0;
+}
 
 @keyframes fadeInDown{
   from{
