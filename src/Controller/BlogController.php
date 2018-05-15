@@ -31,7 +31,7 @@ class BlogController extends Controller
     /**
      * @Route("/blog/add", name="blog_post")
      **/
-    public function post(Request $request)
+    public function post(Request $request): Response
     {
         $em = $this->getDoctrine()->getManager();
         $categories = $this->getDoctrine()
@@ -73,7 +73,7 @@ class BlogController extends Controller
     /**
      * @Route("/blog/{id}", name="blog_show")
      **/
-    public function show(Request $request, int $id)
+    public function show(Request $request, int $id): Response
     {
         $em = $this->getDoctrine()->getManager();
         $blog = $this->getDoctrine()
@@ -115,7 +115,7 @@ class BlogController extends Controller
     /**
      * @Route("/blog/edit/{id}", name="blog_edit")
      **/
-    public function edit(Request $request, int $id)
+    public function edit(Request $request, int $id): Response
     {
         $em = $this->getDoctrine()->getManager();
         $currentBlog = $this->getDoctrine()
@@ -160,7 +160,7 @@ class BlogController extends Controller
     /**
      * @Route("/blog/delete/{id}", name="blog_remove")
      **/
-    public function removePost(int $id)
+    public function removePost(int $id): Response
     {
         $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository(Blog::class)->find($id);

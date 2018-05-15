@@ -13,7 +13,7 @@ class AnswerController extends Controller
     /**
      * @Route("/answer", name="answer")
      */
-    public function listAnswerAction(AnswerRepository $answerRepository): Response
+    public function index(AnswerRepository $answerRepository): Response
     {
         return $this->render('answer/index.html.twig', ['answers' => $answerRepository->findAll()]);
     }
@@ -21,7 +21,7 @@ class AnswerController extends Controller
     /**
     * @Route("/answer/delete/{id}/{idForum}", name="answer_remove")
     */
-    public function removeAnswerAction(int $id, int $idForum)
+    public function removeAnswerAction(int $id, int $idForum): Response
     {
       $em = $this->getDoctrine()->getManager();
       $answer = $em->getRepository(Answer::class)->find($id);
