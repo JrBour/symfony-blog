@@ -3,7 +3,7 @@
     <h1>{{ category.name }}</h1>
     <ul class="articles">
         {% for post in posts %}
-            <a href="{{ path('post_show', { 'id' : post.id } ) }}">
+            <a href="{{ path('blog_show', { 'id' : post.id } ) }}">
                 <li class="post">
                     <div style="background:url('{{ asset(post.image) }}'); height: 200px; width: 100%; background-position: center; background-size: cover"></div>
                     <div class="text_post">
@@ -16,8 +16,8 @@
                         <h4>by <a href="{{ path('profil_user', {'id' : post.author.id}) }}"><em>{{ post.author.username }}</em></a></h4>
                         {% if app.user and is_granted('ROLE_ADMIN') %}
                             <hr>
-                            <a href="{{ path('post_edit', { 'id' : post.id}) }}">Editer</a>
-                            <a href="{{ path('post_remove', { 'id' : post.id }) }}">Supprimer</a>
+                            <a href="{{ path('blog_edit', { 'id' : post.id}) }}">Editer</a>
+                            <a href="{{ path('blog_remove', { 'id' : post.id }) }}">Supprimer</a>
                         {% endif %}
                     </div>
                 </li>
