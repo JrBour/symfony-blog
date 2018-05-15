@@ -10,8 +10,6 @@ use App\Repository\BlogRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\CategoryType;
 use App\Entity\Category;
-use App\Entity\Blog;
-use App\Entity\User;
 
 class CategoryController extends Controller
 {
