@@ -25,7 +25,7 @@ class CategoryController extends Controller
     }
 
     /**
-    * @Route("/category/post/{id}", name="category_post")
+    * @Route("/category/post/{id}", name="category_show_post")
     **/
     public function showPostByCategory(int $id , CategoryRepository $categoryRepository, BlogRepository $blogRepository)
     {
@@ -36,9 +36,9 @@ class CategoryController extends Controller
     }
 
     /**
-    * @Route("/category/add", name="add_category")
+    * @Route("/category/add", name="category_post")
     **/
-    public function addCategory(Request $request)
+    public function post(Request $request)
     {
       $em = $this->getDoctrine()->getManager();
       $category = new Category();
@@ -71,9 +71,9 @@ class CategoryController extends Controller
     }
 
     /**
-    * @Route("/category/edit/{id}", name="edit_category")
+    * @Route("/category/edit/{id}", name="category_edit")
     **/
-    public function editCategory(Request $request, int $id, CategoryRepository $categoryRepository)
+    public function edit(Request $request, int $id, CategoryRepository $categoryRepository)
     {
       $em = $this->getDoctrine()->getManager();
       $category = $categoryRepository->find($id);
@@ -105,9 +105,9 @@ class CategoryController extends Controller
     }
 
     /**
-    * @Route("/category/remove/{id}", name="remove_category")
+    * @Route("/category/remove/{id}", name="category_remove")
     **/
-    public function removeCategory(int $id)
+    public function delete(int $id)
     {
       $em = $this->getDoctrine()->getManager();
       $category = $em->getRepository(Category::class)->find($id);
