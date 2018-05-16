@@ -2,25 +2,23 @@
 
 namespace App\Controller;
 
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Translation\TranslatorInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\Serializer;
 use App\Entity\User;
 use App\Entity\Category;
 use App\Entity\Blog;
 
 class DefaultController extends Controller
 {
-  /**
-  * @Route("/", name="home")
-  **/
-  public function home(Request $request, TranslatorInterface $translator)
+    /**
+     * Render the homepage view with the three last articles and categories create
+     * @param TranslatorInterface   $translator   Translate word in english/french
+     * @return Response     The response send a view in twig
+     * @Route("/", name="home")
+     */
+  public function home(TranslatorInterface $translator): Response
   {
     $posts = $this->getDoctrine()
         ->getRepository(Blog::class)
@@ -28,29 +26,24 @@ class DefaultController extends Controller
     $categories = $this->getDoctrine()
         ->getRepository(Category::class)
         ->findByThreeLast();
-
     $test = $translator->trans('Symfony est incroyable');
-
     $user = $this->getUser();
-    if($user){
-      $serial = $user->serialize();
-    }else {
-      $serial = 'Not connect';
-    }
+    $serial =  ($user) ? $user->serialize() : 'Not connect';
 
-
-    return $this->render('home.html.twig', array(
+    return $this->render('home.html.twig', [
       'posts' => $posts,
       'categories' => $categories,
       'test' => $test,
       'serial' => $serial
-    ));
+    ]);
   }
 
-  /**
-  * @Route("/profil", name="profil")
-  */
-  public function profile()
+    /**
+     * Render the view with the profil of the current user
+     * @return Response     The response send a view in twig
+     * @Route("/profil", name="profil")
+     */
+  public function profil()
   {
     $user = $this->getUser();
     $id = $user->getId();
@@ -61,23 +54,18 @@ class DefaultController extends Controller
               ->getRepository(Category::class)
               ->findByAuthor($id);
 
-    return $this->render('login/profile.html.twig', array(
+    return $this->render('login/profile.html.twig', [
       'posts' => $posts,
       'categories' => $categories
-    ));
+    ]);
   }
 
-  /**
-  * @Route("/admin")
-  */
-  public function admin()
-  {
-     return new Response('<html><body>Admin page!</body></html>');
-  }
-
-  /**
-  * @Route("/profil/{id}", name="profil_user")
-  */
+    /**
+     * Display the profil of an user
+     * @param  int     $id     The user id
+     * @return Response       The response send a view in twig
+     * @Route("/profil/{id}", name="profil_user")
+     */
   public function profileUserAction(int $id)
   {
     $user = $this->getDoctrine()
@@ -90,15 +78,12 @@ class DefaultController extends Controller
             ->getRepository(Category::class)
             ->findByAuthor($id);
 
-    return $this->render('login/profile_user.html.twig', array(
+    return $this->render('login/profile_user.html.twig', [
         'user' => $user,
         'posts' => $posts,
         'categories' => $categories
-    ));
+    ]);
   }
-
 }
-
-
 
  ?>
