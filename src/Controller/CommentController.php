@@ -24,6 +24,31 @@ class CommentController extends Controller
     }
 
     /**
+     * Edit a comment by ajax request
+     * @param Request       $request        The request send by the view
+     * @param int           $id             The comment id
+     * @return JsonResponse        A json response is send to the view with the status code
+     * @Route("/comment/edit/{id}", name="comment_edit")
+     */
+    public function edit(Request $request, int $id)
+    {
+        if($request->isXmlHttpRequest()){
+            $data = $request->request->all();
+            $em = $this->getDoctrine()->getManager();
+            $comment = $em->getRepository(Comment::class)->find($data['id']);
+            if (is_null($comment)) {
+                $data['error'] = "The id comment does not exist";
+
+                return new JsonResponse($data, 404);
+            }
+            $comment->setContent($data['content']);
+            $em->flush();
+
+            return new JsonResponse($data, 200);
+        }
+    }
+
+    /**
      * Remove a comment by ajax request
      * @param Request       $request        The request send by an ajax request
      * @return JsonResponse     Send a JSON response to the view
@@ -43,31 +68,6 @@ class CommentController extends Controller
             $em->remove($comment);
             $em->flush();
             $data['success'] = "Le commentaire a bien était supprimé !";
-
-            return new JsonResponse($data, 200);
-        }
-    }
-
-    /**
-     * Edit a comment by ajax request
-     * @param Request       $request        The request send by the view
-     * @param int           $id             The comment id
-     * @return JsonResponse        A json response is send to the view with the status code
-     * @Route("/comment/edit/{id}", name="comment_edit")
-     */
-    public function commentEditAction(Request $request, int $id)
-    {
-        if($request->isXmlHttpRequest()){
-            $data = $request->request->all();
-            $em = $this->getDoctrine()->getManager();
-            $comment = $em->getRepository(Comment::class)->find($data['id']);
-            if (is_null($comment)) {
-                $data['error'] = "The id comment does not exist";
-
-                return new JsonResponse($data, 404);
-            }
-            $comment->setContent($data['content']);
-            $em->flush();
 
             return new JsonResponse($data, 200);
         }
