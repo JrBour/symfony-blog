@@ -7,47 +7,44 @@ use App\Entity\Role;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends Controller
 {
     /**
+     * Return the view page to log in
+     * @return Response     Return a view page in twig
      * @Route("/login", name="login")
      */
-    public function loginAction(): Response
+    public function login(): Response
     {
         return $this->render('login/login.html.twig');
     }
 
     /**
+     * Display whole register user on the site
+     * @param UserRepository        $userRepository     The repository of user
+     * @return Response     Return a view page in twig with the all users
      * @Route("/user/show", name="user_show")
      */
-    public function registerShowAction(UserRepository $userRepository)
+    public function allUserRegister(UserRepository $userRepository)
     {
-        $users = $userRepository->findAll();
-
-        if (!$users) {
-            throw  $this->createNotFoundException('
-            Vous n\'avez actuellement aucun utilisateur de créer, veuillez en créez un pour commencer.
-          ');
-        }
-
-        return $this->render('login/show_user.html.twig', array(
-            'users' => $users
-        ));
+        return $this->render('login/show_user.html.twig', ['users' => $userRepository]);
     }
 
     /**
-     * @Route("/user/remove/{id}", name="remove_user")
+     * Remove an user of the database
+     * @param int       $id         The user id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse       Redirect to the route where whole users are displays
+     * @Route("/user/remove/{id}", name="user_remove")
      */
-    public function registerDeleteAction(Request $request, int $id)
+    public function removeUser(int $id)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(User::class)->find($id);
-
         $em->remove($user);
         $em->flush();
 
@@ -55,6 +52,10 @@ class RegistrationController extends Controller
     }
 
     /**
+     * Register a new user with the role user and set a picture profil a picture is send by the form
+     * @param Request                           $request         Request sent by the form
+     * @param UserPasswordEncoderInterface      $passwordEncoder Encode the plain password
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response Redirect after the validation the form or return a view twig page
      * @Route("/register", name="user_registration")
      */
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
@@ -94,16 +95,20 @@ class RegistrationController extends Controller
 
             return $this->redirectToRoute('user_show');
         }
-        return $this->render('login/register.html.twig',
-            array(
-                'form' => $form->createView()
-            )
-        );
+
+        return $this->render('login/register.html.twig', ['form' => $form->createView()]);
     }
+
     /**
+     * Edit an user by changing his password, picture profil, name…
+     * @param Request                       $request            The request sent by the form
+     * @param UserPasswordEncoderInterface  $passwordEncoder    Encode the plain password
+     * @param int                           $id                 The user id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response Redirect to another page after the validation of the form
+     * or return a view in twig with the form
      * @Route("/user/{id}", name="user_edit")
-     **/
-    public function editUserAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, int $id)
+     */
+    public function editUser(Request $request, UserPasswordEncoderInterface $passwordEncoder, int $id)
     {
         $em = $this->getDoctrine()->getManager();
         $roles = $em->getRepository(Role::class)->findAll();
@@ -146,6 +151,7 @@ class RegistrationController extends Controller
 
     /**
      * Allow to logout the current user
+     * @return void
      * @Route("/logout", name="logout")
      */
     public function logoutAction(): void
