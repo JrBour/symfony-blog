@@ -19,10 +19,10 @@ class RegistrationController extends Controller
      * @return Response     Return a view page in twig
      * @Route("/login", name="login")
      */
-    public function login(): Response
+    /**public function login(): response
     {
         return $this->render('login/login.html.twig');
-    }
+    }*/
 
     /**
      * Display whole register user on the site
