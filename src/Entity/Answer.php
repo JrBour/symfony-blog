@@ -14,6 +14,7 @@ use \DateTime;
 class Answer
 {
     /**
+     * The answer id
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -21,36 +22,42 @@ class Answer
     private $id;
 
     /**
+     * The answer content
     * @ORM\Column(type="string")
     * @Assert\NotBlank()
     */
     private $content;
 
     /**
+     * The answer picture path
     * @ORM\Column(type="string", nullable=true)
     * @Assert\File(mimeTypes={ "image/jpeg","image/png" })
     **/
     private $picture;
 
     /**
+     * The datetime when the answer have been create
     * @ORM\Column(type="datetime")
     * @Assert\DateTime()
     */
     private $created_at;
 
     /**
+     * The datetime when the answer have been updated
     * @ORM\Column(type="datetime", nullable=true)
     * @Assert\DateTime()
     */
     private $updated_at;
 
     /**
+    * The answer author
     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="answer")
     * @ORM\JoinColumn(nullable=true)
     */
     private $author;
 
     /**
+     * The forum bin with the answer
     * @ORM\ManyToOne(targetEntity="App\Entity\Forum", inversedBy="answer")
     * @ORM\JoinColumn(nullable=true)
     */
@@ -61,7 +68,7 @@ class Answer
     *
     * @return Int $id The answer id
     */
-    public function getId()
+    public function getId(): ?Int
     {
         return $this->id;
     }
@@ -73,7 +80,7 @@ class Answer
     *
     * @return self
     */
-    public function setId(int $id): int
+    public function setId(int $id): ?Int
     {
       $this->id = $id;
       return $this;
@@ -84,7 +91,7 @@ class Answer
     *
     * @return String $content The answer content
     */
-    public function getContent()
+    public function getContent(): ?String
     {
       return $this->content;
     }
@@ -96,7 +103,7 @@ class Answer
     *
     * @return self
     */
-    public function setContent(string $content)
+    public function setContent(string $content): self
     {
       $this->content = $content;
       return $this;
@@ -107,7 +114,7 @@ class Answer
     *
     * @return String $picture The answer picture
     */
-    public function getPicture()
+    public function getPicture(): ?String
     {
       return $this->picture;
     }
@@ -119,7 +126,7 @@ class Answer
     *
     * @return self
     */
-    public function setPicture($picture)
+    public function setPicture(string $picture): ?String
     {
       $this->picture = $picture;
       return $this;
@@ -130,7 +137,7 @@ class Answer
     *
     * @return Datetime $created_at The create date
     */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTime
     {
       return $this->created_at;
     }
@@ -142,7 +149,7 @@ class Answer
     *
     * @return self
     */
-    public function setCreatedAt(Datetime $date): DateTime
+    public function setCreatedAt(Datetime $date): \DateTime
     {
       $this->created_at = $date;
       return $this->created_at;
@@ -153,7 +160,7 @@ class Answer
     *
     * @return DateTime $updated_at The update date
     */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): ?\DateTime
     {
       return $this->updated_at;
     }
@@ -165,7 +172,7 @@ class Answer
     *
     * @return self
     */
-    public function setUpdatedAt(DateTime $date)
+    public function setUpdatedAt(DateTime $date): self
     {
       $this->updated_at = $date;
       return $this;
@@ -174,7 +181,7 @@ class Answer
     /**
     * Get the answer author
     *
-    * @return Object $author The answer author
+    * @return Object The answer author
     */
     public function getAuthor()
     {
