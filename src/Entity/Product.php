@@ -18,6 +18,7 @@ class Product
     private $id;
 
     /**
+     * Product name
      * @ORM\Column(type="string", length = 100)
      */
     private $name;
