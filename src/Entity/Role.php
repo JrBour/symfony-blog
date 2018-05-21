@@ -44,6 +44,7 @@ class Role
     }
 
     /**
+     * Get the role id
      * @return int
      */
     public function getId()
@@ -52,6 +53,7 @@ class Role
     }
 
     /**
+     * Set the role id
      * @param int $id
      */
     public function setId(int $id)
@@ -60,6 +62,7 @@ class Role
     }
 
     /**
+     * Get the role name
      * @return string
      */
     public function getName()
@@ -68,6 +71,7 @@ class Role
     }
 
     /**
+     * Set the role name
      * @param string $name
      * @return string
      */
@@ -78,6 +82,7 @@ class Role
     }
 
     /**
+     * Get the user object
      * @return Collection|User[]
      */
     public function getUser()
