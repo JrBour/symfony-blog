@@ -23,12 +23,15 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class User implements UserInterface, \Serializable
 {
     /**
+     * User id
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
     /**
+     * User email
     * @ORM\Column(type="string", length=255, unique=true)
     * @Assert\NotBlank()
     * @Assert\Email()
@@ -36,49 +39,57 @@ class User implements UserInterface, \Serializable
     private $email;
 
     /**
+     * User username
     * @ORM\Column(type="string", length=255, unique=true)
     * @Assert\NotBlank()
     */
     private $username;
 
     /**
+     * User plain password
     * @Assert\Length(max=4096)
     */
     private $plainPassword;
 
     /**
+     * User password
     * @ORM\Column(type="string", length=64)
     */
     private $password;
 
     /**
+     *User image
     * @ORM\Column(type="string")
-    *
     * @Assert\File(mimeTypes={ "image/jpeg" })
-    **/
+    */
     private $image;
 
     /**
+     * User blog
     * @ORM\OneToMany(targetEntity="App\Entity\Blog", mappedBy="user")
     **/
     private $blog;
 
     /**
+     * User category
     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="user")
     **/
     private $category;
 
     /**
+     * User author
     * @ORM\OneToMany(targetEntity="App\Entity\Forum", mappedBy="user")
     **/
     private $author;
 
     /**
+     * User comment
     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="user")
     **/
     private $comment;
 
     /**
+     * User role
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="user")
      * @ORM\JoinColumn(nullable=true)
      */
