@@ -103,12 +103,19 @@ class User implements UserInterface, \Serializable
       $this->author = new ArrayCollection();
     }
 
-    public function getId()
+    /**
+     * @return mixed
+     */
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId()
+    /**
+     * @param int   $id         The user id
+     * @return void
+     */
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
@@ -124,7 +131,7 @@ class User implements UserInterface, \Serializable
     /**
     * Set email of user
     */
-    public function setEmail($email)
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
