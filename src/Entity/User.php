@@ -157,22 +157,39 @@ class User implements UserInterface, \Serializable
       $this->username = $username;
     }
 
+    /**
+     * Get the password without encodage
+     * @return mixed
+     */
     public function getPlainPassword()
     {
       return $this->plainPassword;
     }
 
-    public function setPlainPassword($plainPassword)
+    /**
+     * Set the plain password
+     * @param string $plainPassword
+     * @return void
+     */
+    public function setPlainPassword(string $plainPassword): void
     {
       $this->plainPassword = $plainPassword;
     }
 
-    public function getPassword()
+    /**
+     * Get the password encode
+     * @return string
+     */
+    public function getPassword(): ?string
     {
       return $this->password;
     }
 
-    public function setPassword($password)
+    /**
+     * Set the password encode
+     * @param string $password
+     */
+    public function setPassword(string $password): void
     {
       $this->password = $password;
     }
