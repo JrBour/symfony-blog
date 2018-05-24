@@ -194,26 +194,44 @@ class User implements UserInterface, \Serializable
       $this->password = $password;
     }
 
-    public function getSalt()
+    /**
+     *
+     * @return null|string
+     */
+    public function getSalt(): null
     {
       return null;
     }
 
-    public function getRoles()
+    /**
+     * Get the user role (admin or user)
+     * @return array
+     */
+    public function getRoles(): array
     {
       return array($this->role->getName());
     }
 
+    /**
+     * @return mixed
+     */
     public function getRole()
     {
       return $this->role;
     }
 
+    /**
+     * Edit the role user
+     * @param \App\Entity\Role $role
+     */
     public function setRole(Role $role)
     {
       $this->role = $role;
     }
 
+    /**
+     * Remove sensitive informations on the user
+     */
     public function eraseCredentials()
     {
     }
@@ -228,7 +246,11 @@ class User implements UserInterface, \Serializable
       return $this->image;
     }
 
-    public function serialize()
+    /**
+     * Serialize the information
+     * @return string
+     */
+    public function serialize(): string
     {
       return serialize(array(
         $this->id,
@@ -237,7 +259,12 @@ class User implements UserInterface, \Serializable
       ));
     }
 
-    public function unserialize($serialized)
+    /**
+     * Unserialized a string
+     * @param string $serialized
+     * @return void
+     */
+    public function unserialize($serialized): void
     {
       list(
         $this->id,
@@ -269,6 +296,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * Get all the comment os the user
     * @return Collection|Comment[]
     **/
     public function getComment()
@@ -301,5 +329,4 @@ class User implements UserInterface, \Serializable
     {
       return $this->category;
     }
-
 }
