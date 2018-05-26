@@ -8,12 +8,21 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class BlogRepository extends ServiceEntityRepository
 {
+    /**
+     * The blog repository constructor
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Blog::class);
     }
 
 
+    /**
+     * Find blog by category
+     * @param   int     $id         The category id
+     * @return mixed
+     */
     public function findByCategory(int $id)
     {
         return $this->createQueryBuilder('b')
@@ -23,6 +32,9 @@ class BlogRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /** Find the three last articles
+     * @return mixed
+     */
     public function findByThreeLast()
     {
       return $this->createQueryBuilder('b')
