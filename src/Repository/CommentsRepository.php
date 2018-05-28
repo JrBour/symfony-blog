@@ -8,6 +8,10 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class CommentsRepository extends ServiceEntityRepository
 {
+    /**
+     * CommentsRepository constructor.
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Comment::class);
@@ -15,10 +19,8 @@ class CommentsRepository extends ServiceEntityRepository
 
     /**
     * Return comments by post
-    *
-    * @var Int | Id of the post
-    *
-    * @return Object
+    * @params Int       The post id
+    * @return mixed
     **/
     public function findByPost(int $id)
     {
@@ -30,6 +32,7 @@ class CommentsRepository extends ServiceEntityRepository
         if ($row) {
           return $row;
         }
+
         return false;
     }
 }
