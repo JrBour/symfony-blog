@@ -195,7 +195,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     *
+     * Get the key for encode the password
      * @return null|string
      */
     public function getSalt()
@@ -213,6 +213,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * Get the role user
      * @return mixed
      */
     public function getRole()

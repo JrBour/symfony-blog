@@ -32,7 +32,8 @@ class BlogRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    /** Find the three last articles
+    /**
+     * Find the three last articles
      * @return mixed
      */
     public function findByThreeLast()
