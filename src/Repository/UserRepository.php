@@ -18,6 +18,7 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
+     * Find user by category
      * @param int $id
      * @return mixed
      */
