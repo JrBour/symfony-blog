@@ -19,8 +19,8 @@ class CommentsRepository extends ServiceEntityRepository
 
     /**
     * Return comments by post
-    * @params Int       The post id
-    * @return mixed
+    * @params Int   $id    The post id
+    * @return bool|array
     **/
     public function findByPost(int $id)
     {
