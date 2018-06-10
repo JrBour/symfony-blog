@@ -8,21 +8,12 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class RoleRepository extends ServiceEntityRepository
 {
+    /**
+     * RoleRepository constructor.
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Role::class);
     }
-
-    /*
-    public function findBySomething($value)
-    {
-        return $this->createQueryBuilder('r')
-            ->where('r.something = :value')->setParameter('value', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 }
