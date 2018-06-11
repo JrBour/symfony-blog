@@ -18,47 +18,40 @@ class DefaultController extends Controller
      * @return Response     The response send a view in twig
      * @Route("/", name="home")
      */
-  public function home(TranslatorInterface $translator): Response
-  {
-    $posts = $this->getDoctrine()
-        ->getRepository(Blog::class)
-        ->findByThreeLast();
-    $categories = $this->getDoctrine()
-        ->getRepository(Category::class)
-        ->findByThreeLast();
-    $test = $translator->trans('Symfony est incroyable');
-    $user = $this->getUser();
-    $serial =  ($user) ? $user->serialize() : 'Not connect';
+    public function home(TranslatorInterface $translator): Response
+    {
+        $posts = $this->getDoctrine()->getRepository(Blog::class)->findByThreeLast();
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findByThreeLast();
 
-    return $this->render('home.html.twig', [
-      'posts' => $posts,
-      'categories' => $categories,
-      'test' => $test,
-      'serial' => $serial
-    ]);
-  }
+        $test = $translator->trans('Symfony est incroyable');
+        $user = $this->getUser();
+        $serial =  ($user) ? $user->serialize() : 'Not connect';
+
+        return $this->render('home.html.twig', [
+            'posts' => $posts,
+            'categories' => $categories,
+            'test' => $test,
+            'serial' => $serial
+        ]);
+    }
 
     /**
      * Render the view with the profil of the current user
      * @return Response     The response send a view in twig
      * @Route("/profil", name="profil")
      */
-  public function profil()
-  {
-    $user = $this->getUser();
-    $id = $user->getId();
-    $posts = $this->getDoctrine()
-              ->getRepository(Blog::class)
-              ->findByAuthor($id);
-    $categories = $this->getDoctrine()
-              ->getRepository(Category::class)
-              ->findByAuthor($id);
+    public function profil()
+    {
+        $user = $this->getUser();
+        $id = $user->getId();
+        $posts = $this->getDoctrine()->getRepository(Blog::class)->findByAuthor($id);
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findByAuthor($id);
 
-    return $this->render('login/profile.html.twig', [
-      'posts' => $posts,
-      'categories' => $categories
-    ]);
-  }
+        return $this->render('login/profile.html.twig', [
+            'posts' => $posts,
+            'categories' => $categories
+        ]);
+    }
 
     /**
      * Display the profil of an user
@@ -66,24 +59,24 @@ class DefaultController extends Controller
      * @return Response       The response send a view in twig
      * @Route("/profil/{id}", name="profil_user")
      */
-  public function profileUserAction(int $id)
-  {
-    $user = $this->getDoctrine()
-          ->getRepository(User::class)
-          ->find($id);
-    $posts = $this->getDoctrine()
+    public function profileUserAction(int $id)
+    {
+        $user = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->find($id);
+        $posts = $this->getDoctrine()
             ->getRepository(Blog::class)
             ->findByAuthor($id);
-    $categories = $this->getDoctrine()
+        $categories = $this->getDoctrine()
             ->getRepository(Category::class)
             ->findByAuthor($id);
 
-    return $this->render('login/profile_user.html.twig', [
-        'user' => $user,
-        'posts' => $posts,
-        'categories' => $categories
-    ]);
-  }
+        return $this->render('login/profile_user.html.twig', [
+            'user' => $user,
+            'posts' => $posts,
+            'categories' => $categories
+        ]);
+    }
 }
 
- ?>
+?>

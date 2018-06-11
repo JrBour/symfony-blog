@@ -15,16 +15,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class RegistrationController extends Controller
 {
     /**
-     * Return the view page to log in
-     * @return Response     Return a view page in twig
-     * @Route("/login", name="login")
-     */
-    /**public function login(): response
-    {
-        return $this->render('login/login.html.twig');
-    }*/
-
-    /**
      * Display whole register user on the site
      * @param UserRepository        $userRepository     The repository of user
      * @return Response     Return a view page in twig with the all users
