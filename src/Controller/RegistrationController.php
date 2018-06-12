@@ -59,8 +59,8 @@ class RegistrationController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
-
             $file = $user->getImage();
+
             if($file) {
                 $fileName = md5(uniqid()) . '.' . $file->guessExtension();
                 $file->move(
@@ -72,18 +72,20 @@ class RegistrationController extends Controller
             } else {
                 $user->setImage($user->getImage());
             }
-            if($user->getPassword()) {
+
+            if($user->getPlainPassword()) {
                 $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                 $user->setPassword($password);
             } else {
                 $user->setPassword($user->getPassword());
             }
-            $user->setRole($user->getRole());
 
+            $user->setRole($user->getRole());
             $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('user_show');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('login/register.html.twig', ['form' => $form->createView()]);

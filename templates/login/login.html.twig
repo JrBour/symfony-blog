@@ -1,9 +1,6 @@
 {% extends 'base.html.twig' %}
+{% block title %}Login{% endblock %}
 {% block body %}
-
-  {% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-  {% endif %}
   <form action="{{ path('login') }}" method="post">
     <div class="form-group">
       <label for="username">Identifiant</label>
@@ -16,9 +13,9 @@
     </div>
 
     <input type="checkbox" id="remember_me" name="_remember_me" checked />
-   <label for="remember_me">Keep me logged in</label>
+    <label for="remember_me">Keep me logged in</label>
 
-     <input type="hidden" name="_target_path" value="/"/>
+    <input type="hidden" name="_target_path" value="/"/>
 
     <button class="btn btn-primary" type="submit">Se connecter</button>
   </form>

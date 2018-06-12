@@ -189,7 +189,7 @@ class User implements UserInterface, \Serializable
      * Set the password encode
      * @param string $password
      */
-    public function setPassword(string $password): void
+    public function setPassword($password)
     {
       $this->password = $password;
     }
