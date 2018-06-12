@@ -23,7 +23,11 @@ class DefaultController extends Controller
         $posts = $this->getDoctrine()->getRepository(Blog::class)->findByThreeLast();
         $categories = $this->getDoctrine()->getRepository(Category::class)->findByThreeLast();
 
+        $translator->setLocale('en');
+        $keyword = $translator->trans('test.symfony');
         $test = $translator->trans('Symfony est incroyable');
+        $welcome = $translator->trans('Bienvenue %name%', ['%name%' => '<3']);
+
         $user = $this->getUser();
         $serial =  ($user) ? $user->serialize() : 'Not connect';
 
@@ -31,6 +35,8 @@ class DefaultController extends Controller
             'posts' => $posts,
             'categories' => $categories,
             'test' => $test,
+            'welcome' => $welcome,
+            'keyword' => $keyword,
             'serial' => $serial
         ]);
     }
