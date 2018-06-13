@@ -31,7 +31,7 @@
     {{ form_end(form) }}
 
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('contact_index') }}"><button type="button" class="btn btn-info">Voir tous les messages</button></a>
+        <a href="{{ path('contact_index') }}"><button type="button" class="btn btn-info">{% trans %}contact.see_messages{% endtrans %}</button></a>
     {% endif %}
 {% endblock %}
 

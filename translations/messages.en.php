@@ -6,7 +6,11 @@ return array(
         'symfony' => 'C\'est bien le symfony !'
     ],
     'contact' => [
-        'title' => 'Contact english'
+        'title' => 'Contact english',
+        'firstname' => 'Firstname',
+        'lastname' => 'Lastname',
+        'submit' => 'Send',
+        'see_messages' => 'See all messages',
     ]
 )
 
