@@ -24,8 +24,6 @@ class DefaultController extends Controller
         $categories = $this->getDoctrine()->getRepository(Category::class)->findByThreeLast();
 
         $translator->setLocale('en');
-        $keyword = $translator->trans('test.symfony');
-        $test = $translator->trans('Symfony est incroyable');
         $welcome = $translator->trans('Bienvenue %name%', ['%name%' => '<3']);
 
         $user = $this->getUser();
@@ -34,9 +32,7 @@ class DefaultController extends Controller
         return $this->render('home.html.twig', [
             'posts' => $posts,
             'categories' => $categories,
-            'test' => $test,
             'welcome' => $welcome,
-            'keyword' => $keyword,
             'serial' => $serial
         ]);
     }

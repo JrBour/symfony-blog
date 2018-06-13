@@ -68,7 +68,7 @@ class ContactController extends Controller
      * Remove a message by ajax request
      * @param Request       $request        The request send by the view
      * @return JsonResponse     Return a json reponse for success and fail
-     * @Route("/contact/delete/{id}", name="remove_contact")
+     * @Route("/contact/delete/{id}", name="contact_remove")
      */
     public function remove(Request $request)
     {

@@ -4,6 +4,9 @@ return array(
     'Bienvenue %name%' => 'Welcome %name%',
     'test' => [
         'symfony' => 'C\'est bien le symfony !'
+    ],
+    'contact' => [
+        'title' => 'Contact english'
     ]
 )
 

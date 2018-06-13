@@ -6,9 +6,8 @@
     <h1>Bienvenue sur l'accueil</h1>
     <h2>Derniers articles publiés</h2>
     {% if posts %}
-        {{test}}
-        {{ welcome }}
-        {{ keyword }}
+        {% trans %}test.symfony{% endtrans %}
+        {% trans %}Symfony est incroyable{% endtrans %}
         <ul class="articles">
             {% for post in posts %}
                 <a href="{{ path('blog_show', { 'id' : post.id } ) }}">

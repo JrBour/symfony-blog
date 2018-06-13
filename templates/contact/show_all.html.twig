@@ -1,30 +1,33 @@
 {% extends 'base.html.twig' %}
+{% block title %}Contact{% endblock %}
 {% block body %}
   <p class="success"></p>
   <ul>
-    {% for contact in contacts %}
-      <div class="message" data-id="{{contact.id}}">
-        <a href="{{ path('show_contact', {id: contact.id}) }}"><li style="display: inline-block">{{ contact.firstname }}</li></a>
-        <a href="{{ path('remove_contact', {id: contact.id}) }}"><button type="button" class="btn btn-danger" data-id="{{contact.id}}">X</button></a>
-      </div>
-    {% endfor %}
+      {% for contact in contacts %}
+        <div class="message" data-id="{{contact.id}}">
+          <a href="{{ path('contact_show', {id: contact.id}) }}"><li style="display: inline-block">{{ contact.firstname }}</li></a>
+          <a href="{{ path('contact_remove', {id: contact.id}) }}"><button type="button" class="btn btn-danger" data-id="{{contact.id}}">X</button></a>
+        </div>
+      {% endfor %}
   </ul>
 {% endblock %}
-{% block javascripts %}
-<script type="text/javascript">
-  $('.btn-danger').on('click', function(e){
-    e.preventDefault();
-    let dataContact = {};
-    dataContact['id'] = $(this).attr('data-id');
-    $(this).closest('div').remove();
-    $.ajax({
-      method : "POST",
-      url : "/contact/remove/" + dataContact['id'],
-      data: dataContact
-    }).done(function(response) {
-      $('.success').text(response['success']);
-    });
-  })
 
-</script>
+{% block javascripts %}
+  <script type="text/javascript">
+
+      $('.btn-danger').on('click', function(e){
+          e.preventDefault();
+          let dataContact = {};
+          dataContact['id'] = $(this).attr('data-id');
+          $(this).closest('div').remove();
+          $.ajax({
+              method : "POST",
+              url : "/contact/remove/" + dataContact['id'],
+              data: dataContact
+          }).done(function(response) {
+              $('.success').text(response['success']);
+          });
+      })
+
+  </script>
 {% endblock %}

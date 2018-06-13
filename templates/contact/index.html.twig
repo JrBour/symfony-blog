@@ -1,65 +1,63 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-  <h2>Contact</h2>
-  <div class="success">
-      <p></p>
-  </div>
+    <h2>{% trans %}contact.title{% endtrans %}</h2>
+    <div class="success">
+        <p></p>
+    </div>
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_row(form.firstname, { 'attr': {
+            'class' : 'form-control'
+        }}) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form.lastname, { 'attr' : {
+            'class' : 'form-control'
+        }}) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form.mail, { 'attr' : {
+            'class' : 'form-control'
+        }}) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form.message, { 'attr' : {
+            'class' : 'form-control'
+        }}) }}
+    </div>
+    {{ form_row(form.submit, { 'attr' : {
+        'class' : 'btn btn-primary'
+    }}) }}
+    {{ form_end(form) }}
 
-  {{ form_start(form) }}
-  <div class="form-group">
-    {{ form_row(form.firstname, { 'attr': {
-        'class' : 'form-control'
-    }}) }}
-  </div>
-  <div class="form-group">
-    {{ form_row(form.lastname, { 'attr' : {
-        'class' : 'form-control'
-    }}) }}
-  </div>
-  <div class="form-group">
-    {{ form_row(form.mail, { 'attr' : {
-        'class' : 'form-control'
-    }}) }}
-  </div>
-  <div class="form-group">
-    {{ form_row(form.message, { 'attr' : {
-        'class' : 'form-control'
-    }}) }}
-  </div>
-
-
-  {{ form_row(form.submit, { 'attr' : {
-      'class' : 'btn btn-primary'
-  }}) }}
-  {{ form_end(form) }}
-  {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('show_all_contact') }}"><button type="button" class="btn btn-info">Voir tous les messages</button></a>
-  {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('contact_index') }}"><button type="button" class="btn btn-info">Voir tous les messages</button></a>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
-  <script type="text/javascript">
-  $(document).ready(function() {
-    $('#summernote').summernote();
-  });
-
-    $('form[name="contact"]').on('submit', function(e){
-      e.preventDefault();
-      let dataContact = {};
-      dataContact['firstname'] = $('#contact_firstname').val();
-      dataContact['lastname'] = $('#contact_lastname').val();
-      dataContact['mail'] = $('#contact_mail').val();
-      dataContact['message'] = $('#contact_message').val();
-
-      $.ajax({
-          method: "POST",
-          url: "/contact",
-          data: dataContact
-        }).done(function(response) {
-          $('.success p').text(response['output']);
-          $('#contact_firstname, #contact_lastname, #contact_mail, #contact_message').val('');
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#summernote').summernote();
         });
-    });
 
-  </script>
+        $('form[name="contact"]').on('submit', e => {
+            e.preventDefault();
+            let dataContact = {};
+            dataContact['firstname'] = $('#contact_firstname').val();
+            dataContact['lastname'] = $('#contact_lastname').val();
+            dataContact['mail'] = $('#contact_mail').val();
+            dataContact['message'] = $('#contact_message').val();
+
+            $.ajax({
+                method: "POST",
+                url: "/contact",
+                data: dataContact
+            }).done(response => {
+                $('.success p').text(response['output']);
+                $('#contact_firstname, #contact_lastname, #contact_mail, #contact_message').val('');
+            });
+        });
+
+    </script>
 {% endblock %}
