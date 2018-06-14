@@ -3,6 +3,19 @@ return array(
     'test' => [
         'symfony' => 'C\'est bien le symfony !'
     ],
+    'form' => [
+        'firstname' => 'Prénom',
+        'lastname' => 'Nom',
+        'username' => 'Pseudo',
+        'password' => 'Mot de passe',
+        'confirm_password' => 'Confirmer le mot de passe',
+        'profil_picture' => 'Image de profil',
+        'save' => 'Enregistrer'
+    ],
+    'register' => [
+        'already_account' => 'Déjà un compte ?',
+        'login' => 'Connectez-vous'
+    ],
     'contact' => [
         'title' => 'Contact french',
         'firstname' => 'Prénom',
