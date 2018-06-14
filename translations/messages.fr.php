@@ -26,6 +26,18 @@ return array(
         'lastname' => 'Nom',
         'submit' => 'Envoyer',
         'see_messages' => 'Voir tous les messages'
+    ],
+    'crud' => [
+        'add' => 'Ajouter',
+        'edit' => 'Editer',
+        'delete' => 'Supprimer',
+        'show' => 'Voir'
+    ],
+    'menu' => [
+        'home' => 'Accueil',
+        'register' => 'S\'inscrire',
+        'signin' => 'Se connecter',
+        'signout' => 'Déconnexion'
     ]
 )
 

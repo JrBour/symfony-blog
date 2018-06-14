@@ -27,13 +27,13 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-              <li ><a href="{{ path('home') }}">Accueil </a></li>
+              <li ><a href="{{ path('home') }}">{% trans %}menu.home{% endtrans %}</a></li>
               <li><a href="{{ path('blog') }}">Blog</a></li>
               <li><a href="{{ path('forum') }}">Forum</a></li>
               <li><a href="{{ path('contact') }}">Contact</a></li>
               {% if app.user.id is not defined %}
-                <li ><a href="{{ path('user_registration') }}">Inscription</a></li>
-                <li ><a href="{{ path('login') }}">Connexion</a></li>
+                <li ><a href="{{ path('user_registration') }}">{% trans %}menu.register{% endtrans %}</a></li>
+                <li ><a href="{{ path('login') }}">{% trans %}menu.signin{% endtrans %}</a></li>
               {% else %}
                 <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#">

@@ -26,6 +26,12 @@ return array(
         'submit' => 'Send',
         'see_messages' => 'See all messages',
     ],
+    'crud' => [
+        'add' => 'Add',
+        'edit' => 'Edite',
+        'delete' => 'Remove',
+        'show' => 'See'
+    ],
     'menu' => [
         'home' => 'Home',
         'register' => 'Sign up',
