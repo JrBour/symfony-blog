@@ -40,9 +40,9 @@
                     <img src="{{ app.user.image }}" alt="" class="profil_picture">
                   <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="{{ path('user_edit', {'id' : app.user.id}) }}">Editer</a></li>
+                    <li><a href="{{ path('user_edit', {'id' : app.user.id}) }}">{% trans %}crud.edit{% endtrans %}</a></li>
                     <li><a href="{{ path('profil') }}">Profil</a></li>
-                    <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+                    <li><a href="{{ path('logout') }}">{% trans %}menu.signout{% endtrans %}</a></li>
                   </ul>
                 </li>
               {% endif %}

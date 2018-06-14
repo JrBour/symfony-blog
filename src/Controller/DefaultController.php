@@ -22,10 +22,7 @@ class DefaultController extends Controller
     {
         $posts = $this->getDoctrine()->getRepository(Blog::class)->findByThreeLast();
         $categories = $this->getDoctrine()->getRepository(Category::class)->findByThreeLast();
-
-        $translator->setLocale('en');
         $welcome = $translator->trans('Bienvenue %name%', ['%name%' => '<3']);
-
         $user = $this->getUser();
         $serial =  ($user) ? $user->serialize() : 'Not connect';
 
