@@ -17,56 +17,66 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserType extends AbstractType
 {
-  public function buildForm(FormBuilderInterface $builder, array $options)
-  {
-    $builder
-      ->add('email', EmailType::class)
-      ->add('username', TextType::class)
-      ->add('image', FileType::class, array(
-        'label' => 'Image de fond de la catégorie',
-        'required' => false,
-        'data_class' => null
-      ))
-      ->add('role', ChoiceType::class, array(
-        'label' => 'Role',
-        'choices' => $options['choices'],
-        'choice_label' => function($value) {
-            return $value->getName();
-          }
-      ))
-      ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) use ($options) {
+    /**
+     * Build the form for register a new user
+     * @param FormBuilderInterface  $builder
+     * @param array                 $options
+     * @return void
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('email', EmailType::class)
+            ->add('username', TextType::class, ['label' => 'form.username'])
+            ->add('image', FileType::class, array(
+                'label' => 'form.profil_picture',
+                'required' => false,
+                'data_class' => null
+            ))
+            ->add('role', ChoiceType::class, array(
+                'label' => 'Role',
+                'choices' => $options['choices'],
+                'choice_label' => function($value) {
+                    return $value->getName();
+                }
+            ))
+            ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
                 $form = $event->getForm();
                 if (!empty($form->getData()) && !empty($form->getData()->getUsername())) {
                     $form->add(
                         'plainPassword',
-                        RepeatedType::class,
-                        array(
-                             'type' => PasswordType::class,
-                             'required' => false,
-                             'first_options' => array('label' => 'Mot de passe'),
-                             'second_options' => array('label' => 'Mot de passe'),
-                            )
+                        RepeatedType::class, [
+                            'type' => PasswordType::class,
+                            'required' => false,
+                            'first_options' => ['label' => 'form.password'],
+                            'second_options' => ['label' => 'form.confirm_password'],
+                        ]
                     );
                 } else {
                     $form->add(
                         'plainPassword',
                         RepeatedType::class,
                         array(
-                             'type' => PasswordType::class,
-                             'first_options' => array('label' => 'Mot de passe'),
-                             'second_options' => array('label' => 'Mot de passe'),
+                            'type' => PasswordType::class,
+                            'first_options' => ['label' => 'form.password'],
+                            'second_options' => ['label' => 'form.confirm_password'],
                         )
                     );
                 }
             })
-            ->add('save', SubmitType::class);
-  }
+            ->add('save', SubmitType::class, ['label' => 'form.save']);
+    }
 
-  public function configureOptions(OptionsResolver $resolver)
-  {
-    $resolver->setDefaults(array(
-        'data_class' => User::class,
-        'choices' => array()
-    ));
-  }
+    /**
+     * Configure the form build for register a new user
+     * @param OptionsResolver       $resolver
+     * @return void
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => User::class,
+            'choices' => []
+        ));
+    }
 }

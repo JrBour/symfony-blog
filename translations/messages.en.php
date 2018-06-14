@@ -17,10 +17,19 @@ return array(
         'already_account' => 'Already have an account',
         'login' => 'Login'
     ],
+    'signin' => [
+        'keep_me_logged' => 'Keep me logged in',
+        'sign_in' => 'Sign in'
+    ],
     'contact' => [
         'title' => 'Contact english',
         'submit' => 'Send',
         'see_messages' => 'See all messages',
+    ],
+    'menu' => [
+        'home' => 'Home',
+        'register' => 'Sign up',
+        'signin' => 'Sign in'
     ]
 )
 

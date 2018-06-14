@@ -16,6 +16,10 @@ return array(
         'already_account' => 'Déjà un compte ?',
         'login' => 'Connectez-vous'
     ],
+    'signin' => [
+        'keep_me_logged' => 'Garder ma session ouverte',
+        'sign_in' => 'Se connecter'
+    ],
     'contact' => [
         'title' => 'Contact french',
         'firstname' => 'Prénom',

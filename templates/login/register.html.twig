@@ -36,5 +36,5 @@
     }}) }}
   {{ form_end(form) }}
 
-  <p>Déjà un compte ?<a href="{{ path('login')}}"> Connectez-vous !</a></p>
+  <p>{% trans %}register.already_account{% endtrans %}<a href="{{ path('login')}}">{% trans %}register.login{% endtrans %}</a></p>
 {% endblock %}
