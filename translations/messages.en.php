@@ -8,6 +8,7 @@ return array(
     'form' => [
         'comment'       => 'Your comment',
         'category'      => 'Choose your category',
+        'content'       => 'Content',
         'firstname'     => 'Firstname',
         'lastname'      => 'Lastname',
         'password'      => 'Password',
@@ -15,7 +16,8 @@ return array(
         'picture'       => 'Picture',
         'confirm_password' => 'Confirm the password',
         'profil_picture' => 'Profil picture',
-        'save'          => 'Save'
+        'save'          => 'Save',
+        'subject'       => 'Subject'
     ],
     'register' => [
         'already_account'   => 'Already have an account',

@@ -16,8 +16,8 @@ class ForumType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, ['label' => 'Sujet'])
-            ->add('content', TextareaType::class, ['label' => 'Description'])
+            ->add('title', TextType::class, ['label' => 'form.subject'])
+            ->add('content', TextareaType::class, ['label' => 'form.content'])
             ->add('picture', FileType::class, [
                 'label' => 'form.picture',
                 'data_class' => null,

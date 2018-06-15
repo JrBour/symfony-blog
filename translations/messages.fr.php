@@ -6,6 +6,7 @@ return array(
     'form' => [
         'comment'   => 'Votre commentaire',
         'category'  => 'Choisissez votre catégorie',
+        'content'   => 'Contenu',
         'firstname' => 'Prénom',
         'lastname'  => 'Nom',
         'name'      => 'Nom',
@@ -15,7 +16,8 @@ return array(
         'password'  => 'Mot de passe',
         'confirm_password'  => 'Confirmer le mot de passe',
         'profil_picture'    => 'Image de profil',
-        'save'      => 'Enregistrer'
+        'save'      => 'Enregistrer',
+        'subject'   => 'Sujet'
     ],
     'register' => [
         'already_account'   => 'Déjà un compte ?',
