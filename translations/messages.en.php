@@ -9,6 +9,7 @@ return array(
         'firstname' => 'Firstname',
         'lastname' => 'Lastname',
         'password' => 'Password',
+        'title' => 'Title',
         'confirm_password' => 'Confirm the password',
         'profil_picture' => 'Profil picture',
         'save' => 'Save'

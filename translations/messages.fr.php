@@ -7,6 +7,7 @@ return array(
         'firstname' => 'Prénom',
         'lastname' => 'Nom',
         'username' => 'Pseudo',
+        'title' => 'Titre',
         'password' => 'Mot de passe',
         'confirm_password' => 'Confirmer le mot de passe',
         'profil_picture' => 'Image de profil',
