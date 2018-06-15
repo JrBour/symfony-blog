@@ -4,10 +4,13 @@ return array(
         'symfony' => 'C\'est bien le symfony !'
     ],
     'form' => [
+        'category' => 'Choisissez votre catégorie',
         'firstname' => 'Prénom',
         'lastname' => 'Nom',
+        'name' => 'Nom',
         'username' => 'Pseudo',
         'title' => 'Titre',
+        'picture' => 'Image',
         'password' => 'Mot de passe',
         'confirm_password' => 'Confirmer le mot de passe',
         'profil_picture' => 'Image de profil',

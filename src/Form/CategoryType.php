@@ -14,12 +14,12 @@ class CategoryType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
       $builder
-          ->add('name', TextType::class, array('label' => "Nom de la catégorie"))
+          ->add('name', TextType::class, ['label' => 'form.name'])
           ->add('image', FileType::class, array(
-            'label' => 'Image de fond de la catégorie',
+            'label' => 'form.picture',
             'data_class' => null
           ))
-          ->add('save', SubmitType::class, array('label' => 'Enregistrer'));
+          ->add('save', SubmitType::class, ['label' => 'form.save']);
   }
 
   public function configureOptions(OptionsResolver $resolver)

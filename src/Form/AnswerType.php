@@ -16,13 +16,13 @@ class AnswerType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
-      ->add('content', TextareaType::class)
-      ->add('picture', FileType::class, array(
-        'label' => 'Insérer une image',
+      ->add('content', TextareaType::class, ['label' => 'form.picture'])
+      ->add('picture', FileType::class, [
+        'label' => 'form.picture',
         'data_class' => null,
         'required' => false
-      ))
-      ->add('submit', SubmitType::class);
+      ])
+      ->add('submit', SubmitType::class, ['label' => 'form.save']);
   }
 
   public function configureOptions(OptionsResolver $resolver)

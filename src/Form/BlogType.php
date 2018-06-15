@@ -19,21 +19,21 @@ class BlogType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
       $builder
-          ->add('title', TextType::class, array('label' => 'Titre'))
-          ->add('description', TextareaType::class, array('label' => 'Contenu'))
+          ->add('title', TextType::class, ['label' => 'form.title'])
+          ->add('description', TextareaType::class, array('label' => 'Description'))
           ->add('image', FileType::class, array(
-            'label' => 'Insérez image de présentation',
+            'label' => 'form.picture',
              'data_class' => null,
              'required' => false
           ))
           ->add('category', ChoiceType::class, array(
-            'label' => 'Choisissez votre catégorie',
+            'label' => 'form.category',
             'choices' => $options['choices'],
             'choice_label' => function($value) {
                 return $value->getName();
               }
           ))
-          ->add('Enregistrer', SubmitType::class);
+          ->add('Enregistrer', SubmitType::class, ['label' => 'form.save']);
   }
 
   public function configureOptions(OptionsResolver $resolver)

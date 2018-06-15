@@ -6,10 +6,12 @@ return array(
         'symfony' => 'C\'est bien le symfony !'
     ],
     'form' => [
+        'category' => 'Choose your category',
         'firstname' => 'Firstname',
         'lastname' => 'Lastname',
         'password' => 'Password',
         'title' => 'Title',
+        'picture' => 'Picture',
         'confirm_password' => 'Confirm the password',
         'profil_picture' => 'Profil picture',
         'save' => 'Save'
