@@ -41,7 +41,8 @@ return array(
     'menu' => [
         'home'      => 'Home',
         'register'  => 'Sign up',
-        'signin'    => 'Sign in'
+        'signin'    => 'Sign in',
+        'signout'   => 'Sign out'
     ]
 )
 
