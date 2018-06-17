@@ -1,5 +1,6 @@
 <?php
 return array(
+    'Bienvenue %name%' => 'Bienvenu %name%',
     'test' => [
         'symfony' => 'C\'est bien le symfony !'
     ],

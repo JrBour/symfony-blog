@@ -3,7 +3,7 @@ return array(
     'Symfony est incroyable' => 'Symfony is great',
     'Bienvenue %name%' => 'Welcome %name%',
     'test' => [
-        'symfony' => 'C\'est bien le symfony !'
+        'symfony' => 'C\'est bien le symfony !',
     ],
     'form' => [
         'comment'       => 'Your comment',
