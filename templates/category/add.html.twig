@@ -1,18 +1,19 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
-  {{form_start(form)}}
+    {{form_start(form)}}
     <div class="form-group">
-      {{form_row(form.name, {'attr' : {
-        'class' : 'form-control'
-      }})}}
+        {{form_row(form.name, {'attr' : {
+            'class' : 'form-control'
+        }})}}
     </div>
     <div class="form-group">
-      {{form_row(form.image, {'attr' : {
-        'class' : 'form-control'
-      }})}}
+        {{form_row(form.image, {'attr' : {
+            'class' : 'form-control'
+        }})}}
     </div>
     {{form_row(form.save, {'attr' : {
-      'class' : 'btn btn-primary'
+        'class' : 'btn btn-primary'
     }})}}
-  {{form_end(form)}}
+    {{form_end(form)}}
 {% endblock %}

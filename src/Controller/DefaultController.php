@@ -24,14 +24,12 @@ class DefaultController extends Controller
     {
         $posts = $this->getDoctrine()->getRepository(Blog::class)->findByThreeLast();
         $categories = $this->getDoctrine()->getRepository(Category::class)->findByThreeLast();
-        $welcome = $translator->trans('Bienvenue %name%', ['%name%' => '<3']);
         $user = $this->getUser();
         $serial =  ($user) ? $user->serialize() : 'Not connect';
 
         return $this->render('home.html.twig', [
             'posts' => $posts,
             'categories' => $categories,
-            'welcome' => $welcome,
             'serial' => $serial
         ]);
     }
@@ -79,15 +77,9 @@ class DefaultController extends Controller
      */
     public function profileUserAction(int $id)
     {
-        $user = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->find($id);
-        $posts = $this->getDoctrine()
-            ->getRepository(Blog::class)
-            ->findByAuthor($id);
-        $categories = $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findByAuthor($id);
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $posts = $this->getDoctrine()->getRepository(Blog::class)->findByAuthor($id);
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findByAuthor($id);
 
         return $this->render('login/profile_user.html.twig', [
             'user' => $user,

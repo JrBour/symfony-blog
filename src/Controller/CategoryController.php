@@ -22,8 +22,8 @@ class CategoryController extends Controller
     }
 
     /**
-    * @Route("/category/post/{id}", name="category_show_post")
-    **/
+     * @Route("/category/post/{id}", name="category_show_post")
+     **/
     public function showPostByCategory(int $id , CategoryRepository $categoryRepository, BlogRepository $blogRepository): Response
     {
         return $this->render('category/post_category.html.twig',[
@@ -33,82 +33,82 @@ class CategoryController extends Controller
     }
 
     /**
-    * @Route("/category/add", name="category_post")
-    **/
+     * @Route("/category/add", name="category_post")
+     **/
     public function post(Request $request): Response
     {
-      $em = $this->getDoctrine()->getManager();
-      $category = new Category();
-      $form = $this->createForm(CategoryType::class, $category);
-      $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
 
-      if ($form->isSubmitted() && $form->isValid()) {
-        $category = $form->getData();
-        $file = $category->getImage();
-        $user = $this->getUser();
-        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-        $file->move(
-          $this->getParameter('images'),
-          $fileName
-        );
-        $name = "/images/posts/" . $fileName;
-        $category->setImage($name);
-        $category->setName($category->getName());
-        $category->setAuthor($user);
-        $em->persist($category);
-        $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $category = $form->getData();
+            $file = $category->getImage();
+            $user = $this->getUser();
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move(
+                $this->getParameter('images'),
+                $fileName
+            );
+            $name = "/images/posts/" . $fileName;
+            $category->setImage($name);
+            $category->setName($category->getName());
+            $category->setAuthor($user);
+            $em->persist($category);
+            $em->flush();
 
-        return $this->redirectToRoute('category');
-      }
+            return $this->redirectToRoute('category');
+        }
 
-      return $this->render('category/add.html.twig', ['form' => $form->createView()]);
+        return $this->render('category/add.html.twig', ['form' => $form->createView()]);
     }
 
     /**
-    * @Route("/category/edit/{id}", name="category_edit")
-    **/
+     * @Route("/category/edit/{id}", name="category_edit")
+     **/
     public function edit(Request $request, int $id, CategoryRepository $categoryRepository): Response
     {
-      $em = $this->getDoctrine()->getManager();
-      $category = $categoryRepository->find($id);
-      $form = $this->createForm(CategoryType::class, $category);
-      $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $category = $categoryRepository->find($id);
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
 
-      if ($form->isSubmitted() && $form->isValid()) {
-        $category = $form->getData();
-        $file = $category->getImage();
-        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-        $file->move(
-          $this->getParameter('images'),
-          $fileName
-        );
-        $name = "/images/posts/" . $fileName;
-        $category->setImage($name);
-        $category->setName($category->getName());
-        $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $category = $form->getData();
+            $file = $category->getImage();
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move(
+                $this->getParameter('images'),
+                $fileName
+            );
+            $name = "/images/posts/" . $fileName;
+            $category->setImage($name);
+            $category->setName($category->getName());
+            $em->flush();
 
-        return $this->redirectToRoute('category');
-      }
+            return $this->redirectToRoute('category');
+        }
 
-      return $this->render('category/add.html.twig', ['form' => $form->createView()]);
+        return $this->render('category/add.html.twig', ['form' => $form->createView()]);
     }
 
     /**
-    * @Route("/category/remove/{id}", name="category_remove")
-    **/
+     * @Route("/category/remove/{id}", name="category_remove")
+     **/
     public function delete(int $id): Response
     {
-      $em = $this->getDoctrine()->getManager();
-      $category = $em->getRepository(Category::class)->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository(Category::class)->find($id);
 
-      if (!$category) {
-        throw $this->createNotFoundException(
-          'Pas de catégorie correspondant à l\'id n° : ' . $id
-        );
-      }
-      $em->remove($category);
-      $em->flush();
+        if (!$category) {
+            throw $this->createNotFoundException(
+                'Pas de catégorie correspondant à l\'id n° : ' . $id
+            );
+        }
+        $em->remove($category);
+        $em->flush();
 
-      return $this->redirectToRoute('category');
+        return $this->redirectToRoute('category');
     }
 }

@@ -35,16 +35,16 @@ class Blog
     private $description;
 
     /**
-    * @ORM\Column(type="datetime")
-    **/
+     * @ORM\Column(type="datetime")
+     **/
     private $date;
 
     /**
-    * @ORM\Column(type="string")
-    *
-    * @Assert\NotBlank(message="Please, upload a new image")
-    * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
-    **/
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload a new image")
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png"})
+     **/
     private $image;
 
     /**
@@ -60,8 +60,8 @@ class Blog
     private $author;
 
     /**
-    * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="blog")
-    **/
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="blog")
+     **/
     private $comment;
 
     /**
@@ -69,7 +69,7 @@ class Blog
      */
     public function __construct()
     {
-      $this->comment = new ArrayCollection();
+        $this->comment = new ArrayCollection();
     }
 
     /**
@@ -78,7 +78,7 @@ class Blog
      */
     public function getId()
     {
-      return $this->id;
+        return $this->id;
     }
 
     /**
@@ -88,8 +88,8 @@ class Blog
      */
     public function setId(int $id)
     {
-      $this->id = $id;
-      return $this;
+        $this->id = $id;
+        return $this;
     }
 
     /**
@@ -98,7 +98,7 @@ class Blog
      */
     public function getTitle()
     {
-      return $this->title;
+        return $this->title;
     }
 
     /**
@@ -108,8 +108,8 @@ class Blog
      */
     public function setTitle(string $title)
     {
-      $this->title = $title;
-      return $this;
+        $this->title = $title;
+        return $this;
     }
 
     /**
@@ -118,7 +118,7 @@ class Blog
      */
     public function getDescription()
     {
-      return $this->description;
+        return $this->description;
     }
 
     /**
@@ -128,8 +128,8 @@ class Blog
      */
     public function setDescription(string $description)
     {
-      $this->description = $description;
-      return $this;
+        $this->description = $description;
+        return $this;
     }
 
     /**
@@ -138,7 +138,7 @@ class Blog
      */
     public function getDate()
     {
-      return $this->date;
+        return $this->date;
     }
 
     /** Set the data where the blog was created
@@ -147,8 +147,8 @@ class Blog
      */
     public function setDate($date): self
     {
-      $this->date = $date;
-      return $this;
+        $this->date = $date;
+        return $this;
     }
 
     /**
@@ -157,16 +157,16 @@ class Blog
      */
     public function getImage()
     {
-      return $this->image;
+        return $this->image;
     }
 
     /**
      * Set the blog picture
      * @param $image
      */
-    public function setImage(string $image)
+    public function setImage($image)
     {
-      $this->image = $image;
+        $this->image = $image;
     }
 
     /** Get the blog category
@@ -174,7 +174,7 @@ class Blog
      */
     public function getCategory()
     {
-      return $this->category;
+        return $this->category;
     }
 
     /**
@@ -183,7 +183,7 @@ class Blog
      */
     public function setCategory(Category $category)
     {
-      $this->category = $category;
+        $this->category = $category;
     }
 
     /**
@@ -192,7 +192,7 @@ class Blog
      */
     public function getAuthor()
     {
-      return $this->author;
+        return $this->author;
     }
 
     /**
@@ -201,15 +201,15 @@ class Blog
      */
     public function setAuthor(User $author)
     {
-      $this->author = $author;
+        $this->author = $author;
     }
 
     /**
      * Get the blog comment in an array
-    * @return Collection|Comment[]
-    **/
+     * @return Collection|Comment[]
+     **/
     public function getComment()
     {
-      return $this->comment;
+        return $this->comment;
     }
 }

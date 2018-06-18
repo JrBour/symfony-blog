@@ -132,12 +132,8 @@ class BlogController extends Controller
     public function edit(Request $request, int $id): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $currentBlog = $this->getDoctrine()
-            ->getRepository(Blog::class)
-            ->find($id);
-        $categories = $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findAll();
+        $currentBlog = $this->getDoctrine()->getRepository(Blog::class)->find($id);
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
         $post = $em->getRepository(Blog::class)->find($id);
 
         $form = $this->createForm(BlogType::class, $post, [ 'choices' => $categories ]);
