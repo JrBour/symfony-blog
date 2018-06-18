@@ -23,7 +23,7 @@ class LocaleSubscriber implements EventSubscriberInterface
     }
 
     /**
-     *
+     * This function check if the session _local was change edit the session if it's true
      * @param GetResponseEvent $event
      * @return void
      */

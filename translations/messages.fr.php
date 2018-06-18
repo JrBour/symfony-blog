@@ -4,6 +4,9 @@ return array(
     'test' => [
         'symfony' => 'C\'est bien le symfony !'
     ],
+    'profil' => [
+        'choose_language' => 'Choisissez votre langue',
+    ],
     'form' => [
         'comment'   => 'Votre commentaire',
         'category'  => 'Choisissez votre catégorie',

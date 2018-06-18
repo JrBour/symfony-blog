@@ -56,15 +56,19 @@ class DefaultController extends Controller
 
     /**
      * Edit the local store in session
-     *
      * @param       Request         $request        The request send by the ajax method
-     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse       Confirm the success of the operation
+     * @Route("/locale", name="local_edit")
      */
     public function editLocale(Request $request) {
-        $request->getSession()->set('_locale', 'fr');
+        if($request->isXmlHttpRequest()) {
+            $data = $request->request->all();
+            $request->getSession()->set('_locale', $data['local']);
 
-        return $this->json(['success' => 'Le local a bien était modifié !'], 200);
+            return $this->json(['success' => 'Le local a bien était modifié !'], 200);
+        }
+
+        return $this->json(['error' => 'Une erreur est survenu'], 400);
     }
 
     /**
