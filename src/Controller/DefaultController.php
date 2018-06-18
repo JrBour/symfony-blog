@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use \Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\User;
 use App\Entity\Category;
 use App\Entity\Blog;
@@ -50,6 +52,19 @@ class DefaultController extends Controller
             'posts' => $posts,
             'categories' => $categories
         ]);
+    }
+
+    /**
+     * Edit the local store in session
+     *
+     * @param       Request         $request        The request send by the ajax method
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse       Confirm the success of the operation
+     */
+    public function editLocale(Request $request) {
+        $request->getSession()->set('_locale', 'fr');
+
+        return $this->json(['success' => 'Le local a bien était modifié !'], 200);
     }
 
     /**
