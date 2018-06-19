@@ -37,7 +37,12 @@ class Blog
     /**
      * @ORM\Column(type="datetime")
      **/
-    private $date;
+    private $create;
+
+    /**
+     * @ORM\Column(type="datetime")
+     **/
+    private $update;
 
     /**
      * @ORM\Column(type="string")
@@ -136,18 +141,37 @@ class Blog
      * Get the date where the blog was created
      * @return mixed
      */
-    public function getDate()
+    public function getCreate()
     {
-        return $this->date;
+        return $this->create;
     }
 
     /** Set the data where the blog was created
-     * @param $date
+     * @param   $create
      * @return $this
      */
-    public function setDate($date): self
+    public function setCreate($create): self
     {
-        $this->date = $date;
+        $this->create = $create;
+        return $this;
+    }
+
+    /**
+     * Get the date where the blog was updated
+     * @return mixed
+     */
+    public function getUpdate()
+    {
+        return $this->update;
+    }
+
+    /** Set the data where the blog was updated
+     * @param       $create         The update datetime
+     * @return $this
+     */
+    public function setUpdate($update): self
+    {
+        $this->update= $update;
         return $this;
     }
 

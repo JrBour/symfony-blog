@@ -42,6 +42,16 @@ class Category
     private $image;
 
     /**
+     * @ORM\Column(type="datetime")
+     **/
+    private $create;
+
+    /**
+     * @ORM\Column(type="datetime")
+     **/
+    private $update;
+
+    /**
     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="category")
     * @ORM\JoinColumn(nullable=true)
     **/
@@ -106,14 +116,50 @@ class Category
 
     /**
     * Set the path of the image
-    *
-    * @var String
-    *
+    * @param    string      $image      The picture path
     * @return String
     **/
     public function setImage($image)
     {
       $this->image = $image;
+    }
+
+    /**
+     * Get the date where the blog was created
+     * @return mixed
+     */
+    public function getCreate()
+    {
+        return $this->create;
+    }
+
+    /** Set the data where the blog was created
+     * @param   $create
+     * @return $this
+     */
+    public function setCreate($create): self
+    {
+        $this->create = $create;
+        return $this;
+    }
+
+    /**
+     * Get the date where the blog was updated
+     * @return mixed
+     */
+    public function getUpdate()
+    {
+        return $this->update;
+    }
+
+    /** Set the data where the blog was updated
+     * @param       $create         The update datetime
+     * @return $this
+     */
+    public function setUpdate($update): self
+    {
+        $this->update= $update;
+        return $this;
     }
 
     /**
