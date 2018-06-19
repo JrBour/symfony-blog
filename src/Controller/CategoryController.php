@@ -71,19 +71,26 @@ class CategoryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $category = $categoryRepository->find($id);
+        $picture = $category->getImage();
+
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $category = $form->getData();
             $file = $category->getImage();
-            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-            $file->move(
-                $this->getParameter('images'),
-                $fileName
-            );
-            $name = "/images/posts/" . $fileName;
-            $category->setImage($name);
+
+            if ($file) {
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                $file->move(
+                    $this->getParameter('images'),
+                    $fileName
+                );
+                $name = "/images/posts/" . $fileName;
+                $category->setImage($name);
+            } else {
+                $category->setImage($picture);
+            }
             $category->setName($category->getName());
             $em->flush();
 

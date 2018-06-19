@@ -36,7 +36,6 @@ class Category
     /**
     * @ORM\Column(type="string")
     *
-    * @Assert\NotBlank(message="Please, upload a new image")
     * @Assert\File(mimeTypes={ "image/jpeg", "image/png"})
     **/
     private $image;

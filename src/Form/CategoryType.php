@@ -17,7 +17,8 @@ class CategoryType extends AbstractType
           ->add('name', TextType::class, ['label' => 'form.name'])
           ->add('image', FileType::class, array(
             'label' => 'form.picture',
-            'data_class' => null
+            'data_class' => null,
+              'required' => false
           ))
           ->add('save', SubmitType::class, ['label' => 'form.save']);
   }

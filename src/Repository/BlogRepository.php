@@ -17,7 +17,6 @@ class BlogRepository extends ServiceEntityRepository
         parent::__construct($registry, Blog::class);
     }
 
-
     /**
      * Find blog by category
      * @param   int     $id         The category id
@@ -40,9 +39,8 @@ class BlogRepository extends ServiceEntityRepository
     {
       return $this->createQueryBuilder('b')
             ->setMaxResults(3)
-            ->orderBy('b.date', 'DESC')
+            ->orderBy('b.create', 'DESC')
             ->getQuery()
             ->getResult();
     }
-
 }

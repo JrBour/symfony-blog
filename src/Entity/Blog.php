@@ -47,7 +47,6 @@ class Blog
     /**
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank(message="Please, upload a new image")
      * @Assert\File(mimeTypes={ "image/jpeg", "image/png"})
      **/
     private $image;
@@ -166,12 +165,12 @@ class Blog
     }
 
     /** Set the data where the blog was updated
-     * @param       $create         The update datetime
+     * @param       $update         The update datetime
      * @return $this
      */
     public function setUpdate($update): self
     {
-        $this->update= $update;
+        $this->update = $update;
         return $this;
     }
 

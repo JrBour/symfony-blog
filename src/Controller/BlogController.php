@@ -86,12 +86,8 @@ class BlogController extends Controller
     public function show(Request $request, int $id): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $blog = $this->getDoctrine()
-            ->getRepository(Blog::class)
-            ->find($id);
-        $comments = $this->getDoctrine()
-            ->getRepository(Comment::class)
-            ->findByPost($id);
+        $blog = $this->getDoctrine()->getRepository(Blog::class)->find($id);
+        $comments = $this->getDoctrine()->getRepository(Comment::class)->findByPost($id);
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -132,15 +128,17 @@ class BlogController extends Controller
     public function edit(Request $request, int $id): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $currentBlog = $this->getDoctrine()->getRepository(Blog::class)->find($id);
         $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
-        $post = $em->getRepository(Blog::class)->find($id);
+        $currentPost = $em->getRepository(Blog::class)->find($id);
+        $picture = $currentPost->getImage();
 
-        $form = $this->createForm(BlogType::class, $post, [ 'choices' => $categories ]);
+        $form = $this->createForm(BlogType::class, $currentPost, [ 'choices' => $categories ]);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
             $file = $post->getImage();
+
             if ($file) {
                 $fileName = md5(uniqid()) . '.' . $file->guessExtension();
                 $file->move(
@@ -150,8 +148,10 @@ class BlogController extends Controller
                 $name = "/images/posts/" . $fileName;
                 $post->setImage($name);
             } else {
-                $post->setImage($currentBlog->getImage());
+                $post->setImage($picture);
             }
+            $date = new DateTime(date("Y-m-d H:i:s"));
+            $post->setUpdate($date);
             $post->setCategory($post->getCategory());
             $post->setTitle($post->getTitle());
             $post->setDescription($post->getDescription());
@@ -163,7 +163,7 @@ class BlogController extends Controller
         return $this->render('blog/add.html.twig', array(
             'title' => 'edit',
             'form' => $form->createView(),
-            'blog' => $post
+            'blog' => $currentPost
         ));
     }
 
