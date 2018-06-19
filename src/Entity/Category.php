@@ -43,12 +43,12 @@ class Category
     /**
      * @ORM\Column(type="datetime")
      **/
-    private $create;
+    private $created_at;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      **/
-    private $update;
+    private $updated_at;
 
     /**
     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="category")
@@ -124,41 +124,45 @@ class Category
     }
 
     /**
-     * Get the date where the blog was created
-     * @return mixed
-     */
-    public function getCreate()
+     * Get the date where the question was created
+     *
+     * @return Datetime
+     **/
+    public function getCreatedAt()
     {
-        return $this->create;
-    }
-
-    /** Set the data where the blog was created
-     * @param   $create
-     * @return $this
-     */
-    public function setCreate($create): self
-    {
-        $this->create = $create;
-        return $this;
+        return $this->created_at;
     }
 
     /**
-     * Get the date where the blog was updated
-     * @return mixed
-     */
-    public function getUpdate()
+     * Set the date where the questions was created
+     *
+     * @param Datetime       $createdAt      The datetime where the content have been create
+     *
+     * @return Datetime
+     **/
+    public function setCreatedAt(DateTime $createdAt)
     {
-        return $this->update;
+        $this->created_at = $createdAt;
     }
 
-    /** Set the data where the blog was updated
-     * @param       $create         The update datetime
-     * @return $this
-     */
-    public function setUpdate($update): self
+    /**
+     * Get the update date
+     *
+     * @return Datetime
+     **/
+    public function getUpdatedAt()
     {
-        $this->update= $update;
-        return $this;
+        return $this->updated_at;
+    }
+
+    /**
+     * Set the update date
+     *
+     * @param Datetime   $updatedAt  The datime where the content have been update
+     **/
+    public function setUpdatedAt(DateTime $updatedAt)
+    {
+        $this->updated_at = $updatedAt;
     }
 
     /**

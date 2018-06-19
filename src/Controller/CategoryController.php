@@ -91,6 +91,8 @@ class CategoryController extends Controller
             } else {
                 $category->setImage($picture);
             }
+            $date = new \DateTime();
+            $category->setUpdate($date);
             $category->setName($category->getName());
             $em->flush();
 

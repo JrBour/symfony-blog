@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Category;
 use App\Entity\User;
+use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
@@ -136,42 +137,47 @@ class Blog
         return $this;
     }
 
-    /**
-     * Get the date where the blog was created
-     * @return mixed
-     */
-    public function getCreate()
-    {
-        return $this->create;
-    }
 
-    /** Set the data where the blog was created
-     * @param   $create
-     * @return $this
-     */
-    public function setCreate($create): self
+    /**
+     * Get the date where the question was created
+     *
+     * @return Datetime
+     **/
+    public function getCreatedAt()
     {
-        $this->create = $create;
-        return $this;
+        return $this->created_at;
     }
 
     /**
-     * Get the date where the blog was updated
-     * @return mixed
-     */
-    public function getUpdate()
+     * Set the date where the questions was created
+     *
+     * @param Datetime       $createdAt      The datetime where the content have been create
+     *
+     * @return Datetime
+     **/
+    public function setCreatedAt(DateTime $createdAt)
     {
-        return $this->update;
+        $this->created_at = $createdAt;
     }
 
-    /** Set the data where the blog was updated
-     * @param       $update         The update datetime
-     * @return $this
-     */
-    public function setUpdate($update): self
+    /**
+     * Get the update date
+     *
+     * @return Datetime
+     **/
+    public function getUpdatedAt()
     {
-        $this->update = $update;
-        return $this;
+        return $this->updated_at;
+    }
+
+    /**
+     * Set the update date
+     *
+     * @param Datetime   $updatedAt  The datime where the content have been update
+     **/
+    public function setUpdatedAt(DateTime $updatedAt)
+    {
+        $this->updated_at = $updatedAt;
     }
 
     /**
