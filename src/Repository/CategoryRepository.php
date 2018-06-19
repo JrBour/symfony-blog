@@ -39,7 +39,7 @@ class CategoryRepository extends ServiceEntityRepository
     {
       return $this->createQueryBuilder('c')
           ->setMaxResults(3)
-          //->orderBy('c.date', 'DESC')
+          ->orderBy('c.created_at', 'DESC')
           ->getQuery()
           ->getResult();
     }

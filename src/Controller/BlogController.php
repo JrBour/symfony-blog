@@ -104,7 +104,7 @@ class BlogController extends Controller
             $comment->setContent($data['content']);
             $comment->setAuthor($data['user']);
             $comment->setBlog($blog);
-            $comment->setDate(new DateTime());
+            $comment->setCreatedAt(new DateTime());
             $em->persist($comment);
             $em->flush();
 

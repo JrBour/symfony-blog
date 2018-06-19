@@ -39,7 +39,7 @@ class BlogRepository extends ServiceEntityRepository
     {
       return $this->createQueryBuilder('b')
             ->setMaxResults(3)
-            ->orderBy('b.create', 'DESC')
+            ->orderBy('b.created_at', 'DESC')
             ->getQuery()
             ->getResult();
     }
