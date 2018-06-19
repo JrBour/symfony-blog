@@ -24,7 +24,7 @@
     {{form_end(form)}}
 
     {% if comments %}
-        <div class="comments_list">
+        <div class="comments_list" id="commentList">
             {% for comment in comments %}
                 <div class="comments">
                     <div class="card-header">
@@ -137,6 +137,7 @@
                 url: `/comment/remove/${dataComment['id']} `,
                 data: dataComment
             }).done(function(response){
+                $( "#commentList" ).load( document.URL + "#commentList" );
                 $('.success').show()
                 $('.success p').text(response['success']);
             })
