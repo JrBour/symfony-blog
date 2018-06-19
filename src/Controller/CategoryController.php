@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -91,8 +92,8 @@ class CategoryController extends Controller
             } else {
                 $category->setImage($picture);
             }
-            $date = new \DateTime();
-            $category->setUpdate($date);
+            $dateNow = new DateTime(date('Y-m-d H:i:s'));
+            $category->setUpdatedAt($dateNow);
             $category->setName($category->getName());
             $em->flush();
 

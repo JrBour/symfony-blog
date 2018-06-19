@@ -49,6 +49,7 @@ class BlogController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
             $user = $this->getUser();
+
             $file = $post->getImage();
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move(
@@ -56,11 +57,11 @@ class BlogController extends Controller
                 $fileName
             );
             $name = "/images/posts/" . $fileName;
+
             $post->setImage($name);
             $post->setTitle($post->getTitle());
             $post->setDescription($post->getDescription());
-            $date = new DateTime(date("Y-m-d H:i:s"));
-            $post->setDate($date);
+            $post->setCreatedAt(new DateTime(date("Y-m-d H:i:s")));
             $post->setCategory($post->getCategory());
             $post->setAuthor($user);
 
@@ -151,7 +152,7 @@ class BlogController extends Controller
                 $post->setImage($picture);
             }
             $date = new DateTime(date("Y-m-d H:i:s"));
-            $post->setUpdate($date);
+            $post->setUpdatedAt($date);
             $post->setCategory($post->getCategory());
             $post->setTitle($post->getTitle());
             $post->setDescription($post->getDescription());

@@ -38,12 +38,12 @@ class Blog
     /**
      * @ORM\Column(type="datetime")
      **/
-    private $create;
+    private $created_at;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      **/
-    private $update;
+    private $updated_at;
 
     /**
      * @ORM\Column(type="string")
