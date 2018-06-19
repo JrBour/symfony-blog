@@ -61,7 +61,7 @@ class BlogController extends Controller
             $post->setImage($name);
             $post->setTitle($post->getTitle());
             $post->setDescription($post->getDescription());
-            $post->setCreatedAt(new DateTime(date("Y-m-d H:i:s")));
+            $post->setCreatedAt(new DateTime());
             $post->setCategory($post->getCategory());
             $post->setAuthor($user);
 
@@ -100,12 +100,11 @@ class BlogController extends Controller
             $data['id'] = $data['user']->getId();
             $data['username'] = $data['user']->getUsername();
             $data['image'] = $data['user']->getImage();
-            $date = new DateTime(date("Y-m-d H:i:s"));
 
             $comment->setContent($data['content']);
             $comment->setAuthor($data['user']);
             $comment->setBlog($blog);
-            $comment->setDate($date);
+            $comment->setDate(new DateTime());
             $em->persist($comment);
             $em->flush();
 
@@ -151,8 +150,8 @@ class BlogController extends Controller
             } else {
                 $post->setImage($picture);
             }
-            $date = new DateTime(date("Y-m-d H:i:s"));
-            $post->setUpdatedAt($date);
+
+            $post->setUpdatedAt(new DateTime());
             $post->setCategory($post->getCategory());
             $post->setTitle($post->getTitle());
             $post->setDescription($post->getDescription());

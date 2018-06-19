@@ -11,6 +11,7 @@ use App\Repository\BlogRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\CategoryType;
 use App\Entity\Category;
+use Symfony\Component\Validator\Constraints\Date;
 
 class CategoryController extends Controller
 {
@@ -55,6 +56,7 @@ class CategoryController extends Controller
             $name = "/images/posts/" . $fileName;
             $category->setImage($name);
             $category->setName($category->getName());
+            $category->setCreatedAt(new DateTime());
             $category->setAuthor($user);
             $em->persist($category);
             $em->flush();

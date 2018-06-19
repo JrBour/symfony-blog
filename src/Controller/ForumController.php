@@ -68,8 +68,7 @@ class ForumController extends Controller
 
             $forum->setTitle($forum->getTitle());
             $forum->setAuthor($user);
-            $dateNow = new DateTime(date('Y-m-d H:i:s'));
-            $forum->setCreatedAt($dateNow);
+            $forum->setCreatedAt(new DateTime());
             $em->persist($forum);
             $em->flush();
 
@@ -107,8 +106,7 @@ class ForumController extends Controller
             }
             $forum->setTitle($forum->getTitle());
             $forum->setContent($forum->getContent());
-            $dateNow = new DateTime(date('Y-m-d H:i:s'));
-            $forum->setUpdatedAt($dateNow);
+            $forum->setUpdatedAt(new DateTime());
             $em->persist($forum);
             $em->flush();
 
