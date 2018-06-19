@@ -41,6 +41,7 @@ class CommentController extends Controller
 
                 return new JsonResponse($data, 404);
             }
+            $comment->setUpdatedAt(new \DateTime());
             $comment->setContent($data['content']);
             $em->flush();
 
