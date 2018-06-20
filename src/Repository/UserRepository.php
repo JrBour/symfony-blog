@@ -31,4 +31,19 @@ class UserRepository extends ServiceEntityRepository
             ->getResult();
         ;
     }
+
+    /**
+     * Find the follower for the current user
+     * @param       int     $id      The current user id
+     * @return mixed
+     */
+    public function findFollower(int $id)
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT f.follower_id FROM followers AS f WHERE user_id = ?'
+            )
+            ->setParameter('id', $id)
+            ->getResult();
+    }
 }

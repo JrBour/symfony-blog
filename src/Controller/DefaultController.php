@@ -110,7 +110,7 @@ class DefaultController extends Controller
                 $em->persist($following);
                 $em->flush();
 
-                return $this->json(['success' => "Vous suivez maintenant ce jeune homme" . $following->getUsername()], 201);
+                return $this->json(['success' => "Vous suivez désormais " . $following->getUsername()], 201);
             }
 
             return $this->json(['error' => 'L\'utilisateur n\'a pas pu être trouvé'], 400);
