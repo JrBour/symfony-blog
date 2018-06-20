@@ -32,60 +32,60 @@ class User implements UserInterface, \Serializable
 
     /**
      * User email
-    * @ORM\Column(type="string", length=255, unique=true)
-    * @Assert\NotBlank()
-    * @Assert\Email()
-    */
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     */
     private $email;
 
     /**
      * User username
-    * @ORM\Column(type="string", length=255, unique=true)
-    * @Assert\NotBlank()
-    */
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     */
     private $username;
 
     /**
      * User plain password
-    * @Assert\Length(max=4096)
-    */
+     * @Assert\Length(max=4096)
+     */
     private $plainPassword;
 
     /**
      * User password
-    * @ORM\Column(type="string", length=64)
-    */
+     * @ORM\Column(type="string", length=64)
+     */
     private $password;
 
     /**
      *User image
-    * @ORM\Column(type="string")
-    * @Assert\File(mimeTypes={ "image/jpeg" })
-    */
+     * @ORM\Column(type="string")
+     * @Assert\File(mimeTypes={ "image/jpeg" })
+     */
     private $image;
 
     /**
      * User blog
-    * @ORM\OneToMany(targetEntity="App\Entity\Blog", mappedBy="user")
-    **/
+     * @ORM\OneToMany(targetEntity="App\Entity\Blog", mappedBy="user")
+     **/
     private $blog;
 
     /**
      * User category
-    * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="user")
-    **/
+     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="user")
+     **/
     private $category;
 
     /**
      * User author
-    * @ORM\OneToMany(targetEntity="App\Entity\Forum", mappedBy="user")
-    **/
+     * @ORM\OneToMany(targetEntity="App\Entity\Forum", mappedBy="user")
+     **/
     private $author;
 
     /**
      * User comment
-    * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="user")
-    **/
+     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="user")
+     **/
     private $comment;
 
     /**
@@ -95,12 +95,30 @@ class User implements UserInterface, \Serializable
      */
     private $role;
 
+    /**
+     * User id following
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="following")
+     */
+    private $follower;
+
+    /**
+     * User_id following
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="follower")
+     * @ORM\JoinTable(name="follower",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="follower_id", referencedColumnName="id")}
+     * )
+     */
+    private $following;
+
     public function __construct()
     {
-      $this->blog = new ArrayCollection();
-      $this->comment = new ArrayCollection();
-      $this->category = new ArrayCollection();
-      $this->author = new ArrayCollection();
+        $this->blog = new ArrayCollection();
+        $this->comment = new ArrayCollection();
+        $this->category = new ArrayCollection();
+        $this->author = new ArrayCollection();
+        $this->follower= new ArrayCollection();
+        $this->following= new ArrayCollection();
     }
 
     /**
@@ -123,16 +141,16 @@ class User implements UserInterface, \Serializable
     /**
      * Return the email of user
      * @return string
-    **/
+     **/
     public function getEmail(): ?string
     {
-      return $this->email;
+        return $this->email;
     }
 
     /**
      * Set email of user
      * @return void
-    */
+     */
     public function setEmail(string $email): void
     {
         $this->email = $email;
@@ -144,7 +162,7 @@ class User implements UserInterface, \Serializable
      */
     public function getUsername(): ?string
     {
-      return $this->username;
+        return $this->username;
     }
 
     /**
@@ -154,7 +172,7 @@ class User implements UserInterface, \Serializable
      */
     public function setUsername(string $username)
     {
-      $this->username = $username;
+        $this->username = $username;
     }
 
     /**
@@ -163,7 +181,7 @@ class User implements UserInterface, \Serializable
      */
     public function getPlainPassword()
     {
-      return $this->plainPassword;
+        return $this->plainPassword;
     }
 
     /**
@@ -173,7 +191,7 @@ class User implements UserInterface, \Serializable
      */
     public function setPlainPassword(string $plainPassword): void
     {
-      $this->plainPassword = $plainPassword;
+        $this->plainPassword = $plainPassword;
     }
 
     /**
@@ -182,7 +200,7 @@ class User implements UserInterface, \Serializable
      */
     public function getPassword(): ?string
     {
-      return $this->password;
+        return $this->password;
     }
 
     /**
@@ -191,7 +209,7 @@ class User implements UserInterface, \Serializable
      */
     public function setPassword($password)
     {
-      $this->password = $password;
+        $this->password = $password;
     }
 
     /**
@@ -200,7 +218,7 @@ class User implements UserInterface, \Serializable
      */
     public function getSalt()
     {
-      return null;
+        return null;
     }
 
     /**
@@ -209,7 +227,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles(): array
     {
-      return array($this->role->getName());
+        return array($this->role->getName());
     }
 
     /**
@@ -218,7 +236,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRole()
     {
-      return $this->role;
+        return $this->role;
     }
 
     /**
@@ -227,7 +245,7 @@ class User implements UserInterface, \Serializable
      */
     public function setRole(Role $role)
     {
-      $this->role = $role;
+        $this->role = $role;
     }
 
     /**
@@ -238,13 +256,13 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-    * Return the path of the image
-    *
-    * @return String
-    **/
+     * Return the path of the image
+     *
+     * @return String
+     **/
     public function getImage()
     {
-      return $this->image;
+        return $this->image;
     }
 
     /**
@@ -253,11 +271,11 @@ class User implements UserInterface, \Serializable
      */
     public function serialize(): string
     {
-      return serialize(array(
-        $this->id,
-        $this->username,
-        $this->password
-      ));
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password
+        ));
     }
 
     /**
@@ -267,67 +285,105 @@ class User implements UserInterface, \Serializable
      */
     public function unserialize($serialized): void
     {
-      list(
-        $this->id,
-        $this->username,
-        $this->password
-        ) = unserialize($serialized);
+        list(
+            $this->id,
+            $this->username,
+            $this->password
+            ) = unserialize($serialized);
     }
 
     /**
-    * Set the path of the image
-    *
-    * @var String
-    *
-    * @return String
-    **/
+     * Set the path of the image
+     *
+     * @var String
+     *
+     * @return String
+     **/
     public function setImage($image)
     {
-      $this->image = $image;
+        $this->image = $image;
     }
 
     /**
-    * Return the user's forum post
-    *
-    * @return Collection|Forum[]| Array of user's forum post
-    **/
+     * Return the user's forum post
+     *
+     * @return Collection|Forum[]| Array of user's forum post
+     **/
     public function getForum()
     {
-      return $this->forum;
+        return $this->forum;
     }
 
     /**
      * Get all the comment os the user
-    * @return Collection|Comment[]
-    **/
+     * @return Collection|Comment[]
+     **/
     public function getComment()
     {
-      return $this->comment;
+        return $this->comment;
     }
 
     /**
-    * @return Collection|Blog[]
-    **/
+     * @return Collection|Blog[]
+     **/
     public function getBlog()
     {
-      return $this->blog;
+        return $this->blog;
     }
 
     /**
-    * Get the user answer
-    *
-    * @return Collection|Answer[]
-    */
+     * Get the user answer
+     *
+     * @return Collection|Answer[]
+     */
     public function getAnswer()
     {
-      return $this->answer;
+        return $this->answer;
     }
 
     /**
-    * @return Collection|Category[]
-    **/
+     * @return Collection|Category[]
+     **/
     public function getCategory()
     {
-      return $this->category;
+        return $this->category;
+    }
+
+    /**
+     * Get the user follower
+     * @return ArrayCollection
+     */
+    public function getFollower(): ArrayCollection
+    {
+        return $this->follower;
+    }
+
+    /**
+     * Get the user following
+     * @return ArrayCollection
+     */
+    public function getFollowing(): ArrayCollection
+    {
+        return $this->following;
+    }
+
+    /**
+     * @param $following
+     * @return User
+     */
+    public function setFollowing($following): self
+    {
+        $this->following[] = $following;
+        return $this;
+    }
+
+    /**
+     * @param $follower
+     * @return User
+     */
+    public function setFollower($follower): self
+    {
+        $this->follower[] = $follower;
+        return $this;
     }
 }
