@@ -356,7 +356,7 @@ class User implements UserInterface, \Serializable
      * Get the user follower
      * @return ArrayCollection
      */
-    public function getFollower(): ArrayCollection
+    public function getFollower(): Collection
     {
         return $this->follower;
     }
@@ -365,7 +365,7 @@ class User implements UserInterface, \Serializable
      * Get the user following
      * @return ArrayCollection
      */
-    public function getFollowing(): ArrayCollection
+    public function getFollowing(): Collection
     {
         return $this->following;
     }

@@ -11,6 +11,11 @@
         {% else %}
             Utilisateur
         {% endif %}</h2>
+    <ul>
+        {% for follower in followers %}
+            <li>{{ follower.username }}</li>
+        {% endfor %}
+    </ul>
 
     <h3>{% trans %}profil.choose_language{% endtrans %}</h3>
     <button class="btn btn-primary" id="french">Français</button>

@@ -46,8 +46,12 @@ class DefaultController extends Controller
         $posts = $this->getDoctrine()->getRepository(Blog::class)->findByAuthor($id);
         $categories = $this->getDoctrine()->getRepository(Category::class)->findByAuthor($id);
 
+        $newUser = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $followers = $newUser->getFollowing();
+
         return $this->render('login/profile.html.twig', [
             'posts' => $posts,
+            'followers' => $followers,
             'categories' => $categories
         ]);
     }
