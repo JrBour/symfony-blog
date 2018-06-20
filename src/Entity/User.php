@@ -104,7 +104,7 @@ class User implements UserInterface, \Serializable
     /**
      * User_id following
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="follower")
-     * @ORM\JoinTable(name="follower",
+     * @ORM\JoinTable(name="followers",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="follower_id", referencedColumnName="id")}
      * )
