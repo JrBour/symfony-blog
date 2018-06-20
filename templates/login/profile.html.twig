@@ -13,7 +13,7 @@
         {% endif %}</h2>
     <ul>
         {% for follower in followers %}
-            <li>{{ follower.username }}</li>
+            <a href="{{ path('profil_user', {'id' : follower.id}) }}"><li>{{ follower.username }}</li></a>
         {% endfor %}
     </ul>
 

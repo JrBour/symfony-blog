@@ -39,11 +39,18 @@ class UserRepository extends ServiceEntityRepository
      */
     public function findFollower(int $id)
     {
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT f.follower_id FROM followers AS f WHERE user_id = ?'
-            )
-            ->setParameter('id', $id)
+        $qb = $this->createQueryBuilder('u');
+
+        $nots= $qb->getQuery()
             ->getResult();
+
+        $linked = $qb->select('d')
+            ->from('App\Entity\User', 'u2')
+            ->where('u2.id = :id')
+            ->where($qb->expr()->notIn('u2.id', $nots))
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+        return $linked;
     }
 }

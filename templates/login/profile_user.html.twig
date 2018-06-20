@@ -3,7 +3,9 @@
 
     {% if user %}
         <h1 class="text-center" style="text-transform:uppercase;">{{ user.username }}</h1>
-        <button id="follow" class="btn btn-primary">Suivre</button>
+        {% if not check %}
+            <button id="follow" class="btn btn-primary">Suivre</button>
+        {% endif %}
         <h2>Ses publications</h2>
         {% if posts %}
             <ul class="articles">
