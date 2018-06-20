@@ -98,7 +98,22 @@ class DefaultController extends Controller
     public function followUser(Request $request)
     {
         if ($request->isXmlHttpRequest()) {
-            return $this->json(['success' => "Vous suivez maintenant ce jeune homme"], 201);
+            $data = $request->request->all();
+            $em = $this->getDoctrine()->getManager();
+            $following = $em->getRepository(User::class)->find($data['id']);
+
+            if ($following) {
+                $follower = $this->getUser();
+                $follower->setFollowing($following);
+                $following->setFollower($this->getUser());
+                $em->persist($this->getUser());
+                $em->persist($following);
+                $em->flush();
+
+                return $this->json(['success' => "Vous suivez maintenant ce jeune homme" . $following->getUsername()], 201);
+            }
+
+            return $this->json(['error' => 'L\'utilisateur n\'a pas pu être trouvé'], 400);
         }
     }
 }
