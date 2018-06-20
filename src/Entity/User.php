@@ -111,6 +111,9 @@ class User implements UserInterface, \Serializable
      */
     private $following;
 
+    /**
+     * User constructor
+     */
     public function __construct()
     {
         $this->blog = new ArrayCollection();

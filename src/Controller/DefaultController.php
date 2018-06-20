@@ -58,7 +58,8 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\JsonResponse       Confirm the success of the operation
      * @Route("/locale", name="local_edit")
      */
-    public function editLocale(Request $request) {
+    public function editLocale(Request $request)
+    {
         if($request->isXmlHttpRequest()) {
             $data = $request->request->all();
             $request->getSession()->set('_locale', $data['local']);
@@ -75,7 +76,7 @@ class DefaultController extends Controller
      * @return Response       The response send a view in twig
      * @Route("/profil/{id}", name="profil_user")
      */
-    public function profileUserAction(int $id)
+    public function profileUser(int $id)
     {
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
         $posts = $this->getDoctrine()->getRepository(Blog::class)->findByAuthor($id);
@@ -86,6 +87,19 @@ class DefaultController extends Controller
             'posts' => $posts,
             'categories' => $categories
         ]);
+    }
+
+    /**
+     * Add a new user to follow for the current user
+     * @param       Request         $request        The ajax request
+     * @return      Response        The json response
+     * @Route("/follow", name="follow")
+     */
+    public function followUser(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            return $this->json(['success' => "Vous suivez maintenant ce jeune homme"], 201);
+        }
     }
 }
 
