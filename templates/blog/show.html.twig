@@ -121,7 +121,7 @@
                 input.parent('form[name="editContent"]').remove();
                 $('.success').show(0).delay(9000).hide(0);
                 $('.success p').text('Votre commentaire a bien était édité !');
-            }).error((response)=>{
+            }).error(()=>{
                 console.log('gg')
             })
         })
