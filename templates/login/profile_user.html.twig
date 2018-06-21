@@ -5,6 +5,8 @@
         <h1 class="text-center" style="text-transform:uppercase;">{{ user.username }}</h1>
         {% if not check %}
             <button id="follow" class="btn btn-primary">Suivre</button>
+        {% else %}
+            <button id="follow" class="btn btn-primary">Ne plus suivre</button>
         {% endif %}
         <h2>Ses publications</h2>
         {% if posts %}
