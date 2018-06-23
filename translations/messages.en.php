@@ -20,7 +20,8 @@ return array(
         'confirm_password' => 'Confirm the password',
         'profil_picture' => 'Profil picture',
         'save'          => 'Save',
-        'subject'       => 'Subject'
+        'subject'       => 'Subject',
+        'username'      => 'Username'
     ],
     'register' => [
         'already_account'   => 'Already have an account',
