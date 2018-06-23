@@ -42,7 +42,7 @@ class RegistrationController extends Controller
                 $name = "/images/posts/" . $fileName;
                 $user->setImage($name);
             } else {
-                $user->setImage($user->getImage());
+                $user->setImage('/images/posts/tom_myspace.jpg');
             }
 
             if($user->getPlainPassword()) {
