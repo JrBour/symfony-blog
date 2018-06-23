@@ -36,6 +36,7 @@ class UserType extends AbstractType
             ->add('role', ChoiceType::class, array(
                 'label' => 'Role',
                 'choices' => $options['choices'],
+                'required' => false,
                 'choice_label' => function($value) {
                     return $value->getName();
                 }

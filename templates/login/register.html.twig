@@ -26,7 +26,7 @@
         'class' : 'form-control'
       }}) }}
     </div>
-    <div class="form-group" style="{% if title is defined %}display: none;{% endif %}">
+    <div class="form-group" style="{% if title is not defined %}display: none;{% endif %}">
       {{ form_row(form.role,{ 'attr': {
         'class' : 'form-control'
       }}) }}

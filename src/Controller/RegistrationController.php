@@ -15,33 +15,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class RegistrationController extends Controller
 {
     /**
-     * Display whole register user on the site
-     * @param UserRepository        $userRepository     The repository of user
-     * @return Response     Return a view page in twig with the all users
-     * @Route("/user/show", name="user_show")
-     */
-    public function allUserRegister(UserRepository $userRepository)
-    {
-        return $this->render('login/show_user.html.twig', ['users' => $userRepository]);
-    }
-
-    /**
-     * Remove an user of the database
-     * @param int       $id         The user id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse       Redirect to the route where whole users are displays
-     * @Route("/user/remove/{id}", name="user_remove")
-     */
-    public function removeUser(int $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository(User::class)->find($id);
-        $em->remove($user);
-        $em->flush();
-
-        return $this->redirectToRoute('user_show');
-    }
-
-    /**
      * Register a new user with the role user and set a picture profil a picture is send by the form
      * @param Request                           $request         Request sent by the form
      * @param UserPasswordEncoderInterface      $passwordEncoder Encode the plain password
@@ -51,12 +24,11 @@ class RegistrationController extends Controller
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user =  new User();
-        $roles = $this->getDoctrine()
-            ->getRepository(Role::class)
-            ->findAll();
+        $role = $this->getDoctrine()->getRepository(Role::class)->find(2);
 
-        $form = $this->createForm(UserType::class, $user, array('choices' => $roles));
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
             $file = $user->getImage();
@@ -80,7 +52,7 @@ class RegistrationController extends Controller
                 $user->setPassword($user->getPassword());
             }
 
-            $user->setRole($user->getRole());
+            $user->setRole($role);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -89,6 +61,17 @@ class RegistrationController extends Controller
         }
 
         return $this->render('login/register.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * Display whole register user on the site
+     * @param UserRepository        $userRepository     The repository of user
+     * @return Response     Return a view page in twig with the all users
+     * @Route("/user/show", name="user_show")
+     */
+    public function allUserRegister(UserRepository $userRepository)
+    {
+        return $this->render('login/show_user.html.twig', ['users' => $userRepository]);
     }
 
     /**
@@ -139,6 +122,22 @@ class RegistrationController extends Controller
             'form' => $form->createView(),
             'title' => 'edit'
         ]);
+    }
+
+    /**
+     * Remove an user of the database
+     * @param int       $id         The user id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse       Redirect to the route where whole users are displays
+     * @Route("/user/remove/{id}", name="user_remove")
+     */
+    public function removeUser(int $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($id);
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirectToRoute('user_show');
     }
 
     /**
