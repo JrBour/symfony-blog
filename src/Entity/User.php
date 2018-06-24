@@ -398,4 +398,16 @@ class User implements UserInterface, \Serializable
         $this->follower[] = $follower;
         return $this;
     }
+
+    /**
+     * Remove the user relationship
+     * @param User  $user
+     */
+    public function removeUser(User $user)
+    {
+        if (!$this->following->contains($user)) {
+            return;
+        }
+        $this->following->removeElement($user);
+    }
 }
