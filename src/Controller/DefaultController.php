@@ -123,6 +123,24 @@ class DefaultController extends Controller
             return $this->json(['error' => 'L\'utilisateur n\'a pas pu être trouvé'], 400);
         }
     }
+
+    public function unfollowUser(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $data = $request->request->all();
+            $em = $this->getDoctrine()->getManager();
+            $following = $em->getRepository(User::class)->find($data['id']);
+
+            if ($following) {
+                $following->removeUser($following);
+                $em->flush();
+
+                return $this->json(['success' => 'Vous ne suivez plus '.$following->getUsername()], 200);
+            }
+
+            return $this->json(['error' => 'Une erreur s\'est produite'], 400);
+        }
+    }
 }
 
 ?>
