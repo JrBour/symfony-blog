@@ -124,7 +124,13 @@ class DefaultController extends Controller
         }
     }
 
-    public function unfollowUser(Request $request)
+
+    /**
+     * Unfollow an user. Delete the relationship in database
+     * @param       Request         $request        The ajax request send by the view
+     * @return JsonResponse
+     */
+    public function unfollowUser(Request $request): Response
     {
         if ($request->isXmlHttpRequest()) {
             $data = $request->request->all();
