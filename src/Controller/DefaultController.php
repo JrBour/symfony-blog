@@ -92,7 +92,7 @@ class DefaultController extends Controller
             'user' => $user,
             'posts' => $posts,
             'categories' => $categories,
-            'check' => $checkFollowing
+            'follow' => $checkFollowing
         ]);
     }
 
