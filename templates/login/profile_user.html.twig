@@ -95,7 +95,9 @@
                 data: dataUnfollow
             }).success(response=>{
                 console.log(response)
-                $('#loadButton').load(document.URL +  ' #loadButton');
+                $('#loadButton').append(`
+                    <button id="follow" class="btn btn-primary">Suivre</button>
+                `);
             }).error(error=>{
                 console.log(error)
             })
