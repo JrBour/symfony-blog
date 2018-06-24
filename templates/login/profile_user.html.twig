@@ -68,38 +68,33 @@
             e.preventDefault();
             let userData = {};
             userData['id'] = url[url.length-1];
-            followUser(userData);
+
+            $.ajax({
+                method: "POST",
+                url: '/follow',
+                data: userData
+            }).success(()=> {
+                console.log("gg")
+            }).error(()=>{
+                console.log('Y\'a eu un probléme')
+            })
         })
 
         $('#unfollow').on('click', e=>{
             e.preventDefault();
             let dataUnfollow = {};
             dataUnfollow['id'] = url[url.length-1];
-            unfollowUser(dataUnfollow)
-        })
 
-        function unfollowUser(data) {
             $.ajax({
                 method:"POST",
                 url: "/unfollow",
-                data: data
+                data: dataUnfollow
             }).success(response=>{
                 console.log(response)
             }).error(error=>{
                 console.log(error)
             })
-        }
+        })
 
-        function followUser(data) {
-            $.ajax({
-                method: "POST",
-                url: '/follow',
-                data: data
-            }).success(()=> {
-                console.log("gg")
-            }).error(()=>{
-                console.log('Y\'a eu un probléme')
-            })
-        }
     </script>
 {% endblock %}

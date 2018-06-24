@@ -139,7 +139,9 @@ class DefaultController extends Controller
             $following = $em->getRepository(User::class)->find($data['id']);
 
             if ($following) {
-                $following->removeUser($following);
+                $follower = $this->getUser();
+                $following->removeUser($follower);
+                $follower->removeUser($following);
                 $em->flush();
 
                 return $this->json(['success' => 'Vous ne suivez plus '.$following->getUsername()], 200);
