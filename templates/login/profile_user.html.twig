@@ -6,7 +6,7 @@
         {% if not check %}
             <button id="follow" class="btn btn-primary">Suivre</button>
         {% else %}
-            <button id="follow" class="btn btn-primary">Ne plus suivre</button>
+            <button id="unfollow" class="btn btn-primary">Ne plus suivre</button>
         {% endif %}
         <h2>Ses publications</h2>
         {% if posts %}
@@ -62,13 +62,33 @@
 {% endblock %}
 {% block javascripts %}
     <script>
+        let url = window.location.href.split('/');
+
         $("#follow").on('click', e=>{
             e.preventDefault();
-            let url = window.location.href.split('/');
             let userData = {};
             userData['id'] = url[url.length-1];
             followUser(userData);
         })
+
+        $('#unfollow').on('click', e=>{
+            e.preventDefault();
+            let dataUnfollow = {};
+            dataUnfollow['id'] = url[url.length-1];
+            unfollowUser(dataUnfollow)
+        })
+
+        function unfollowUser(data) {
+            $.ajax({
+                method:"POST",
+                url: "/unfollow",
+                data: data
+            }).success(response=>{
+                console.log(response)
+            }).error(error=>{
+                console.log(error)
+            })
+        }
 
         function followUser(data) {
             $.ajax({

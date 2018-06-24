@@ -129,6 +129,7 @@ class DefaultController extends Controller
      * Unfollow an user. Delete the relationship in database
      * @param       Request         $request        The ajax request send by the view
      * @return JsonResponse
+     * @Route("/unfollow", name="unfollow")
      */
     public function unfollowUser(Request $request): Response
     {
