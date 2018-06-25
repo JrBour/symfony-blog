@@ -1,40 +1,41 @@
 {% extends 'base.html.twig' %}
+{% block title %}{% trans %}menu.register{% endtrans %}{% endblock %}
 {% block body %}
-  {{ form_start(form) }}
-    <div class="form-group">
+    {{ form_start(form) }}
+  <div class="form-group">
       {{ form_row(form.username,{ 'attr': {
-        'class' : 'form-control'
+          'class' : 'form-control'
       }}) }}
-    </div>
-    <div class="form-group">
+  </div>
+  <div class="form-group">
       {{ form_row(form.email,{ 'attr': {
-        'class' : 'form-control'
+          'class' : 'form-control'
       }}) }}
-    </div>
-    <div class="form-group">
+  </div>
+  <div class="form-group">
       {{ form_row(form.plainPassword.first,{ 'attr': {
-        'class' : 'form-control'
+          'class' : 'form-control'
       }}) }}
-    </div>
-    <div class="form-group">
+  </div>
+  <div class="form-group">
       {{ form_row(form.plainPassword.second,{ 'attr': {
-        'class' : 'form-control'
+          'class' : 'form-control'
       }}) }}
-    </div>
-    <div class="form-group">
+  </div>
+  <div class="form-group">
       {{ form_row(form.image,{ 'attr': {
-        'class' : 'form-control'
+          'class' : 'form-control'
       }}) }}
-    </div>
-    <div class="form-group" style="{% if title is not defined %}display: none;{% endif %}">
+  </div>
+  <div class="form-group" style="{% if title is not defined %}display: none;{% endif %}">
       {{ form_row(form.role,{ 'attr': {
-        'class' : 'form-control'
+          'class' : 'form-control'
       }}) }}
-    </div>
+  </div>
     {{ form_row(form.save,{ 'attr': {
-      'class' : 'btn btn-primary'
+        'class' : 'btn btn-primary'
     }}) }}
-  {{ form_end(form) }}
+    {{ form_end(form) }}
 
-  <p>{% trans %}register.already_account{% endtrans %}<a href="{{ path('login')}}">{% trans %}register.login{% endtrans %}</a></p>
+  <p>{% trans %}register.already_account{% endtrans %} <a href="{{ path('login')}}">{% trans %}register.login{% endtrans %}</a></p>
 {% endblock %}

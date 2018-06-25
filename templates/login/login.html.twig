@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Login{% endblock %}
+{% block title %}{% trans %}signin.sign_in{% endtrans %}{% endblock %}
 {% block body %}
   <form action="{{ path('login') }}" method="post">
     <div class="form-group">

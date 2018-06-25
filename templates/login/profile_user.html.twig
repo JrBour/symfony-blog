@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ user.username | capitalize }}{% endblock %}
-
 {% block body %}
     {% if user %}
         <h1 class="text-center" style="text-transform:uppercase;">{{ user.username }}</h1>
