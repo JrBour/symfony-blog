@@ -22,8 +22,8 @@
                             {% if app.user and app.user.id == post.author.id or is_granted('ROLE_ADMIN')  %}
                                 <hr>
                                 <div class="post__edit">
-                                    <a href="{{ path('blog_edit', { 'id' : post.id}) }}">Editer</a>
-                                    <a href="{{ path('blog_remove', { 'id' : post.id }) }}">Supprimer</a>
+                                    <a href="{{ path('blog_edit', { 'id' : post.id}) }}"><i class="far fa-edit"></i></a>
+                                    <a href="{{ path('blog_remove', { 'id' : post.id }) }}"><i class="fas fa-times"></i></a>
                                 </div>
                             {% endif %}
                         </div>
