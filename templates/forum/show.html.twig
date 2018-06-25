@@ -1,53 +1,53 @@
 {% extends 'base.html.twig' %}
-{% block title %}Forum{% endblock %}
+{% block title %}{{ forum.title }}{% endblock %}
 {% block body %}
-  <h1 class="text-center">{{forum.title}}</h1>
-  <hr>
-  <div class="forum">
-    <p>{{forum.content|raw}}</p>
-    <p>{{forum.createdAt|date('Y-m-d')}}</p>
-      {% if forum.picture %}
-        <img src="{{forum.picture}}" alt="{{forum.content}}" class="">
-      {% endif %}
-    <a href="{{path('profil_user',{'id':forum.author.id})}}">
-      <img src="{{forum.author.image}}" alt="{{forum.author.username}}" class="profil_picture">
-      <p class="profil_post">{{forum.author.username}}</p>
-    </a>
-      {% if forum.updatedAt %}
-        Modifié le {{forum.updatedAt|date('d/m/Y')}}
-      {% endif %}
-  </div>
-  <h3>Commentaire</h3>
-  <hr>
-  <ul class="ulAnswer">
-      {% for answer in answers %}
-        <li class="answer">
-          <div class="answer__infos">
-            <a href="{{path('profil_user', {'id' : answer.author.id})}}">
-              <img src="{{answer.author.image}}" alt="{{answer.author.username}}" class="profil_picture">
-              <p class="profil_post">{{answer.author.username}}</p>
-            </a>
-            <p>{{answer.createdAt|date('Y-m-d')}}</p>
-              {% if app.user.id == answer.author.id %}
-                <!--<a style="text-align: right" href="{{path('answer_remove', {'id' : answer.id, 'idForum' : forum.id})}}">Supprimer</a>-->
-              {% endif %}
-          </div>
-          <p class="answer__content">{{answer.content}}</p>
-          <hr>
-        </li>
-      {% endfor %}
-  </ul>
+    <h1 class="text-center">{{forum.title}}</h1>
+    <hr>
+    <div class="forum">
+        <p>{{forum.content|raw}}</p>
+        <p>{{forum.createdAt|date('Y-m-d')}}</p>
+        {% if forum.picture %}
+            <img src="{{forum.picture}}" alt="{{forum.content}}" class="">
+        {% endif %}
+        <a href="{{path('profil_user',{'id':forum.author.id})}}">
+            <img src="{{forum.author.image}}" alt="{{forum.author.username}}" class="profil_picture">
+            <p class="profil_post">{{forum.author.username}}</p>
+        </a>
+        {% if forum.updatedAt %}
+            Modifié le {{forum.updatedAt|date('d/m/Y')}}
+        {% endif %}
+    </div>
+    <h3>Commentaire</h3>
+    <hr>
+    <ul class="ulAnswer">
+        {% for answer in answers %}
+            <li class="answer">
+                <div class="answer__infos">
+                    <a href="{{path('profil_user', {'id' : answer.author.id})}}">
+                        <img src="{{answer.author.image}}" alt="{{answer.author.username}}" class="profil_picture">
+                        <p class="profil_post">{{answer.author.username}}</p>
+                    </a>
+                    <p>{{answer.createdAt|date('Y-m-d')}}</p>
+                    {% if app.user.id == answer.author.id %}
+                        <!--<a style="text-align: right" href="{{path('answer_remove', {'id' : answer.id, 'idForum' : forum.id})}}">Supprimer</a>-->
+                    {% endif %}
+                </div>
+                <p class="answer__content">{{answer.content}}</p>
+                <hr>
+            </li>
+        {% endfor %}
+    </ul>
 
     {{form_start(form)}}
-  <div class="form-group">
-      {{form_row(form.content,{ 'attr' : {
-          'class' : 'form-control'
-      }})}}
-  </div>
-  <!--<div class="form-group">
+    <div class="form-group">
+        {{form_row(form.content,{ 'attr' : {
+            'class' : 'form-control'
+        }})}}
+    </div>
+    <!--<div class="form-group">
       {{form_row(form.picture,{ 'attr' : {
-      'class' : 'form-control'
-  }})}}
+        'class' : 'form-control'
+    }})}}
     </div>-->
     {{form_row(form.submit, {'attr' : {
         'class' : 'btn btn-info'
@@ -55,35 +55,35 @@
     {{form_end(form)}}
 
     {% if app.user.id  == forum.author.id %}
-      <hr>
-      <a href="{{path('forum_edit', {'id': forum.id})}}">
-        <button type="button" name="button" class="btn btn-info">Editer</button>
-      </a>
-      <a href="{{path('forum_delete', {'id': forum.id })}}">
-        <button type="button" name="button" class="btn btn-danger">Supprimer</button>
-      </a>
+        <hr>
+        <a href="{{path('forum_edit', {'id': forum.id})}}">
+            <button type="button" name="button" class="btn btn-info">Editer</button>
+        </a>
+        <a href="{{path('forum_delete', {'id': forum.id })}}">
+            <button type="button" name="button" class="btn btn-danger">Supprimer</button>
+        </a>
     {% endif %}
 {% endblock %}
 {% block javascripts %}
-  <script>
-      $('form[name="answer"]').on('submit', function(e){
-          e.preventDefault();
-          let formData = new FormData();
-          formData.append("content", document.getElementById("answer_content").value);
+    <script>
+        $('form[name="answer"]').on('submit', function(e){
+            e.preventDefault();
+            let formData = new FormData();
+            formData.append("content", document.getElementById("answer_content").value);
 
 
-          let url = window.location.href;
-          let split = url.split('/');
-          $.ajax({
-              data: formData,
-              method: "POST",
-              url: `/forum/${parseFloat(split[split.length-1])}`,
-              processData: false,
-              contentType: false,
-              cache: false
-          }).done(response=>{
-              console.log(response);
-          })
-      })
-  </script>
+            let url = window.location.href;
+            let split = url.split('/');
+            $.ajax({
+                data: formData,
+                method: "POST",
+                url: `/forum/${parseFloat(split[split.length-1])}`,
+                processData: false,
+                contentType: false,
+                cache: false
+            }).done(response=>{
+                console.log(response);
+            })
+        })
+    </script>
 {% endblock %}
