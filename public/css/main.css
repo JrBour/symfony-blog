@@ -7,11 +7,21 @@
     padding: 0;
 }
 .text_post {
+    display: flex;
+    flex-direction: column;
     padding: 10px;
+    height: 55%;
+}
+.text_post h4 {
+    margin-top: auto;
 }
 .text_post h2 {
     padding-top: 0;
     margin-top: 0;
+}
+.post__edit {
+    display: flex;
+    justify-content: space-between;
 }
 .post, .category  {
     margin: 10px;

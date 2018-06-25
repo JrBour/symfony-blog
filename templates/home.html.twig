@@ -21,8 +21,10 @@
                             <h4>by <a href="{{ path('profil_user', {'id' : post.author.id}) }}"><em>{{ post.author.username }}</em></a></h4>
                             {% if app.user and app.user.id == post.author.id or is_granted('ROLE_ADMIN')  %}
                                 <hr>
-                                <a href="{{ path('blog_edit', { 'id' : post.id}) }}">Editer</a>
-                                <a href="{{ path('blog_remove', { 'id' : post.id }) }}">Supprimer</a>
+                                <div class="post__edit">
+                                    <a href="{{ path('blog_edit', { 'id' : post.id}) }}">Editer</a>
+                                    <a href="{{ path('blog_remove', { 'id' : post.id }) }}">Supprimer</a>
+                                </div>
                             {% endif %}
                         </div>
                     </li>
