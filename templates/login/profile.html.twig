@@ -27,7 +27,7 @@
             {% for post in posts %}
                 <a href="{{ path('blog_show', { 'id' : post.id } ) }}">
                     <li class="post">
-                        <div style="background:url('{{ asset(post.image) }}'); height: 200px; width: 100%; background-position: center; background-size: cover"></div>
+                        <div style="background:url('{{ asset(post.image) }}'); height: 45%; width: 100%; background-position: center; background-size: cover"></div>
                         <div class="text_post">
                             <h2>{{ post.title }}</h2>
                             {% if post.description|length > 200 %}
@@ -36,11 +36,11 @@
                                 {{ post.description }}
                             {% endif %}<br>
                             <h4>by <a href="{{ path('profil_user', {'id' : post.author.id}) }}"><em>{{ post.author.username }}</em></a></h4>
-                            {% if app.user and is_granted('ROLE_ADMIN') %}
-                                <hr>
-                                <a href="{{ path('blog_edit', { 'id' : post.id}) }}">Editer</a>
-                                <a href="{{ path('blog_remove', { 'id' : post.id }) }}">Supprimer</a>
-                            {% endif %}
+                            <hr>
+                            <div class="post__edit">
+                                <a href="{{ path('blog_edit', { 'id' : post.id}) }}"><i class="far fa-edit"></i></a>
+                                <a href="{{ path('blog_remove', { 'id' : post.id }) }}"><i class="fas fa-times"></i></a>
+                            </div>
                         </div>
                     </li>
                 </a>
