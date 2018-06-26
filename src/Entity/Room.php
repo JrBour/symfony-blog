@@ -31,9 +31,15 @@ class Room
 
     /**
      * @var DateTime
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $created_at;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated_at;
 
     /**
      * Get the room id
@@ -63,5 +69,42 @@ class Room
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * Get the date when the room created
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set the date when the room created
+     * @param DateTime $created_at
+     */
+    public function setCreatedAt(DateTime $created_at): void
+    {
+        $this->created_at = $created_at;
+    }
+
+    /**
+     * Get the room picture
+     * @return String
+     */
+    public function getPicture(): String
+    {
+        return $this->picture;
+    }
+
+
+    /**
+     * Get the date when the room updated
+     * @return DateTime
+     */
+    public function getUpdatedAt(): DateTime
+    {
+        return $this->updated_at;
     }
 }
