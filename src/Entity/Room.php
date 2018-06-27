@@ -78,7 +78,7 @@ class Room
      * Get the room picture
      * @return String
      */
-    public function getPicture(): String
+    public function getPicture():? String
     {
         return $this->picture;
     }

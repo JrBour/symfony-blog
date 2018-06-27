@@ -33,6 +33,17 @@ class RoomController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $room = $form->getData();
+            $file = $room->getPicture();
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move(
+                $this->getParameter('images'),
+                $fileName
+            );
+            $name = "/images/posts/" . $fileName;
+            $room->setPicture($name);
+            $room->setCreatedAt(new \DateTime());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($room);
             $em->flush();

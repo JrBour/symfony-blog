@@ -1,35 +1,15 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Room index{% endblock %}
-
+{% block title %}Messages{% endblock %}
 {% block body %}
-    <h1>Room index</h1>
+    <h1>Messages</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <ul>
         {% for room in rooms %}
-            <tr>
-                <td>{{ room.id }}</td>
-                <td>{{ room.name }}</td>
-                <td>
-                    <a href="{{ path('room_show', {'id': room.id}) }}">show</a>
-                    <a href="{{ path('room_edit', {'id': room.id}) }}">edit</a>
-                </td>
-            </tr>
+            <a href="{{ path('room_show', {'id' : room.id}) }}"><li>{{ room.title }}</li></a>
         {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
+            <li>Vous n'avez aucun message !</li>
         {% endfor %}
-        </tbody>
-    </table>
+    </ul>
 
-    <a href="{{ path('room_new') }}">Create new</a>
+    <a href="{{ path('room_new') }}"><button class="btn btn-primary">{% trans %}crud.add{% endtrans %}</button></a>
 {% endblock %}
