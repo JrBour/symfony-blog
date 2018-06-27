@@ -7,6 +7,9 @@ return array(
     'profil' => [
         'choose_language' => 'Choisissez votre langue',
     ],
+    'button' => [
+        'message'   =>  'Envoyer un message'
+    ],
     'form' => [
         'comment'   => 'Votre commentaire',
         'category'  => 'Choisissez votre catégorie',
