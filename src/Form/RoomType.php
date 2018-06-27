@@ -15,7 +15,8 @@ class RoomType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('title', TextType::class, ['label' => 'form.title'])
+            ->add('picture', FileType::class, ['label' => 'form.picture', 'data_class' => null])
         ;
     }
 
