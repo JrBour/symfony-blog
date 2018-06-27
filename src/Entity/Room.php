@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use \DateTime;
 
@@ -22,7 +23,7 @@ class Room
      * @var String
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $title;
 
     /**
      * @var String
@@ -53,22 +54,22 @@ class Room
     }
 
     /**
-     * Get the room name
+     * Get the room title
      * @return null|string
      */
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**
-     * Set the room name
-     * @param   string    $name     The room name
+     * Set the room title
+     * @param   string    $title    The room title
      * @return Room
      */
-    public function setName(string $name): self
+    public function setTitle(string $title): self
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
