@@ -47,7 +47,6 @@ class Blog
 
     /**
      * @ORM\Column(type="string")
-     *
      * @Assert\File(mimeTypes={ "image/jpeg", "image/png"})
      **/
     private $image;

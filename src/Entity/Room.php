@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use \DateTime;
 
 /**
@@ -26,6 +27,7 @@ class Room
     /**
      * @var String
      * @ORM\Column(type="string", length=255)
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png"})
      */
     private $picture;
 
