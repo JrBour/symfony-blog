@@ -26,6 +26,10 @@ return array(
         'subject'       => 'Subject',
         'username'      => 'Username'
     ],
+    'user'  => [
+        'follow' => 'Follow',
+        'unfollow' => 'Unfollow'
+    ],
     'register' => [
         'already_account'   => 'Already have an account',
         'login'             => 'Login'

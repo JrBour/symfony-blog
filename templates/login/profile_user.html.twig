@@ -5,9 +5,9 @@
         <h1 class="text-center" style="text-transform:uppercase;">{{ user.username }}</h1>
         <div id="loadButton">
             {% if not follow %}
-                <button id="follow" class="btn btn-primary">Suivre</button>
+                <button id="follow" class="btn btn-primary">{% trans %}user.follow{% endtrans %}</button>
             {% else %}
-                <button id="unfollow" class="btn btn-primary">Ne plus suivre</button>
+                <button id="unfollow" class="btn btn-primary">{% trans %}user.unfollow{% endtrans %}</button>
             {% endif %}
         </div>
         <button class="btn btn-primary">{% trans %}button.message{% endtrans %}</button>

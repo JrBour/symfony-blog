@@ -26,6 +26,10 @@ return array(
         'save'      => 'Enregistrer',
         'subject'   => 'Sujet'
     ],
+    'user'  => [
+        'follow' => 'Suivre',
+        'unfollow' => 'Ne plus suivre'
+    ],
     'register' => [
         'already_account'   => 'Déjà un compte ?',
         'login'             => 'Connectez-vous'
