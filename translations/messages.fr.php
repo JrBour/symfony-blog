@@ -28,7 +28,8 @@ return array(
     ],
     'user'  => [
         'follow' => 'Suivre',
-        'unfollow' => 'Ne plus suivre'
+        'unfollow' => 'Ne plus suivre',
+        'publications' => 'Ses publications'
     ],
     'register' => [
         'already_account'   => 'Déjà un compte ?',

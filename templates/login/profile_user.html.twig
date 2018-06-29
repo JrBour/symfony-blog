@@ -11,7 +11,7 @@
             {% endif %}
         </div>
         <button class="btn btn-primary">{% trans %}button.message{% endtrans %}</button>
-        <h2>Ses publications</h2>
+        <h2>{% trans %}user.publications{% endtrans %}</h2>
         {% if posts %}
             <ul class="articles">
                 {% for post in posts %}
