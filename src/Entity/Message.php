@@ -20,4 +20,35 @@ class Message
     {
         return $this->id;
     }
+
+    /**
+     * The content message
+     * @ORM\Column(type="text")
+     */
+    private $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Room", inversedBy="message")
+     **/
+    private $room_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="message")
+     **/
+    private $sender_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="message")
+     **/
+    private $recipient_id;
+
+    /**
+     * @ORM\Column(type="datetime")
+     **/
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     **/
+    private $updated_at;
 }
