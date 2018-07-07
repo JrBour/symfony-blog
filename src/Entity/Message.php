@@ -58,7 +58,7 @@ class Message
     /**
      * @return mixed
      */
-    public function getContent()
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -68,7 +68,7 @@ class Message
      *
      * @return mixed
      */
-    public function setContent(string $content)
+    public function setContent(string $content): void
     {
         $this->content = $content;
     }
@@ -78,7 +78,7 @@ class Message
      *
      * @return mixed
      */
-    public function getRecipientId()
+    public function getRecipientId(): ?User
     {
         return $this->recipient_id;
     }
@@ -88,7 +88,7 @@ class Message
      *
      * @return mixed
      */
-    public function setRecipientId(User $user)
+    public function setRecipientId(User $user): void
     {
         $this->recipient_id = $user;
     }
@@ -99,7 +99,7 @@ class Message
      *
      * @return mixed
      */
-    public function getRoomId()
+    public function getRoomId(): ?Room
     {
         return $this->room_id;
     }
@@ -109,7 +109,7 @@ class Message
      *
      * @param       Room      $room     The room object to set
      */
-    public function setRoomId(Room $room)
+    public function setRoomId(Room $room): void
     {
         $this->room_id = $room;
     }
@@ -119,7 +119,7 @@ class Message
      *
      * @return mixed
      */
-    public function getSenderId()
+    public function getSenderId(): ?User
     {
         return $this->sender_id;
     }
@@ -129,7 +129,7 @@ class Message
      *
      * @return mixed
      */
-    public function setSenderId(User $user)
+    public function setSenderId(User $user): void
     {
         $this->sender_id = $user;
     }
@@ -139,7 +139,7 @@ class Message
      *
      * @return Datetime
      **/
-    public function getCreatedAt()
+    public function getCreatedAt(): ?DateTime
     {
         return $this->created_at;
     }
@@ -149,7 +149,7 @@ class Message
      *
      * @param Datetime       $createdAt      The datetime where the content have been create
      **/
-    public function setCreatedAt(DateTime $createdAt)
+    public function setCreatedAt(DateTime $createdAt): void
     {
         $this->created_at = $createdAt;
     }
@@ -159,7 +159,7 @@ class Message
      *
      * @return Datetime
      **/
-    public function getUpdatedAt()
+    public function getUpdatedAt(): ?DateTime
     {
         return $this->updated_at;
     }
@@ -169,7 +169,7 @@ class Message
      *
      * @param Datetime   $updatedAt  The datime where the content have been update
      **/
-    public function setUpdatedAt(DateTime $updatedAt)
+    public function setUpdatedAt(DateTime $updatedAt): void
     {
         $this->updated_at = $updatedAt;
     }
