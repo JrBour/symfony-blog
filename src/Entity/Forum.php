@@ -70,7 +70,7 @@ class Forum
     *
     * @return Int | $id | The current id of forum
     **/
-    public function getId()
+    public function getId(): ?int
     {
       return $this->id;
     }
@@ -80,7 +80,7 @@ class Forum
     *
     * @param Int | $id | Id to add
     **/
-    public function setId(int $id)
+    public function setId(int $id): void
     {
       $this->id = $id;
     }
@@ -90,7 +90,7 @@ class Forum
     *
     * @return String
     **/
-    public function getTitle()
+    public function getTitle(): ?string
     {
       return $this->title;
     }
@@ -100,10 +100,9 @@ class Forum
     *
     * @param string     $title      Title to add
     **/
-    public function setTitle(string $title)
+    public function setTitle(string $title): void
     {
       $this->title = $title;
-      return $this;
     }
 
     /**
@@ -111,7 +110,7 @@ class Forum
     *
     * @return string
     **/
-    public function getContent()
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -123,10 +122,9 @@ class Forum
     *
     * @return String
     **/
-    public function setContent(string $content)
+    public function setContent(string $content): void
     {
         $this->content = $content;
-        return $this;
     }
 
     /**
@@ -146,10 +144,9 @@ class Forum
     *
     * @return String $this Return the url of the new picture
     **/
-    public function setPicture($picture)
+    public function setPicture($picture): void
     {
       $this->picture = $picture;
-      return $this;
     }
 
     /**
@@ -157,7 +154,7 @@ class Forum
     *
     * @return User  Object's user
     **/
-    public function getAuthor()
+    public function getAuthor(): ?string
     {
       return $this->author;
     }
@@ -169,7 +166,7 @@ class Forum
     *
     * @return Object | $this | Object's user
     **/
-    public function setAuthor(User $user)
+    public function setAuthor(User $user): ?User
     {
       $this->author = $user;
       return $this;
@@ -180,7 +177,7 @@ class Forum
     *
     * @return Datetime
     **/
-    public function getCreatedAt()
+    public function getCreatedAt(): ?DateTime
     {
       return $this->created_at;
     }
@@ -192,7 +189,7 @@ class Forum
     *
     * @return Datetime
     **/
-    public function setCreatedAt(DateTime $createdAt)
+    public function setCreatedAt(DateTime $createdAt): void
     {
       $this->created_at = $createdAt;
     }
@@ -202,7 +199,7 @@ class Forum
     *
     * @return Datetime
     **/
-    public function getUpdatedAt()
+    public function getUpdatedAt(): ?DateTime
     {
       return $this->updated_at;
     }
@@ -212,7 +209,7 @@ class Forum
     *
     * @param Datetime   $updatedAt  The datime where the content have been update
     **/
-    public function setUpdatedAt(DateTime $updatedAt)
+    public function setUpdatedAt(DateTime $updatedAt): voif
     {
       $this->updated_at = $updatedAt;
     }
@@ -222,7 +219,7 @@ class Forum
     *
     * @return Collection|Answer[]
     */
-    public function getAnswer()
+    public function getAnswer(): ?Collection
     {
       return $this->answer;
     }
