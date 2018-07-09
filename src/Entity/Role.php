@@ -47,7 +47,7 @@ class Role
      * Get the role id
      * @return int
      */
-    public function getId()
+    public function getId(): ?int
     {
       return $this->id;
     }
@@ -56,7 +56,7 @@ class Role
      * Set the role id
      * @param int $id
      */
-    public function setId(int $id)
+    public function setId(int $id): void
     {
       $this->id = $id;
     }
@@ -65,7 +65,7 @@ class Role
      * Get the role name
      * @return string
      */
-    public function getName()
+    public function getName(): ?string
     {
       return $this->name;
     }
@@ -75,17 +75,16 @@ class Role
      * @param string $name
      * @return string
      */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
       $this->name = $name;
-      return $this->name;
     }
 
     /**
      * Get the user object
      * @return Collection|User[]
      */
-    public function getUser()
+    public function getUser(): ?Collection
     {
       return $this->user;
     }

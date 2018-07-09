@@ -209,7 +209,7 @@ class Forum
     *
     * @param Datetime   $updatedAt  The datime where the content have been update
     **/
-    public function setUpdatedAt(DateTime $updatedAt): voif
+    public function setUpdatedAt(DateTime $updatedAt): void
     {
       $this->updated_at = $updatedAt;
     }
