@@ -80,7 +80,7 @@ class Blog
      * Get the blog id
      * @return mixed
      */
-    public function getId()
+    public function getId(): ?Int
     {
         return $this->id;
     }
@@ -90,17 +90,16 @@ class Blog
      * @param int $id
      * @return $this
      */
-    public function setId(int $id)
+    public function setId(int $id): void
     {
         $this->id = $id;
-        return $this;
     }
 
     /**
      * Get the blog title
      * @return mixed
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -110,17 +109,16 @@ class Blog
      * @param string $title
      * @return $this
      */
-    public function setTitle(string $title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
-        return $this;
     }
 
     /**
      * get the blog description
      * @return mixed
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -130,10 +128,9 @@ class Blog
      * @param string $description
      * @return $this
      */
-    public function setDescription(string $description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-        return $this;
     }
 
 
@@ -142,7 +139,7 @@ class Blog
      *
      * @return Datetime
      **/
-    public function getCreatedAt()
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->created_at;
     }
@@ -154,7 +151,7 @@ class Blog
      *
      * @return Datetime
      **/
-    public function setCreatedAt(DateTime $createdAt)
+    public function setCreatedAt(DateTime $createdAt): void
     {
         $this->created_at = $createdAt;
     }
@@ -164,7 +161,7 @@ class Blog
      *
      * @return Datetime
      **/
-    public function getUpdatedAt()
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updated_at;
     }
@@ -174,7 +171,7 @@ class Blog
      *
      * @param Datetime   $updatedAt  The datime where the content have been update
      **/
-    public function setUpdatedAt(DateTime $updatedAt)
+    public function setUpdatedAt(DateTime $updatedAt): void
     {
         $this->updated_at = $updatedAt;
     }
@@ -192,7 +189,7 @@ class Blog
      * Set the blog picture
      * @param $image
      */
-    public function setImage($image)
+    public function setImage($image): void
     {
         $this->image = $image;
     }
@@ -200,7 +197,7 @@ class Blog
     /** Get the blog category
      * @return mixed
      */
-    public function getCategory()
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
@@ -209,7 +206,7 @@ class Blog
      * Set the blog category
      * @param \App\Entity\Category $category
      */
-    public function setCategory(Category $category)
+    public function setCategory(Category $category): void
     {
         $this->category = $category;
     }
@@ -218,7 +215,7 @@ class Blog
      * Get the blog author
      * @return mixed
      */
-    public function getAuthor()
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
@@ -227,7 +224,7 @@ class Blog
      * Set the blog author
      * @param \App\Entity\User $author
      */
-    public function setAuthor(User $author)
+    public function setAuthor(User $author): void
     {
         $this->author = $author;
     }
@@ -236,7 +233,7 @@ class Blog
      * Get the blog comment in an array
      * @return Collection|Comment[]
      **/
-    public function getComment()
+    public function getComment(): ?Collection
     {
         return $this->comment;
     }
