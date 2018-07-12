@@ -48,7 +48,7 @@ class Room
      * Get the room id
      * @return mixed
      */
-    public function getId()
+    public function getId(): ?Int
     {
         return $this->id;
     }
