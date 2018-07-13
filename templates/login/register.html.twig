@@ -37,5 +37,7 @@
     }}) }}
     {{ form_end(form) }}
 
-  <p>{% trans %}register.already_account{% endtrans %} <a href="{{ path('login')}}">{% trans %}register.login{% endtrans %}</a></p>
+  {% if title is not defined %}
+    <p>{% trans %}register.already_account{% endtrans %} <a href="{{ path('login')}}">{% trans %}register.login{% endtrans %}</a></p>
+  {% endif %}
 {% endblock %}
