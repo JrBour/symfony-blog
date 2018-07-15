@@ -154,7 +154,7 @@ class Forum
     *
     * @return User  Object's user
     **/
-    public function getAuthor(): ?string
+    public function getAuthor(): ?User
     {
       return $this->author;
     }
@@ -166,10 +166,9 @@ class Forum
     *
     * @return Object | $this | Object's user
     **/
-    public function setAuthor(User $user): ?User
+    public function setAuthor(User $user): void
     {
       $this->author = $user;
-      return $this;
     }
 
     /**

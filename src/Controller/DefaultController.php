@@ -102,7 +102,7 @@ class DefaultController extends Controller
      * @return      Response        The json response
      * @Route("/follow", name="follow")
      */
-    public function followUser(Request $request)
+    public function followUser(Request $request): Response
     {
         if ($request->isXmlHttpRequest()) {
             $data = $request->request->all();
