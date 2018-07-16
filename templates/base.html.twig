@@ -31,12 +31,12 @@
                 <li ><a href="{{ path('home') }}">{% trans %}menu.home{% endtrans %}</a></li>
                 <li><a href="{{ path('blog') }}">Blog</a></li>
                 <li><a href="{{ path('forum') }}">Forum</a></li>
-                <li><a href="{{ path('room_index') }}">Messages</a></li>
                 <li><a href="{{ path('contact') }}">Contact</a></li>
                 {% if app.user.id is not defined %}
                     <li ><a href="{{ path('user_registration') }}">{% trans %}menu.register{% endtrans %}</a></li>
                     <li ><a href="{{ path('login') }}">{% trans %}menu.signin{% endtrans %}</a></li>
                 {% else %}
+                    <li><a href="{{ path('room_index') }}">Messages</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <img src="{{ app.user.image }}" alt="" class="profil_picture">

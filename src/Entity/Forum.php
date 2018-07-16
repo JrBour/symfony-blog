@@ -163,8 +163,6 @@ class Forum
     * Return the author of the post
     *
     * @var Object | $user | Object's user
-    *
-    * @return Object | $this | Object's user
     **/
     public function setAuthor(User $user): void
     {

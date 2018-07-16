@@ -76,9 +76,8 @@ class Room
 
     /**
      * Get the room picture
-     * @return String
      */
-    public function getPicture():? String
+    public function getPicture()
     {
         return $this->picture;
     }
@@ -88,7 +87,7 @@ class Room
      * @param String $picture
      * @return Void
      */
-    public function setPicture(String $picture): void
+    public function setPicture(String $picture)
     {
         $this->picture = $picture;
     }
