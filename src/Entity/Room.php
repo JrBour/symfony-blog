@@ -26,7 +26,6 @@ class Room
     private $title;
 
     /**
-     * @var String
      * @ORM\Column(type="string", length=255)
      * @Assert\File(mimeTypes={ "image/jpeg", "image/png"})
      */
@@ -87,7 +86,7 @@ class Room
      * @param String $picture
      * @return Void
      */
-    public function setPicture(String $picture)
+    public function setPicture($picture)
     {
         $this->picture = $picture;
     }
