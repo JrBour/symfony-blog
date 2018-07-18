@@ -4,6 +4,7 @@
     {% if user %}
         <h1 class="text-center" style="text-transform:uppercase;">{{ user.username }}</h1>
         <div id="loadButton">
+            <button id="message" class="btn btn-primary">Messages</button>
             {% if not follow %}
                 <button id="follow" class="btn btn-primary">{% trans %}user.follow{% endtrans %}</button>
             {% else %}
@@ -67,6 +68,10 @@
 {% endblock %}
 {% block javascripts %}
     <script>
+        let mess = document.getElementById('message');
+        mess.addEventListener('click', ()=>{
+            console.log("To continue")
+        });
         let url = window.location.href.split('/');
 
         $("#follow").on('click', e=>{
