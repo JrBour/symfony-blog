@@ -29,32 +29,23 @@ class RoomController extends Controller
     public function new(Request $request): Response
     {
         $room = new Room();
-        $form = $this->createForm(RoomType::class, $room);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $room = $form->getData();
-            $file = $room->getPicture();
-            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-            $file->move(
-                $this->getParameter('images'),
-                $fileName
-            );
-            $name = "/images/posts/" . $fileName;
-            $room->setPicture($name);
+        if($request->isXmlHttpRequest()) {
+            $data = $request->attributes->all();
+            $room->setTitle($data['name']);
             $room->setCreatedAt(new \DateTime());
+            $room->setPicture($data['picture']);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($room);
             $em->flush();
+            $data['success'] = "The room have been created";
 
-            return $this->redirectToRoute('room_index');
+            return $this->json($data, 201);
         }
 
-        return $this->render('room/new.html.twig', [
-            'room' => $room,
-            'form' => $form->createView(),
-        ]);
+        return $this->json(['error' => 'Une erreur est survenue'], 400);
+
+
     }
 
     /**
