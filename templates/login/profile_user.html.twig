@@ -2,7 +2,7 @@
 {% block title %}{{ user.username | capitalize }}{% endblock %}
 {% block body %}
     {% if user %}
-        <h1 class="text-center" style="text-transform:uppercase;">{{ user.username }}</h1>
+        <h1 class="text-center" style="text-transform:uppercase;" id="username">{{ user.username }}</h1>
         <div id="loadButton">
             <button id="message" class="btn btn-primary">Messages</button>
             {% if not follow %}
@@ -68,10 +68,12 @@
 {% endblock %}
 {% block javascripts %}
     <script>
-        let mess = document.getElementById('message');
-        mess.addEventListener('click', ()=>{
-            console.log("To continue")
-        });
+        $("#message").on('click', ()=>{
+            let roomData = {};
+            roomData["name"] = $('h1').text();
+            roomData["picture"] = $('img[alt]').text();
+        })
+
         let url = window.location.href.split('/');
 
         $("#follow").on('click', e=>{
