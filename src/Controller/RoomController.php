@@ -31,7 +31,7 @@ class RoomController extends Controller
         $room = new Room();
         if($request->isXmlHttpRequest()) {
             $data = $request->attributes->all();
-
+            var_dump($data);
             $room->setTitle($data['name']);
             $room->setPicture($data['picture']);
             $room->setCreatedAt(new \DateTime());

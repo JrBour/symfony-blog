@@ -72,6 +72,16 @@
             let roomData = {};
             roomData["name"] = $('h1').text();
             roomData["picture"] = $('img[alt]').text();
+            console.log(roomData)
+            $.ajax({
+                method: "post",
+                data: roomData,
+                url: "/room/new"
+            }).done(()=> {
+                console.log("gg")
+            }).fail(()=> {
+                console.log("error")
+            })
         })
 
         let url = window.location.href.split('/');
