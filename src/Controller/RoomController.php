@@ -28,10 +28,10 @@ class RoomController extends Controller
      */
     public function new(Request $request): Response
     {
-        $room = new Room();
         if($request->isXmlHttpRequest()) {
+            $room = new Room();
             $data = $request->attributes->all();
-            var_dump($data);
+
             $room->setTitle($data['name']);
             $room->setPicture($data['picture']);
             $room->setCreatedAt(new \DateTime());
@@ -39,7 +39,7 @@ class RoomController extends Controller
 
             $em->persist($room);
             $em->flush();
-            $data['success'] = "The room have been created";
+            $data['success'] = "The room have been created with the name" . $room['name'];
 
             return $this->json($data, 201);
         }
