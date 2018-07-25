@@ -31,11 +31,11 @@ class RoomController extends Controller
         if($request->isXmlHttpRequest()) {
             $room = new Room();
             $data = $request->attributes->all();
+            $em = $this->getDoctrine()->getManager();
 
             $room->setTitle($data['name']);
             $room->setPicture($data['picture']);
             $room->setCreatedAt(new \DateTime());
-            $em = $this->getDoctrine()->getManager();
 
             $em->persist($room);
             $em->flush();
