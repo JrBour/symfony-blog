@@ -17,6 +17,8 @@ class RoomController extends Controller
 {
     /**
      * @Route("/", name="room_index", methods="GET")
+     * @param       RoomRepository      $roomRepository     The repository room for get the method for retrieve rooms
+     * @return      Response        The response in json
      */
     public function index(RoomRepository $roomRepository): Response
     {
