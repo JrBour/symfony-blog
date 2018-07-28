@@ -25,7 +25,7 @@ class RoomController extends Controller
     {
         return $this->render('room/index.html.twig', ['rooms' => $roomRepository->findAll()]);
     }
-
+
     /**
      * @Route("/new", name="room_new", methods="GET|POST")
      * Return a json response which indicate whether there are an error or no

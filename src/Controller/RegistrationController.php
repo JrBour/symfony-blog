@@ -19,6 +19,7 @@ class RegistrationController extends Controller
      * @param Request                           $request         Request sent by the form
      * @param UserPasswordEncoderInterface      $passwordEncoder Encode the plain password
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response Redirect after the validation the form or return a view twig page
+     *
      * @Route("/register", name="user_registration")
      */
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
@@ -67,6 +68,7 @@ class RegistrationController extends Controller
      * Display whole register user on the site
      * @param UserRepository        $userRepository     The repository of user
      * @return Response     Return a view page in twig with the all users
+     *
      * @Route("/user/show", name="user_show")
      */
     public function allUserRegister(UserRepository $userRepository)
@@ -81,6 +83,7 @@ class RegistrationController extends Controller
      * @param int                           $id                 The user id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response Redirect to another page after the validation of the form
      * or return a view in twig with the form
+     *
      * @Route("/user/{id}", name="user_edit")
      */
     public function editUser(Request $request, UserPasswordEncoderInterface $passwordEncoder, int $id)
@@ -128,6 +131,7 @@ class RegistrationController extends Controller
      * Remove an user of the database
      * @param int       $id         The user id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse       Redirect to the route where whole users are displays
+     *
      * @Route("/user/remove/{id}", name="user_remove")
      */
     public function removeUser(int $id)
@@ -143,6 +147,7 @@ class RegistrationController extends Controller
     /**
      * Allow to logout the current user
      * @return void
+     *
      * @Route("/logout", name="logout")
      */
     public function logoutAction(): void
