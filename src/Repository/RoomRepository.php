@@ -36,9 +36,9 @@ class RoomRepository extends ServiceEntityRepository
     }
 
 
-    /*
+
     public function findOneBySomeField($value): ?Room
-    {
+    {
         return $this->createQueryBuilder('r')
             ->andWhere('r.exampleField = :val')
             ->setParameter('val', $value)
@@ -46,5 +46,5 @@ class RoomRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+
 }
