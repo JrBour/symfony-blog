@@ -36,9 +36,13 @@ class RoomRepository extends ServiceEntityRepository
     }
 
 
-
+    /**
+     * @param $value
+     * @return Room|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function findOneBySomeField($value): ?Room
-    {
+    {
         return $this->createQueryBuilder('r')
             ->andWhere('r.exampleField = :val')
             ->setParameter('val', $value)
