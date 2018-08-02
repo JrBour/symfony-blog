@@ -23,7 +23,7 @@ class RoomRepository extends ServiceEntityRepository
      * @return Room[] Returns an array of Room objects
      */
 
-    public function findByName($value)
+    public function findByName($value): void
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.name = :name')
