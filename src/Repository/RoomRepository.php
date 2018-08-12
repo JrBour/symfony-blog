@@ -23,7 +23,7 @@ class RoomRepository extends ServiceEntityRepository
      * @return Room[] Returns an array of Room objects
      */
 
-    public function findByName($value): void
+    public function findByName($value)
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.name = :name')
@@ -31,8 +31,7 @@ class RoomRepository extends ServiceEntityRepository
             ->orderBy('r.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
 
@@ -40,7 +39,7 @@ class RoomRepository extends ServiceEntityRepository
      * @param $value
      * @return Room|null
      * @throws \Doctrine\ORM\NonUniqueResultException
-     *//
+     */
     public function findOneBySomeField($value): ?Room
     {
         return $this->createQueryBuilder('r')
