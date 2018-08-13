@@ -36,6 +36,7 @@ class RoomRepository extends ServiceEntityRepository
 
 
     /**
+     * Find one by someone field
      * @param $value
      * @return Room|null
      * @throws \Doctrine\ORM\NonUniqueResultException
