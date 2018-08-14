@@ -36,13 +36,11 @@ class ForumController extends Controller
      */
     public function post(Request $request)
     {
+        $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
         $em = $this->getDoctrine()->getManager();
-
         $forum = new Forum();
         $form = $this->createForm(ForumType::class, $forum);
         $form->handleRequest($request);
-        // RegEx for find an URL
-        $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
 
         if($form->isSubmitted() && $form->isValid()){
             $forum = $form->getData();
