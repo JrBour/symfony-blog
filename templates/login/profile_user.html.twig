@@ -82,7 +82,7 @@
             }).fail(()=> {
                 console.log("error")
             })
-        })
+        });
 
         let url = window.location.href.split('/');
 
@@ -101,7 +101,7 @@
             }).error(()=>{
                 console.log('Y\'a eu un probléme')
             })
-        })
+        });
 
         $('#unfollow').on('click', e=>{
             e.preventDefault();
@@ -120,7 +120,7 @@
             }).error(error=>{
                 console.log(error)
             })
-        })
+        });
 
     </script>
 {% endblock %}
