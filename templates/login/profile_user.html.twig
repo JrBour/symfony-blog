@@ -112,8 +112,7 @@
                 method:"POST",
                 url: "/unfollow",
                 data: dataUnfollow
-            }).success(response=>{
-                console.log(response)
+            }).success(response=>(
                 $('#loadButton').append(`
                     <button id="follow" class="btn btn-primary">Suivre</button>
                 `);
