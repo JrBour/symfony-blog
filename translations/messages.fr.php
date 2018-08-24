@@ -8,7 +8,8 @@ return array(
         'choose_language' => 'Choisissez votre langue',
     ],
     'button' => [
-        'message'   =>  'Envoyer un message'
+        'message'   =>  'Envoyer un message',
+        'send_infos' => 'Envoyer les informations'
     ],
     'form' => [
         'comment'   => 'Votre commentaire',

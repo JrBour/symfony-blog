@@ -9,7 +9,8 @@ return array(
         'choose_language' => 'Choose your language',
     ],
     'button' => [
-        'message'   =>  'Send a message'
+        'message'   =>  'Send a message',
+        'send_infos' => 'Send informations'
     ],
     'form' => [
         'comment'       => 'Your comment',
