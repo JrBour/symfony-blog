@@ -41,7 +41,7 @@ return array(
         'sign_in'           => 'Se connecter'
     ],
     'contact' => [
-        'title'         => 'Contact french',
+        'title'         => 'Contact',
         'firstname'     => 'Prénom',
         'lastname'      => 'Nom',
         'submit'        => 'Envoyer',

@@ -3,12 +3,12 @@
 {% block body %}
     <h1>Blog</h1>
     <h2>Category</h2>
-    <button id="toggle" class="btn btn-success" onclick="toggleCat()">Click</button>
-    <div id="category" class="cat__hide">
-        <ul>
+    <p id="toggle" onclick="toggleCat()"><i class="fas fa-angle-down"></i></p>
+    <div id="category" class="cat cat__hide">
+        <ul class="cat__content">
             {% for category in categories %}
                 <a href="{{ path('category_show_post', {'id' : category.id}) }}">
-                    <li>{{ category.name }}</li>
+                    <li class="cat__item">{{ category.name }}</li>
                 </a>
             {% else %}
                 <p>Pas de catégorie présente</p>
@@ -17,13 +17,13 @@
     </div>
     <ul class="articles">
         {% for post in posts %}
-            <a href="{{ path('blog_show', { 'id' : post.id } ) }}">
+            <a href="{{ path('blog_show', { 'id' : post.id }) }}">
                 <li class="post">
                     <div style="background:url('{{ asset(post.image) }}'); height: 200px; width: 100%; background-position: center; background-size: cover"></div>
                     <div class="text_post">
                         <h2>{{ post.title }}</h2>
                         {% if post.description|length > 200 %}
-                        {{post.description|slice(0,200) }}...
+                            {{post.description|slice(0,200) }}...
                         {% else %}
                             {{ post.description }}
                         {% endif %}<br>
@@ -46,9 +46,16 @@
 {% endblock %}
 {% block javascripts %}
     <script>
-        let cat = document.getElementById('category');
+        let cat = document.querySelector('#category');
+        let toggle = document.querySelector('#toggle');
+
         function toggleCat() {
             cat.classList.toggle('cat__hide');
+            if (cat.className === 'cat cat__hide') {
+                toggle.innerHTML = '<i class="fas fa-angle-down"></i>';
+            } else {
+                toggle.innerHTML = '<i class="fas fa-angle-up"></i>';
+            }
         }
 
     </script>

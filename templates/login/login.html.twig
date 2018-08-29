@@ -1,9 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}{% trans %}signin.sign_in{% endtrans %}{% endblock %}
 {% block body %}
-    {% if lastUsername is defined %}
-        <p>{{ lastUsername }}</p>
-    {% endif %}
     <form action="{{ path('login') }}" method="post">
         <div class="form-group">
             <label for="username">{% trans %}form.username{% endtrans %}</label>

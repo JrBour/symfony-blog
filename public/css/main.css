@@ -1,5 +1,6 @@
 .articles, .categories {
     display: flex;
+    justify-content: space-around;
     flex-flow: row wrap;
     flex: 3 0px;
     width: 90%;
@@ -235,9 +236,31 @@ hr {
     overflow: hidden;
 }
 
+.cat{
+    width: 90%;
+    transition: all .3s ease;
+}
+
 .cat__hide{
     min-height: 0;
     height: 0;
+    transition: all .3s ease;
+}
+
+.cat__content{
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cat__item {
+    font-size: 2em;
+}
+
+.cat__item:hover {
+    text-decoration: underline;
 }
 
 @keyframes fadeInDown{
