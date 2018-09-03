@@ -84,13 +84,12 @@ class BlogController extends Controller
      * @return Response     The render of twig
      * @Route("/blog/{id}", name="blog_show")
      */
-    public function show(Request $request, int $id): Response
+    public function show(Request $request, Comment $comment, int $id): Response
     {
         $em = $this->getDoctrine()->getManager();
         $blog = $this->getDoctrine()->getRepository(Blog::class)->find($id);
         $comments = $this->getDoctrine()->getRepository(Comment::class)->findByPost($id);
 
-        $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 

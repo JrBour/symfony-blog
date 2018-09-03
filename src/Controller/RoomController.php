@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Room;
+use App\Entity\User;
 use App\Entity\Message;
 use App\Form\RoomType;
 use App\Form\MessageType;
@@ -58,14 +59,38 @@ class RoomController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="room_show", methods="GET")
+     * @Route("/{id}", name="room_show")
      * Return the page which retrieve one room by the room id
      * @param       Room        $room       The room object
+     * @param       Request     $request    The request
      * @return      Response        The twig template
      */
-    public function show(Room $room, Message $message): Response
+    public function show(Room $room, Request $request): Response
     {
+        $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
+        $form->handleRequest($request);
+
+        if ($request->isXmlHttpRequest()) {
+            $data = $request->attributes->all();
+            $em = $this->getDoctrine()->getManager();
+
+            $recipient = $em->getRepository(User::class)->find($data['recipient']);
+            $sender = $em->getRepository(User::class)->find($data['sender']);
+
+            $message->setContent($data['content']);
+            $message->setRecipientId($recipient);
+            $message->setSenderId($sender);
+            $message->setCreatedAt(new \DateTime());
+            $message->setRoomId($data['room']);
+
+            // Add in the queue
+            $em->persist($message);
+            // Told  the database that he had to create\update\delete this information
+            $em->flush();
+            return $this->json(['success' => 'Le message a bien été crée !'], 201);
+
+        }
 
         return $this->render('room/show.html.twig', ['room' => $room, 'form' => $form->createView()]);
     }
