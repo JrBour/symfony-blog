@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Room;
+use App\Entity\Message;
 use App\Form\RoomType;
+use App\Form\MessageType;
 use App\Repository\RoomRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,9 +63,11 @@ class RoomController extends Controller
      * @param       Room        $room       The room object
      * @return      Response        The twig template
      */
-    public function show(Room $room): Response
+    public function show(Room $room, Message $message): Response
     {
-        return $this->render('room/show.html.twig', ['room' => $room]);
+        $form = $this->createForm(MessageType::class, $message);
+
+        return $this->render('room/show.html.twig', ['room' => $room, 'form' => $form->createView()]);
     }
 
     /**
