@@ -102,6 +102,7 @@ class RegistrationController extends Controller
             } else {
                 $user->setPassword($user->getPassword());
             }
+
             $file = $user->getImage();
             if($file) {
                 $fileName = md5(uniqid()) . '.' . $file->guessExtension();
@@ -114,6 +115,7 @@ class RegistrationController extends Controller
             } else {
                 $user->setImage($user->getImage());
             }
+
             $user->setRole($user->getRole());
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
