@@ -68,12 +68,14 @@ class RoomController extends Controller
     public function show(Room $room, Request $request): Response
     {
         $message = new Message();
+        $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
+        $roomToSet = $em->getRepository(Room::class)->find($room->getId());
+
         if ($request->isXmlHttpRequest()) {
             $data = $request->attributes->all();
-            $em = $this->getDoctrine()->getManager();
 
             $recipient = $em->getRepository(User::class)->find($data['recipient']);
             $sender = $em->getRepository(User::class)->find($data['sender']);
@@ -82,7 +84,7 @@ class RoomController extends Controller
             $message->setRecipientId($recipient);
             $message->setSenderId($sender);
             $message->setCreatedAt(new \DateTime());
-            $message->setRoomId($data['room']);
+            $message->setRoomId($roomToSet);
 
             // Add in the queue
             $em->persist($message);
@@ -92,7 +94,10 @@ class RoomController extends Controller
 
         }
 
-        return $this->render('room/show.html.twig', ['room' => $room, 'form' => $form->createView()]);
+        return $this->render('room/show.html.twig', [
+            'room' => $room,
+            'form' => $form->createView()
+        ]);
     }
 
     /**

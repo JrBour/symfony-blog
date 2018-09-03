@@ -14,11 +14,6 @@ class MessageType extends AbstractType
     {
         $builder
             ->add('content')
-            ->add('created_at')
-            ->add('updated_at')
-            ->add('room_id')
-            ->add('sender_id')
-            ->add('recipient_id')
             ->add('submit', SubmitType::class, ['label' => 'Send'])
         ;
     }
