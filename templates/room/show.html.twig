@@ -5,7 +5,6 @@
 {% block body %}
     <h1 class="text-center">{{ room.title }}</h1>
 
-    <button>Create message</button>
     {{ form_start(form) }}
         <div class="form-group">
             {{ form_row(form.content, {'attr': {
@@ -17,4 +16,32 @@
 
     {{ form_end(form) }}
     {#{{ include('room/_delete_form.html.twig') }}#}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let arr = window.location.href.split('/');
+        const id = arr[arr.length-1];
+        const submit = document.querySelector('#message_submit');
+
+        submit.addEventListener('submit', e => {
+            e.preventDefault();
+
+            let dataToSend = {};
+            dataToSend['room'] = id;
+            dataToSend['recipient'] = 2;
+            dataToSend['sender'] = 3;
+            dataToSend['content'] = document.querySelector('#message_content').value;
+
+
+            $.ajax({
+                method: "POST",
+                url: `/message/create`,
+                data: dataToSend
+            }).done(res => {
+                console.log(res);
+            });
+        })
+
+    </script>
 {% endblock %}

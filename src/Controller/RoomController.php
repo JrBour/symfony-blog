@@ -65,18 +65,17 @@ class RoomController extends Controller
      * @param       Request     $request    The request
      * @return      Response        The twig template
      */
-    public function show(Room $room, Request $request): Response
+    public function show(Request $request, Room $room): Response
     {
         $message = new Message();
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
-        $roomToSet = $em->getRepository(Room::class)->find($room->getId());
-
         if ($request->isXmlHttpRequest()) {
             $data = $request->attributes->all();
 
+            $roomToSet = $em->getRepository(Room::class)->find($room->getId());
             $recipient = $em->getRepository(User::class)->find($data['recipient']);
             $sender = $em->getRepository(User::class)->find($data['sender']);
 
@@ -90,8 +89,8 @@ class RoomController extends Controller
             $em->persist($message);
             // Told  the database that he had to create\update\delete this information
             $em->flush();
-            return $this->json(['success' => 'Le message a bien été crée !'], 201);
 
+            return $this->json(['success' => 'Le message a bien été créée !'], 201);
         }
 
         return $this->render('room/show.html.twig', [

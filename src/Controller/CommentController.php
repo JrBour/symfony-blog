@@ -32,7 +32,7 @@ class CommentController extends Controller
      */
     public function edit(Request $request, int $id)
     {
-        if($request->isXmlHttpRequest()){
+        if ($request->isXmlHttpRequest()) {
             $data = $request->request->all();
             $em = $this->getDoctrine()->getManager();
             $comment = $em->getRepository(Comment::class)->find($data['id']);
