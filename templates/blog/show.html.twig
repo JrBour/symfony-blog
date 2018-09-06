@@ -53,21 +53,17 @@
         $('.features').hide();
         $('.success').hide();
 
-        $('.show').on('click', function(e){
+        const show = document.querySelector('.show');
+        let features = document.querySelector('.features');
+
+        show.addEventListener('click', (e) => {
             e.preventDefault();
-            let features = $(this).siblings('.features');
-            if(features.is(":visible")) {
-                features.hide();
-            }else {
-                features.show();
-            }
+            features.style.display = (features.style.display == 'none') ? 'block' : 'none';
         })
 
         document.querySelector('[name=comment]').addEventListener('submit', async (e) => {
             e.preventDefault();
-            let dataComment = {};
-            let url = window.location.href;
-            let split = url.split('/');
+            const split = window.location.href.split('/');
 
             const sendComment = await fetch(`/blog/${parseFloat(split[split.length - 1])}`, {
                 method : 'post',
@@ -75,7 +71,7 @@
                 body: JSON.stringify({content : $('#comment_content').val()})
             });
             const res = await sendComment.json();
-            console.log(res);
+
             document.querySelector('#comment_content').value = '';
             document.querySelector('.comments_list').insertAdjacentHTML('beforeend', `
                 <div class="comments">
@@ -92,9 +88,6 @@
         });
 
 
-        $('form[name="comment"]').on('submit', function(e){
-        });
-
         $('.edit').on('click', function(e){
             e.preventDefault();
             $('.features').hide();
@@ -107,7 +100,7 @@
             content.prepend(`<form name="editContent"><input type="text" value="${textContent}" data-id="${dataId}" class="editContent" autofocus/></form>`);
         });
 
-        // TODO
+
         $('.comments').submit('form[name="editContent"]', (e) => {
             e.preventDefault();
             let dataComment = {};
