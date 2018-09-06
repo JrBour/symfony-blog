@@ -96,7 +96,7 @@ class BlogController extends Controller
         $form->handleRequest($request);
 
         if ($request->isXmlHttpRequest()) {
-            $data = $request->request->all();
+            $data = json_decode($request->getContent(), true);
             $data['user'] = $this->getUser();
             $data['id'] = $data['user']->getId();
             $data['username'] = $data['user']->getUsername();

@@ -68,42 +68,25 @@
             let dataComment = {};
             let url = window.location.href;
             let split = url.split('/');
-            dataComment['content'] = $('#comment_content').val();
 
+            console.log(dataComment);
             fetch(`/blog/${parseFloat(split[split.length - 1])}`, {
-                method : 'POST',
-                data: dataComment
+                method : 'post',
+                headers: {'X-Requested-With' : 'XMLHttpRequest'},
+                body: JSON.stringify({content : $('#comment_content').val()})
             }).then(res => {
-                    $('#comment_content').val('');
-                        $('.comments_list').append(`<div class="comments">
-                        <div class="card-header">
-                            <img src="${res['image']}" alt="" class="profil_picture_post">
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="card-text"><a href="/profil/${res['id']}" class="profil" >${res['username']}</a> ${res['content']} </p>
-                            </div>
-                        </div>
-                    </div>`);
-                }).catch(err => console.log(err));
-
-            /*$.ajax({
-                method: "POST",
-                url: `/blog/${parseFloat(split[split.length - 1])}`,
-                data : dataComment,
-            }).done(function(response){
                 $('#comment_content').val('');
-                $('.comments_list').append(`<div class="comments">
+                    $('.comments_list').append(`<div class="comments">
                     <div class="card-header">
-                        <img src="${response['image']}" alt="" class="profil_picture_post">
+                        <img src="${res['image']}" alt="" class="profil_picture_post">
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <p class="card-text"><a href="/profil/${response['id']}" class="profil" >${response['username']}</a> ${response['content']} </p>
+                            <p class="card-text"><a href="/profil/${res['id']}" class="profil" >${res['username']}</a> ${res['content']} </p>
                         </div>
                     </div>
                 </div>`);
-            })*/
+            }).catch(err => console.log(err));
         });
 
         $('.edit').on('click', function(e){
