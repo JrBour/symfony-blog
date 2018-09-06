@@ -54,6 +54,7 @@
         $('.success').hide();
 
         const show = document.querySelector('.show');
+        const edit = document.querySelector('.edit');
         let features = document.querySelector('.features');
 
         show.addEventListener('click', (e) => {
@@ -87,18 +88,18 @@
             `);
         });
 
-
-        $('.edit').on('click', function(e){
+        edit.addEventListener('click', e => {
             e.preventDefault();
-            $('.features').hide();
-            let dataId = $(this).data('id');
-            let card = $(this).parent(".features").parent(".card");
-            let cardText = card.children('.card-body').children('p.card-text');
-            let content = cardText.children('span.content');
-            let textContent = content.text();
-            content.text('');
-            content.prepend(`<form name="editContent"><input type="text" value="${textContent}" data-id="${dataId}" class="editContent" autofocus/></form>`);
-        });
+            features.style.display = 'none';
+
+            const dataId = edit.dataset.id;
+            const card = edit.parentElement.parentElement;
+            const cardText = card.firstElementChild.firstElementChild.lastElementChild
+            const textContent = cardText.textContent;
+
+            cardText.innerHTML = '';
+            cardText.insertAdjacentHTML('beforeend',`<form name="editContent"><input type="text" value="${textContent}" data-id="${dataId}" class="editContent" autofocus/></form>`)
+        })
 
 
         $('.comments').submit('form[name="editContent"]', (e) => {
