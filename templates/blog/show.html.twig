@@ -63,20 +63,22 @@
             }
         })
 
-        $('form[name="comment"]').on('submit', function(e){
+        document.querySelector('[name=comment]').addEventListener('submit', async (e) => {
             e.preventDefault();
             let dataComment = {};
             let url = window.location.href;
             let split = url.split('/');
 
-            console.log(dataComment);
-            fetch(`/blog/${parseFloat(split[split.length - 1])}`, {
+            const sendComment = await fetch(`/blog/${parseFloat(split[split.length - 1])}`, {
                 method : 'post',
                 headers: {'X-Requested-With' : 'XMLHttpRequest'},
                 body: JSON.stringify({content : $('#comment_content').val()})
-            }).then(res => {
-                $('#comment_content').val('');
-                    $('.comments_list').append(`<div class="comments">
+            });
+            const res = await sendComment.json();
+            console.log(res);
+            document.querySelector('#comment_content').value = '';
+            document.querySelector('.comments_list').insertAdjacentHTML('beforeend', `
+                <div class="comments">
                     <div class="card-header">
                         <img src="${res['image']}" alt="" class="profil_picture_post">
                     </div>
@@ -85,8 +87,12 @@
                             <p class="card-text"><a href="/profil/${res['id']}" class="profil" >${res['username']}</a> ${res['content']} </p>
                         </div>
                     </div>
-                </div>`);
-            }).catch(err => console.log(err));
+                </div>
+            `);
+        });
+
+
+        $('form[name="comment"]').on('submit', function(e){
         });
 
         $('.edit').on('click', function(e){
