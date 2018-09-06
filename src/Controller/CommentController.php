@@ -35,12 +35,14 @@ class CommentController extends Controller
         if ($request->isXmlHttpRequest()) {
             $data = $request->request->all();
             $em = $this->getDoctrine()->getManager();
-            $comment = $em->getRepository(Comment::class)->find($data['id']);
+            $comment = $em->getRepository(Comment::class)->find($id);
+
             if (is_null($comment)) {
                 $data['error'] = "The id comment does not exist";
 
                 return new JsonResponse($data, 404);
             }
+
             $comment->setUpdatedAt(new \DateTime());
             $comment->setContent($data['content']);
             $em->flush();

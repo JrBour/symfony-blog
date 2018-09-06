@@ -24,10 +24,10 @@
         const id = arr[arr.length-1];
         const submit = document.querySelector('#message_submit');
 
-        submit.addEventListener('submit', e => {
+        submit.addEventListener('click', (e) => {
             e.preventDefault();
 
-            let dataToSend = {};
+            const dataToSend = {};
             dataToSend['room'] = id;
             dataToSend['recipient'] = 2;
             dataToSend['sender'] = 3;

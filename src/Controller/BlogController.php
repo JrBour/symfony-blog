@@ -80,16 +80,18 @@ class BlogController extends Controller
     /**
      * Return the page for show only one articles
      * @param Request      $request     The request send by the form
+     * @param Comment      $comment     The comment object
      * @param int          $id          The article id
      * @return Response     The render of twig
      * @Route("/blog/{id}", name="blog_show")
      */
-    public function show(Request $request, Comment $comment, int $id): Response
+    public function show(Request $request, int $id): Response
     {
         $em = $this->getDoctrine()->getManager();
         $blog = $this->getDoctrine()->getRepository(Blog::class)->find($id);
         $comments = $this->getDoctrine()->getRepository(Comment::class)->findByPost($id);
 
+        $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 

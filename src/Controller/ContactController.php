@@ -47,6 +47,7 @@ class ContactController extends Controller
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
+
         if($request->isXmlHttpRequest()) {
             $data = $request->request->all();
             $contact = $form->getData();

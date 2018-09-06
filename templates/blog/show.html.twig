@@ -70,7 +70,24 @@
             let split = url.split('/');
             dataComment['content'] = $('#comment_content').val();
 
-            $.ajax({
+            fetch(`/blog/${parseFloat(split[split.length - 1])}`, {
+                method : 'POST',
+                data: dataComment
+            }).then(res => {
+                    $('#comment_content').val('');
+                        $('.comments_list').append(`<div class="comments">
+                        <div class="card-header">
+                            <img src="${res['image']}" alt="" class="profil_picture_post">
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text"><a href="/profil/${res['id']}" class="profil" >${res['username']}</a> ${res['content']} </p>
+                            </div>
+                        </div>
+                    </div>`);
+                }).catch(err => console.log(err));
+
+            /*$.ajax({
                 method: "POST",
                 url: `/blog/${parseFloat(split[split.length - 1])}`,
                 data : dataComment,
@@ -86,7 +103,7 @@
                         </div>
                     </div>
                 </div>`);
-            })
+            })*/
         });
 
         $('.edit').on('click', function(e){
