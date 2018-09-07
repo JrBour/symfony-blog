@@ -55,6 +55,7 @@
 
         const show = document.querySelector('.show');
         const edit = document.querySelector('.edit');
+        const removeComment = document.querySelector('.remove_comment');
         let features = document.querySelector('.features');
 
         show.addEventListener('click', (e) => {
@@ -127,13 +128,25 @@
             })
         })
 
-        $('.remove_comment').on('click', function(e){
+        removeComment.addEventListener('click', async e => {
             e.preventDefault();
-            let dataComment = {};
-            dataComment['id'] = $(this).data('id');
+             dataComment = {};
             $(this).closest('div.comments').remove();
 
-            $.ajax({
+            const success = document.querySelector('.success');
+            const deleteComment = await fetch(`/comment/remove/${removeComment.dataset.id}`,{
+                method: 'post',
+                headers: {'X-Requested-With' : 'XMLHttpRequest'},
+                body: JSON.stringify({id : removeComment.dataset.id})
+            })
+            const res = await deleteComment.json();
+
+            $( "#commentList" ).load( document.URL + "#commentList" );
+            success.style.display = 'block';
+
+
+
+            /*$.ajax({
                 method: "POST",
                 url: `/comment/remove/${dataComment['id']} `,
                 data: dataComment
@@ -141,7 +154,9 @@
                 $( "#commentList" ).load( document.URL + "#commentList" );
                 $('.success').show()
                 $('.success p').text(response['success']);
-            })
+
+            })*/
         })
+
     </script>
 {% endblock %}
