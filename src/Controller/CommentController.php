@@ -57,17 +57,18 @@ class CommentController extends Controller
      * @return JsonResponse     Send a JSON response to the view
      * @Route("/comment/remove/{id}", name="comment_remove")
      */
-    public function remove(Request $request)
+    public function remove(Request $request, int $id)
     {
         if($request->isXmlHttpRequest()){
-            $data = $request->request->all();
+            $data = [];
             $em = $this->getDoctrine()->getManager();
-            $comment = $em->getRepository(Comment::class)->find($data['id']);
+            $comment = $em->getRepository(Comment::class)->find($id);
             if (is_null($comment)) {
                 $data['error'] = "L'id ne correspond à aucune commentaire";
 
                 return new JsonResponse($data, 404);
             }
+
             $em->remove($comment);
             $em->flush();
             $data['success'] = "Le commentaire a bien était supprimé !";

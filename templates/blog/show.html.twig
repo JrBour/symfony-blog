@@ -135,9 +135,8 @@
 
             const success = document.querySelector('.success');
             const deleteComment = await fetch(`/comment/remove/${removeComment.dataset.id}`,{
-                method: 'post',
-                headers: {'X-Requested-With' : 'XMLHttpRequest'},
-                body: JSON.stringify({id : removeComment.dataset.id})
+                method: 'get',
+                headers: {'X-Requested-With' : 'XMLHttpRequest'}
             })
             const res = await deleteComment.json();
 
