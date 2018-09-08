@@ -56,6 +56,8 @@
         const show = document.querySelector('.show');
         const edit = document.querySelector('.edit');
         const removeComment = document.querySelector('.remove_comment');
+        const comments = document.querySelector('.comments');
+        const editContent= document.querySelector('[name=editContent]');
         let features = document.querySelector('.features');
 
         show.addEventListener('click', (e) => {
@@ -103,7 +105,9 @@
         })
 
 
-        $('.comments').submit('form[name="editContent"]', (e) => {
+
+
+        editContent.addEventListener('submit', e => {
             e.preventDefault();
             let dataComment = {};
             let dataId = $('input.editContent').data('id');
@@ -114,7 +118,13 @@
             dataComment['id'] = dataId;
             dataComment['content'] = textContent;
 
-            $.ajax({
+            const deleteComment = await fetch(`/comment/edit/${dataId}`,{
+                method: 'post',
+                headers: {'X-Requested-With' : 'XMLHttpRequest'},
+                body: JSON.stringify({id: dataId, content : textContent})
+            })
+
+            /*$.ajax({
                 method: "POST",
                 url: `/comment/edit/${dataId}`,
                 data: dataComment,
@@ -125,8 +135,9 @@
                 $('.success p').text('Votre commentaire a bien était édité !');
             }).error(()=>{
                 console.log('gg')
-            })
+            })*/
         })
+
 
         removeComment.addEventListener('click', async e => {
             e.preventDefault();
@@ -143,18 +154,6 @@
             $( "#commentList" ).load( document.URL + "#commentList" );
             success.style.display = 'block';
 
-
-
-            /*$.ajax({
-                method: "POST",
-                url: `/comment/remove/${dataComment['id']} `,
-                data: dataComment
-            }).done(function(response){
-                $( "#commentList" ).load( document.URL + "#commentList" );
-                $('.success').show()
-                $('.success p').text(response['success']);
-
-            })*/
         })
 
     </script>
