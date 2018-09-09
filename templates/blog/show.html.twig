@@ -104,10 +104,14 @@
         }
 
 
-        async function editFormSubmit (e)  {
+        /**
+         * Edit the commentary selected
+         * @param e       Event         The event
+         * @returns Void
+         */
+        async function editFormSubmit (e) {
             e.preventDefault();
 
-            let dataComment = {};
             let dataId = document.querySelector('.editContent').dataset.id
             let textContent = $('input.editContent').val();
             let input = $('input.editContent');
@@ -120,24 +124,14 @@
                 body: JSON.stringify({id: dataId, content: textContent})
             })
 
+            const res = await deleteComment.json();
+
             content.innerText = input.val();
+            input.parent('form[name="editContent"]').remove();
+            $('.success').show(0).delay(9000).hide(0);
+            success.firstElementChild.innerHTML = res.success;
         }
 
-            /*editContent.addEventListener('keypress', async e => {
-
-                $.ajax({
-                    method: "POST",
-                    url: `/comment/edit/${dataId}`,
-                    data: dataComment,
-                }).done(()=>{
-                    content.text(input.val())
-                    input.parent('form[name="editContent"]').remove();
-                    $('.success').show(0).delay(9000).hide(0);
-                    $('.success p').text('Votre commentaire a bien était édité !');
-                }).error(()=>{
-                    console.log('gg')
-                })
-            })*/
 
         document.querySelector('[name=comment]').addEventListener('submit', async (e) => {
             e.preventDefault();

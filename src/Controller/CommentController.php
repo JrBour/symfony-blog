@@ -47,7 +47,7 @@ class CommentController extends Controller
             $comment->setContent($data['content']);
             $em->flush();
 
-            return new JsonResponse($data, 200);
+            return new JsonResponse(['success' => 'Le commentaire a bien était modifié !'], 200);
         }
 
         return new JsonResponse(['error' => 'Please send a XmlHttp Request'], 403);
