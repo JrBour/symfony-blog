@@ -112,11 +112,10 @@
         async function editFormSubmit (e) {
             e.preventDefault();
 
-            let dataId = document.querySelector('.editContent').dataset.id
-            let textContent = $('input.editContent').val();
-            let input = $('input.editContent');
-            let content = input.parent('form[name="editContent"]').parent('span.content');
-
+            const dataId = document.querySelector('.editContent').dataset.id
+            const textContent = $('input.editContent').val();
+            const input = document.querySelector('input.editContent');
+            const content = input.parentElement.parentElement;
 
             const deleteComment = await fetch(`/comment/edit/${dataId}`, {
                 method: 'post',
@@ -125,9 +124,8 @@
             })
 
             const res = await deleteComment.json();
-
-            content.innerText = input.val();
-            input.parent('form[name="editContent"]').remove();
+            content.innerText = input.value;
+            content.removeChild(input.parentElement);
             $('.success').show(0).delay(9000).hide(0);
             success.firstElementChild.innerHTML = res.success;
         }
