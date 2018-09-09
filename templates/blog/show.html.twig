@@ -50,15 +50,19 @@
 {% endblock %}
 {% block javascripts %}
     <script type="text/javascript">
-        $('.features').hide();
-        $('.success').hide();
+
 
         const show = document.querySelector('.show');
         const edit = document.querySelector('.edit');
         const removeComment = document.querySelector('.remove_comment');
         const comments = document.querySelector('.comments');
-        const editContent= document.querySelector('[name=editContent]');
+        const editContent = document.querySelector('.editContentForm');
+        let displayForm = false;
         let features = document.querySelector('.features');
+        let success= document.querySelector('.success');
+
+        features.style.display = 'none';
+        success.style.display = 'none';
 
         if (show){
             show.addEventListener('click', (e) => {
@@ -76,7 +80,9 @@
                 const textContent = cardText.textContent;
 
                 cardText.innerHTML = '';
-                cardText.insertAdjacentHTML('beforeend',`<form name="editContent"><input type="text" value="${textContent}" data-id="${dataId}" class="editContent" autofocus/></form>`)
+                cardText.insertAdjacentHTML('beforeend',`<form name="editContent" onsubmit="editFormSubmit(event)" class="editContentForm"><input type="text" value="${textContent}" data-id="${dataId}" class="editContent" autofocus/></form>`)
+
+                displayForm = true
             })
 
             removeComment.addEventListener('click', async e => {
@@ -97,27 +103,29 @@
             })
         }
 
-        if (editContent) {
-            editContent.addEventListener('submit', async e => {
-                e.preventDefault();
-                let dataComment = {};
-                let dataId = document.querySelector('.editContent').dataset.id
-                let textContent = $('input.editContent').val();
-                let input = $('input.editContent');
-                let content = input.parent('form[name="editContent"]').parent('span.content');
 
-                console.log("cc");
+        async function editFormSubmit (e)  {
+            e.preventDefault();
 
-                const deleteComment = await fetch(`/comment/edit/${dataId}`,{
-                    method: 'post',
-                    headers: {'X-Requested-With' : 'XMLHttpRequest'},
-                    body: JSON.stringify({id: dataId, content : textContent})
-                })
-                const res = await deleteComment.json();
+            let dataComment = {};
+            let dataId = document.querySelector('.editContent').dataset.id
+            let textContent = $('input.editContent').val();
+            let input = $('input.editContent');
+            let content = input.parent('form[name="editContent"]').parent('span.content');
 
-                content.innerText = input.val();
 
-                /*$.ajax({
+            const deleteComment = await fetch(`/comment/edit/${dataId}`, {
+                method: 'post',
+                headers: {'X-Requested-With': 'XMLHttpRequest'},
+                body: JSON.stringify({id: dataId, content: textContent})
+            })
+
+            content.innerText = input.val();
+        }
+
+            /*editContent.addEventListener('keypress', async e => {
+
+                $.ajax({
                     method: "POST",
                     url: `/comment/edit/${dataId}`,
                     data: dataComment,
@@ -128,9 +136,8 @@
                     $('.success p').text('Votre commentaire a bien était édité !');
                 }).error(()=>{
                     console.log('gg')
-                })*/
-            })
-        }
+                })
+            })*/
 
         document.querySelector('[name=comment]').addEventListener('submit', async (e) => {
             e.preventDefault();
