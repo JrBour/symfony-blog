@@ -33,7 +33,7 @@ class CommentController extends Controller
     public function edit(Request $request, int $id)
     {
         if ($request->isXmlHttpRequest()) {
-            $data = $request->request->all();
+            $data = json_decode($request->getContent(), true);
             $em = $this->getDoctrine()->getManager();
             $comment = $em->getRepository(Comment::class)->find($id);
 
@@ -49,6 +49,8 @@ class CommentController extends Controller
 
             return new JsonResponse($data, 200);
         }
+
+        return new JsonResponse(['error' => 'Please send a XmlHttp Request'], 403);
     }
 
     /**

@@ -60,10 +60,77 @@
         const editContent= document.querySelector('[name=editContent]');
         let features = document.querySelector('.features');
 
-        show.addEventListener('click', (e) => {
-            e.preventDefault();
-            features.style.display = (features.style.display == 'none') ? 'block' : 'none';
-        })
+        if (show){
+            show.addEventListener('click', (e) => {
+                e.preventDefault();
+                features.style.display = (features.style.display == 'none') ? 'block' : 'none';
+            })
+
+            edit.addEventListener('click', e => {
+                e.preventDefault();
+                features.style.display = 'none';
+
+                const dataId = edit.dataset.id;
+                const card = edit.parentElement.parentElement;
+                const cardText = card.firstElementChild.firstElementChild.lastElementChild
+                const textContent = cardText.textContent;
+
+                cardText.innerHTML = '';
+                cardText.insertAdjacentHTML('beforeend',`<form name="editContent"><input type="text" value="${textContent}" data-id="${dataId}" class="editContent" autofocus/></form>`)
+            })
+
+            removeComment.addEventListener('click', async e => {
+                e.preventDefault();
+                dataComment = {};
+                $(this).closest('div.comments').remove();
+
+                const success = document.querySelector('.success');
+                const deleteComment = await fetch(`/comment/remove/${removeComment.dataset.id}`,{
+                    method: 'get',
+                    headers: {'X-Requested-With' : 'XMLHttpRequest'}
+                })
+                const res = await deleteComment.json();
+
+                $( "#commentList" ).load( document.URL + "#commentList" );
+                success.style.display = 'block';
+
+            })
+        }
+
+        if (editContent) {
+            editContent.addEventListener('submit', async e => {
+                e.preventDefault();
+                let dataComment = {};
+                let dataId = document.querySelector('.editContent').dataset.id
+                let textContent = $('input.editContent').val();
+                let input = $('input.editContent');
+                let content = input.parent('form[name="editContent"]').parent('span.content');
+
+                console.log("cc");
+
+                const deleteComment = await fetch(`/comment/edit/${dataId}`,{
+                    method: 'post',
+                    headers: {'X-Requested-With' : 'XMLHttpRequest'},
+                    body: JSON.stringify({id: dataId, content : textContent})
+                })
+                const res = await deleteComment.json();
+
+                content.innerText = input.val();
+
+                /*$.ajax({
+                    method: "POST",
+                    url: `/comment/edit/${dataId}`,
+                    data: dataComment,
+                }).done(()=>{
+                    content.text(input.val())
+                    input.parent('form[name="editContent"]').remove();
+                    $('.success').show(0).delay(9000).hide(0);
+                    $('.success p').text('Votre commentaire a bien était édité !');
+                }).error(()=>{
+                    console.log('gg')
+                })*/
+            })
+        }
 
         document.querySelector('[name=comment]').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -91,70 +158,6 @@
             `);
         });
 
-        edit.addEventListener('click', e => {
-            e.preventDefault();
-            features.style.display = 'none';
-
-            const dataId = edit.dataset.id;
-            const card = edit.parentElement.parentElement;
-            const cardText = card.firstElementChild.firstElementChild.lastElementChild
-            const textContent = cardText.textContent;
-
-            cardText.innerHTML = '';
-            cardText.insertAdjacentHTML('beforeend',`<form name="editContent"><input type="text" value="${textContent}" data-id="${dataId}" class="editContent" autofocus/></form>`)
-        })
-
-
-
-
-        editContent.addEventListener('submit', e => {
-            e.preventDefault();
-            let dataComment = {};
-            let dataId = $('input.editContent').data('id');
-            let textContent = $('input.editContent').val();
-            let input = $('input.editContent');
-            let content = input.parent('form[name="editContent"]').parent('span.content');
-
-            dataComment['id'] = dataId;
-            dataComment['content'] = textContent;
-
-            const deleteComment = await fetch(`/comment/edit/${dataId}`,{
-                method: 'post',
-                headers: {'X-Requested-With' : 'XMLHttpRequest'},
-                body: JSON.stringify({id: dataId, content : textContent})
-            })
-
-            /*$.ajax({
-                method: "POST",
-                url: `/comment/edit/${dataId}`,
-                data: dataComment,
-            }).done(()=>{
-                content.text(input.val())
-                input.parent('form[name="editContent"]').remove();
-                $('.success').show(0).delay(9000).hide(0);
-                $('.success p').text('Votre commentaire a bien était édité !');
-            }).error(()=>{
-                console.log('gg')
-            })*/
-        })
-
-
-        removeComment.addEventListener('click', async e => {
-            e.preventDefault();
-             dataComment = {};
-            $(this).closest('div.comments').remove();
-
-            const success = document.querySelector('.success');
-            const deleteComment = await fetch(`/comment/remove/${removeComment.dataset.id}`,{
-                method: 'get',
-                headers: {'X-Requested-With' : 'XMLHttpRequest'}
-            })
-            const res = await deleteComment.json();
-
-            $( "#commentList" ).load( document.URL + "#commentList" );
-            success.style.display = 'block';
-
-        })
 
     </script>
 {% endblock %}
