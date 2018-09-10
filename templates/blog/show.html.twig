@@ -27,7 +27,7 @@
     {% if comments %}
         <div class="comments_list" id="commentList">
             {% for comment in comments %}
-                <div class="comments">
+                <div class="comments" data-id="{{comment.id}}">
                     <div class="card-header">
                         <img src="{{ comment.author.image}}" alt="" class="profil_picture_post">
                     </div>
@@ -59,11 +59,12 @@
         const editContent = document.querySelector('.editContentForm');
         let displayForm = false;
         let features = document.querySelector('.features');
-        let success= document.querySelector('.success');
+        let success = document.querySelector('.success');
 
-        features.style.display = 'none';
 
         if (show){
+            features.style.display = 'none';
+
             show.addEventListener('click', (e) => {
                 e.preventDefault();
                 features.style.display = (features.style.display == 'none') ? 'block' : 'none';
@@ -86,7 +87,10 @@
 
             removeComment.addEventListener('click', async e => {
                 e.preventDefault();
-                dataComment = {};
+
+                const parents = removeComment.parentElement.parentElement.parentElement;
+                console.log(removeComment.dataset.id)
+                return;
                 $(this).closest('div.comments').remove();
 
                 const success = document.querySelector('.success');
@@ -94,7 +98,6 @@
                     method: 'get',
                     headers: {'X-Requested-With' : 'XMLHttpRequest'}
                 })
-                const res = await deleteComment.json();
 
                 $( "#commentList" ).load( document.URL + "#commentList" );
                 success.style.display = 'block';
