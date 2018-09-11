@@ -26,6 +26,9 @@ class RoomController extends Controller
      */
     public function index(RoomRepository $roomRepository): Response
     {
+        $em = $this->getDoctrine()->getManager();
+        $rooms = $em->getRepository(Message::class)->findRoomsByRecipientId($this->getUser()->getId());
+
         return $this->render('room/index.html.twig', ['rooms' => $roomRepository->findAll()]);
     }
 

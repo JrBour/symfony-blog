@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Message;
+use App\Entity\Room;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,12 +34,13 @@ class MessageController extends Controller
 
             $recipient = $em->getRepository(User::class)->find($data['recipient']);
             $sender = $em->getRepository(User::class)->find($data['sender']);
+            $room= $em->getRepository(Room::class)->find($data['room']);
 
             $message->setContent($data['content']);
             $message->setRecipientId($recipient);
             $message->setSenderId($sender);
             $message->setCreatedAt(new \DateTime());
-            $message->setRoomId($data['room']);
+            $message->setRoomId($room);
 
             // Add in the queue
             $em->persist($message);

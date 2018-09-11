@@ -30,7 +30,7 @@
             const sendMessage = await fetch('/message/create', {
                 method: 'post',
                 headers: {'X-Requested-With' : 'XMLHttpRequest'},
-                body: JSON.stringify({room : id, recipient: 2, sender: 3, content: document.querySelector('#message_content').value})
+                body: JSON.stringify({room : parseInt(id), recipient: 11, sender: 12, content: document.querySelector('#message_content').value})
             });
             const res = await sendMessage.json();
 
