@@ -89,6 +89,10 @@
             removeComment.addEventListener('click', async e => {
                 e.preventDefault();
 
+                const elementToRemove = document.querySelector(`.comments[data-id="${removeComment.dataset.id}"]`);
+                const parents = removeComment.parentElement.parentElement.parentElement.parentElement;
+                parents.removeChild(elementToRemove);
+
                 const deleteComment = await fetch(`/comment/remove/${removeComment.dataset.id}`,{
                     method: 'get',
                     headers: {'X-Requested-With' : 'XMLHttpRequest'}
