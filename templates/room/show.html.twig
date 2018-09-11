@@ -24,23 +24,17 @@
         const id = arr[arr.length-1];
         const submit = document.querySelector('#message_submit');
 
-        submit.addEventListener('click', (e) => {
+        submit.addEventListener('click', async e => {
             e.preventDefault();
 
-            const dataToSend = {};
-            dataToSend['room'] = id;
-            dataToSend['recipient'] = 2;
-            dataToSend['sender'] = 3;
-            dataToSend['content'] = document.querySelector('#message_content').value;
-
-
-            $.ajax({
-                method: "POST",
-                url: `/message/create`,
-                data: dataToSend
-            }).done(res => {
-                console.log(res);
+            const sendMessage = await fetch('/message/create', {
+                method: 'post',
+                headers: {'X-Requested-With' : 'XMLHttpRequest'},
+                body: JSON.stringify({room : id, recipient: 2, sender: 3, content: document.querySelector('#message_content').value})
             });
+            const res = await sendMessage.json();
+
+            console.log(res);
         })
 
     </script>
