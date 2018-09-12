@@ -23,7 +23,7 @@ class MessageRepository extends ServiceEntityRepository
 //     * @return Message[] Returns an array of Message objects
 //     */
 
-    public function findRoomsByRecipientId (int $recipientId)
+    public function findMessagesByRecipientId (int $recipientId)
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.recipient_id = :id')
