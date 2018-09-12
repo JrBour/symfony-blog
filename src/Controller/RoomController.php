@@ -31,7 +31,7 @@ class RoomController extends Controller
 
         $rooms = [];
         foreach ($messages as $message) {
-            $arr[$message->getRoomId()->getId()] = $message->getRoomId()->getTitle();
+            $rooms[$message->getRoomId()->getId()] = $message->getRoomId()->getTitle();
         }
         return $this->render('room/index.html.twig', ['rooms' => $rooms]);
     }

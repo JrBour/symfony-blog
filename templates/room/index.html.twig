@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}Messages{% endblock %}
 {% block body %}
-    <h1>Messages</h1>
+    <h1>Salons</h1>
 
     <ul>
-        {% for room in rooms %}
-            <a href="{{ path('room_show', {'id' : room.id}) }}"><li>{{ room.title }}</li></a>
+        {% for key, room in rooms %}
+            <a href="{{ path('room_show', {'id' : key}) }}"><li>{{ room}}</li></a>
         {% else %}
             <li>Vous n'avez aucun message !</li>
         {% endfor %}
