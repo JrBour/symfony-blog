@@ -5,7 +5,7 @@
 
     <ul>
         {% for key, room in rooms %}
-            <a href="{{ path('room_show', {'id' : key}) }}"><li>{{ room}}</li></a>
+            <a href="{{ path('room_show', {'id' : key}) }}"><li>{{room}}</li></a>
         {% else %}
             <li>Vous n'avez aucun message !</li>
         {% endfor %}

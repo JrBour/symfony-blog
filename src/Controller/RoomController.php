@@ -21,10 +21,9 @@ class RoomController extends Controller
     /**
      * @Route("/", name="room_index", methods="GET")
      * Return the page which display the all rooms
-     * @param       RoomRepository      $roomRepository     The repository room for get the method for retrieve rooms
      * @return      Response        The response in json
      */
-    public function index(RoomRepository $roomRepository): Response
+    public function index(): Response
     {
         $em = $this->getDoctrine()->getManager();
         $messages = $em->getRepository(Message::class)->findMessagesByRecipientId($this->getUser()->getId());
@@ -55,7 +54,7 @@ class RoomController extends Controller
 
             $em->persist($room);
             $em->flush();
-            $data['success'] = "The room have been created with the name" . $room['name'];
+            $data['success'] = "The room have been created with the nam e" . $room['name'];
 
             return $this->json($data, 201);
         }
