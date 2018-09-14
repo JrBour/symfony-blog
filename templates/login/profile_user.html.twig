@@ -86,12 +86,20 @@
 
         let url = window.location.href.split('/');
 
-        $("#follow").on('click', e=>{
+        $("#follow").on('click', async e => {
             e.preventDefault();
-            let userData = {};
-            userData['id'] = url[url.length-1];
 
-            $.ajax({
+            const follow = await fetch('/follow', {
+                method: 'post',
+                headers: {'X-Requested-With':'XMLHttpRequest'},
+                body : JSON.stringify({id : url[url.length-1]})
+            });
+            const followRes = await follow.json();
+            console.log(followRes);
+
+
+
+            /*$.ajax({
                 method: "POST",
                 url: '/follow',
                 data: userData
@@ -100,7 +108,7 @@
                 $('loadButton').load(document.URL +  '#loadButton');
             }).error(()=>{
                 console.log('Y\'a eu un probléme')
-            })
+            })*/
         });
 
         $('#unfollow').on('click', e=>{
@@ -112,7 +120,7 @@
                 method:"POST",
                 url: "/unfollow",
                 data: dataUnfollow
-            }).success(response=>{
+            }).success(response => {
                 $('#loadButton').append(`
                     <button id="follow" class="btn btn-primary">Suivre</button>
                 `);

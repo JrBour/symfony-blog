@@ -105,7 +105,7 @@ class DefaultController extends Controller
     public function followUser(Request $request): Response
     {
         if ($request->isXmlHttpRequest()) {
-            $data = $request->request->all();
+            $data = json_decode($request->getContent(),true);
             $em = $this->getDoctrine()->getManager();
             $following = $em->getRepository(User::class)->find($data['id']);
 
