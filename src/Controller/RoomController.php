@@ -54,14 +54,12 @@ class RoomController extends Controller
 
             $em->persist($room);
             $em->flush();
-            $data['success'] = "The room have been created with the nam e" . $room['name'];
+            $data['success'] = "The room have been created with the name" . $room['name'];
 
             return $this->json($data, 201);
         }
 
         return $this->json(['error' => 'Une erreur est survenue'], 400);
-
-
     }
 
     /**
@@ -71,10 +69,11 @@ class RoomController extends Controller
      * @param       Request     $request    The request
      * @return      Response        The twig template
      */
-    public function show(Request $request, Room $room): Response
+    public function show(Request $request, Room $room, int $id): Response
     {
         $message = new Message();
         $em = $this->getDoctrine()->getManager();
+        $messages = $em->getRepository(Message::class)->findMessagesByRoomId($id);
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
@@ -101,7 +100,8 @@ class RoomController extends Controller
 
         return $this->render('room/show.html.twig', [
             'room' => $room,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'messages' => $messages
         ]);
     }
 

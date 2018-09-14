@@ -5,6 +5,12 @@
 {% block body %}
     <h1 class="text-center">{{ room.title }}</h1>
 
+    {% for message in messages %}
+        <p>{{ message.content }}</p>
+    {% else %}
+        <p>Commencez par écrire votre premier message !</p>
+    {% endfor %}
+
     {{ form_start(form) }}
         <div class="form-group">
             {{ form_row(form.content, {'attr': {
