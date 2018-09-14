@@ -86,32 +86,28 @@
 
         let url = window.location.href.split('/');
 
-        $("#follow").on('click', async e => {
+        document.querySelector('#follow').addEventListener('click', e => {
             e.preventDefault();
 
-            const follow = await fetch('/follow', {
+            fetch('/follow', {
                 method: 'post',
                 headers: {'X-Requested-With':'XMLHttpRequest'},
                 body : JSON.stringify({id : url[url.length-1]})
             });
-            const followRes = await follow.json();
-            console.log(followRes);
-
-
-
-            /*$.ajax({
-                method: "POST",
-                url: '/follow',
-                data: userData
-            }).success(()=> {
-                console.log("gg")
-                $('loadButton').load(document.URL +  '#loadButton');
-            }).error(()=>{
-                console.log('Y\'a eu un probléme')
-            })*/
         });
 
-        $('#unfollow').on('click', e=>{
+        document.querySelector('#unfollow').addEventListener('click', e => {
+            e.preventDefault();
+
+            fetch('/unfollow', {
+                method: 'post',
+                headers: {'X-Requested-With':'XMLHttpRequest'},
+                body : JSON.stringify({id : url[url.length-1]})
+            });
+        });
+
+
+        /*$('#unfollow').on('click', e=>{
             e.preventDefault();
             let dataUnfollow = {};
             dataUnfollow['id'] = url[url.length-1];
@@ -127,7 +123,7 @@
             }).error(error=>{
                 console.log(error)
             })
-        })
+        })*/
 
     </script>
 {% endblock %}
