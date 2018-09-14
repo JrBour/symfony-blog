@@ -27,12 +27,16 @@ class RoomController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $messages = $em->getRepository(Message::class)->findMessagesByRecipientId($this->getUser()->getId());
+        $users = $this->getUser()->getFollowing();
 
         $rooms = [];
         foreach ($messages as $message) {
             $rooms[$message->getRoomId()->getId()] = $message->getRoomId()->getTitle();
         }
-        return $this->render('room/index.html.twig', ['rooms' => $rooms]);
+        return $this->render('room/index.html.twig', [
+            'rooms' => $rooms,
+            'users' => $users
+        ]);
     }
 
     /**
@@ -74,6 +78,7 @@ class RoomController extends Controller
         $message = new Message();
         $em = $this->getDoctrine()->getManager();
         $messages = $em->getRepository(Message::class)->findMessagesByRoomId($id);
+
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 

@@ -11,6 +11,12 @@
         <p>Commencez par écrire votre premier message !</p>
     {% endfor %}
 
+    {% for user in followings %}
+        <p>{{ user.username }}</p>
+    {% else %}
+        <p>Suivez une personne afin de pouvoir lui envoyer un message !</p>
+    {% endfor %}
+
     {{ form_start(form) }}
         <div class="form-group">
             {{ form_row(form.content, {'attr': {

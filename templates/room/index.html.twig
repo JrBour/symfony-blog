@@ -9,6 +9,12 @@
         {% else %}
             <li>Vous n'avez aucun message !</li>
         {% endfor %}
+
+        {% for user in users %}
+            <li>{{ user.username }}</li>
+        {% else %}
+            <li>Vous n'avez aucun amis !</li>
+        {% endfor %}
     </ul>
 
     <a href="{{ path('room_new') }}"><button class="btn btn-primary">{% trans %}crud.add{% endtrans %}</button></a>
