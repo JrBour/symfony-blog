@@ -18,8 +18,8 @@
                 'class' : 'form-control'
             }}) }}
         </div>
-    <input type="hidden" id="sender" value="{{ app.user.id }}">
-    <input type="hidden" id="recipient" value="{{ userId }}">
+        <input type="hidden" id="sender" value="{{ app.user.id }}">
+        <input type="hidden" id="recipient" value="{{ userId }}">
     {{ form_row(form.submit) }}
     {{ form_end(form) }}
 {% endblock %}
@@ -28,9 +28,12 @@
     <script>
         let arr = window.location.href.split('/');
         const id = arr[arr.length-1];
+        const content = document.querySelector('#message_content')
         const submit = document.querySelector('#message_submit');
         const senderId = document.querySelector('#sender').value;
         const recipientId = document.querySelector('#recipient').value;
+
+        content.value = '';
 
         submit.addEventListener('click', async e => {
             e.preventDefault();
@@ -42,7 +45,7 @@
             });
             const res = await sendMessage.json();
 
-            console.log(res)
+            content.value = '';
         })
 
     </script>

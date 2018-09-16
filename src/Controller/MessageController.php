@@ -34,7 +34,7 @@ class MessageController extends Controller
 
             $recipient = $em->getRepository(User::class)->find($data['recipient']);
             $sender = $em->getRepository(User::class)->find($data['sender']);
-            $room= $em->getRepository(Room::class)->find($data['room']);
+            $room = $em->getRepository(Room::class)->find($data['room']);
 
             $message->setContent($data['content']);
             $message->setRecipient($recipient);

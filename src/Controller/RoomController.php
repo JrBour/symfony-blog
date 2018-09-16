@@ -108,8 +108,8 @@ class RoomController extends Controller
         return $this->render('room/show.html.twig', [
             'room' => $room,
             'userId' => $userId,
-            'form' => $form->createView(),
-            'messages' => $messages
+            'messages' => $messages,
+            'form' => $form->createView()
         ]);
     }
 
