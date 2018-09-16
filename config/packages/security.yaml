@@ -41,6 +41,8 @@ security:
         - { path: ^/blog/edit, roles: ROLE_ADMIN }
         - { path: ^/blog/delete, roles: ROLE_ADMIN }
 
+        - { path: ^/room, roles: ROLE_ADMIN }
+
         - { path: ^/forum, roles: ROLE_ADMIN }
         - { path: ^/forum/add, roles: ROLE_ADMIN }
         - { path: ^/foru/edit, roles: ROLE_ADMIN }
