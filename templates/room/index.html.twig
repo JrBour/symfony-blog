@@ -5,7 +5,7 @@
 
     <ul>
         {% for user in users %}
-            <li>{{ user.username }}{% if user.room != null %}{{ user.room.title }}{% endif %}</li>
+            <li>{{ user.username }}{% if user.room %}{{ user.room.title }}{% else %} <a href="#">Envoyer un message</a> {% endif %}</li>
         {% else %}
             <li>Vous n'avez aucun amis !</li>
         {% endfor %}

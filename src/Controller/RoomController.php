@@ -32,7 +32,6 @@ class RoomController extends Controller
             $message = $em->getRepository(Message::class)->findOneByRecipientAndSender($following->getId(), $this->getUser()->getId());
             if (!is_null($message)) {
                 $following->setRoom($message->getRoom());
-                var_dump($following->getRoom()->getTitle());
             }
         }
         return $this->render('room/index.html.twig', [
