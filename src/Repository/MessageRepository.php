@@ -14,13 +14,23 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class MessageRepository extends ServiceEntityRepository
 {
+    /**
+     * MessageRepository constructor.
+     * @param   RegistryInterface       $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Message::class);
     }
 
-
-    public function findOneByRecipientAndSender (int $recipientId, int $senderId)
+    /**
+     * Check if a message exist between two peoples
+     * @param       int         $recipientId        The recipient id
+     * @param       int         $senderId           The sender id
+     * @return    mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneByRecipientAndSender (int $recipientId, int $senderId): ?Message
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.recipient = :idRecipient')
@@ -30,16 +40,19 @@ class MessageRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-
-    public function findMessagesByRoomId(int $id)
+    /**
+     * Find message by room id
+     * @param       int         $id     The room id
+     * @return Message      The message bind to the room id
+     */
+    public function findMessagesByRoomId(int $id): Message
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.room_id = :id')
+            ->andWhere('m.room = :id')
             ->setParameter('id', $id)
             ->orderBy('m.id', 'ASC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
 }
