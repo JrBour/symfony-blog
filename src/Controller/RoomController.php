@@ -78,6 +78,8 @@ class RoomController extends Controller
         $message = new Message();
         $em = $this->getDoctrine()->getManager();
         $messages = $em->getRepository(Message::class)->findMessagesByRoomId($id);
+        $message = reset($messages);
+        $userId = ($message->getSender()->getId() == $this->getUser()->getId()) ? $message->getSender()->getId() : $message->getRecipient()->getId();
 
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
@@ -105,6 +107,7 @@ class RoomController extends Controller
 
         return $this->render('room/show.html.twig', [
             'room' => $room,
+            'userId' => $userId,
             'form' => $form->createView(),
             'messages' => $messages
         ]);

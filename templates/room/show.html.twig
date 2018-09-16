@@ -11,11 +11,6 @@
         <p>Commencez par écrire votre premier message !</p>
     {% endfor %}
 
-    {% for user in followings %}
-        <p>{{ user.username }}</p>
-    {% else %}
-        <p>Suivez une personne afin de pouvoir lui envoyer un message !</p>
-    {% endfor %}
 
     {{ form_start(form) }}
         <div class="form-group">
@@ -23,11 +18,10 @@
                 'class' : 'form-control'
             }}) }}
         </div>
-
+    <input type="hidden" id="sender" value="{{ app.user.id }}">
+    <input type="hidden" id="recipient" value="{{ userId }}">
     {{ form_row(form.submit) }}
-
     {{ form_end(form) }}
-    {#{{ include('room/_delete_form.html.twig') }}#}
 {% endblock %}
 
 {% block javascripts %}
@@ -35,6 +29,8 @@
         let arr = window.location.href.split('/');
         const id = arr[arr.length-1];
         const submit = document.querySelector('#message_submit');
+        const senderId = document.querySelector('#sender').value;
+        const recipientId = document.querySelector('#recipient').value;
 
         submit.addEventListener('click', async e => {
             e.preventDefault();
@@ -42,11 +38,11 @@
             const sendMessage = await fetch('/message/create', {
                 method: 'post',
                 headers: {'X-Requested-With' : 'XMLHttpRequest'},
-                body: JSON.stringify({room : parseInt(id), recipient: 11, sender: 12, content: document.querySelector('#message_content').value})
+                body: JSON.stringify({room : parseInt(id), recipient: recipientId, sender: senderId, content: document.querySelector('#message_content').value})
             });
             const res = await sendMessage.json();
 
-            console.log(res);
+            console.log(res)
         })
 
     </script>

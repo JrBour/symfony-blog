@@ -45,7 +45,7 @@ class MessageRepository extends ServiceEntityRepository
      * @param       int         $id     The room id
      * @return Message      The message bind to the room id
      */
-    public function findMessagesByRoomId(int $id): Message
+    public function findMessagesByRoomId(int $id): array
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.room = :id')

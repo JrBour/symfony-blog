@@ -37,10 +37,10 @@ class MessageController extends Controller
             $room= $em->getRepository(Room::class)->find($data['room']);
 
             $message->setContent($data['content']);
-            $message->setRecipientId($recipient);
-            $message->setSenderId($sender);
+            $message->setRecipient($recipient);
+            $message->setSender($sender);
             $message->setCreatedAt(new \DateTime());
-            $message->setRoomId($room);
+            $message->setRoom($room);
 
             // Add in the queue
             $em->persist($message);
