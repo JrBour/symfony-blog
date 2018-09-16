@@ -111,6 +111,12 @@ class User implements UserInterface, \Serializable
      */
     private $following;
 
+    /*
+     * The room bind to user
+     * @var Room
+     */
+    private $room;
+
     /**
      * User constructor
      */
@@ -397,6 +403,22 @@ class User implements UserInterface, \Serializable
     {
         $this->follower[] = $follower;
         return $this;
+    }
+
+    /**
+     * Set the room bind to user
+     * @param Room $room
+     * @return Room
+     */
+    public function setRoom(Room $room): self
+    {
+        $this->room = $room;
+        return $this;
+    }
+
+    public function getRoom(): Room
+    {
+        return $this->room;
     }
 
     /**

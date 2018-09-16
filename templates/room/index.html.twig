@@ -4,14 +4,8 @@
     <h1>Salons</h1>
 
     <ul>
-        {% for key, room in rooms %}
-            <a href="{{ path('room_show', {'id' : key}) }}"><li>{{room}}</li></a>
-        {% else %}
-            <li>Vous n'avez aucun message !</li>
-        {% endfor %}
-
         {% for user in users %}
-            <li>{{ user.username }}</li>
+            <li>{{ user.username }}{% if user.room != null %}{{ user.room.title }}{% endif %}</li>
         {% else %}
             <li>Vous n'avez aucun amis !</li>
         {% endfor %}

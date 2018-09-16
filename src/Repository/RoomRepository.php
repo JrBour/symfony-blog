@@ -20,20 +20,20 @@ class RoomRepository extends ServiceEntityRepository
     }
 
     /**
+     * Find Room by name
+     * @param  string       $name       The room name
      * @return Room[] Returns an array of Room objects
      */
-
-    public function findByName($value)
+    public function findByName(string $name): array
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.name = :name')
-            ->setParameter('name', $value)
+            ->setParameter('name', $name)
             ->orderBy('r.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult();
     }
-
 
     /**
      * Find one by someone field
@@ -47,8 +47,7 @@ class RoomRepository extends ServiceEntityRepository
             ->andWhere('r.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
 
 }

@@ -33,17 +33,17 @@ class Message
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Room", inversedBy="message")
      **/
-    private $room_id;
+    private $room;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="message")
      **/
-    private $sender_id;
+    private $sender;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="message")
      **/
-    private $recipient_id;
+    private $recipient;
 
     /**
      * @ORM\Column(type="datetime")
@@ -78,9 +78,9 @@ class Message
      *
      * @return mixed
      */
-    public function getRecipientId(): ?User
+    public function getRecipient(): ?User
     {
-        return $this->recipient_id;
+        return $this->recipient;
     }
 
     /**
@@ -88,9 +88,9 @@ class Message
      *
      * @return mixed
      */
-    public function setRecipientId(User $user): void
+    public function setRecipient(User $user): void
     {
-        $this->recipient_id = $user;
+        $this->recipient = $user;
     }
 
 
@@ -99,9 +99,9 @@ class Message
      *
      * @return mixed
      */
-    public function getRoomId(): ?Room
+    public function getRoom(): ?Room
     {
-        return $this->room_id;
+        return $this->room;
     }
 
     /**
@@ -109,9 +109,9 @@ class Message
      *
      * @param       Room      $room     The room object to set
      */
-    public function setRoomId(Room $room): void
+    public function setRoom(Room $room): void
     {
-        $this->room_id = $room;
+        $this->room = $room;
     }
 
     /**
@@ -119,9 +119,9 @@ class Message
      *
      * @return mixed
      */
-    public function getSenderId(): ?User
+    public function getSender(): ?User
     {
-        return $this->sender_id;
+        return $this->sender;
     }
 
     /**
@@ -129,9 +129,9 @@ class Message
      *
      * @return mixed
      */
-    public function setSenderId(User $user): void
+    public function setSender(User $user): void
     {
-        $this->sender_id = $user;
+        $this->sender = $user;
     }
 
     /**

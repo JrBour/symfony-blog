@@ -19,22 +19,16 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
-//    /**
-//     * @return Message[] Returns an array of Message objects
-//     */
 
-    public function findMessagesByRecipientId (int $recipientId)
+    public function findOneByRecipientAndSender (int $recipientId, int $senderId)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.recipient_id = :id')
-            ->setParameter('id', $recipientId)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('m.recipient = :idRecipient')
+            ->andWhere('m.sender = :idSender')
+            ->setParameters(['idRecipient' => $recipientId, 'idSender' => $senderId])
             ->getQuery()
-            ->getResult()
-        ;
+            ->getOneOrNullResult();
     }
-
 
 
     public function findMessagesByRoomId(int $id)
