@@ -277,3 +277,19 @@ hr {
 .fa-times:hover, .fa-edit:hover{
     color: grey;
 }
+
+#messages__list{
+    display: flex;
+    flex-direction: row;
+}
+.messages__list_sender{
+    align-self: flex-end;
+}
+.messages__list_recipient{
+    align-self: flex-start;
+}
+
+
+.messages__list_content {
+    list-style: none;
+}
