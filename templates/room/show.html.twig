@@ -5,11 +5,15 @@
 {% block body %}
     <h1 class="text-center">{{ room.title }}</h1>
 
-    {% for message in messages %}
-        <p>{{ message.content }}</p>
-    {% else %}
-        <p>Commencez par écrire votre premier message !</p>
-    {% endfor %}
+    <div id="message_list">
+        <ul>
+            {% for message in messages %}
+                <li>{{ message.content }}</li>
+            {% else %}
+                <li>Commencez par écrire votre premier message !</li>
+            {% endfor %}
+        </ul>
+    </div>
 
 
     {{ form_start(form) }}
@@ -28,7 +32,8 @@
     <script>
         let arr = window.location.href.split('/');
         const id = arr[arr.length-1];
-        const content = document.querySelector('#message_content')
+        const content = document.querySelector('#message_content');
+        const messageList = document.querySelector('#message_list');
         const submit = document.querySelector('#message_submit');
         const senderId = document.querySelector('#sender').value;
         const recipientId = document.querySelector('#recipient').value;
@@ -44,8 +49,17 @@
                 body: JSON.stringify({room : parseInt(id), recipient: recipientId, sender: senderId, content: document.querySelector('#message_content').value})
             });
             const res = await sendMessage.json();
-
             content.value = '';
+
+            const getNewMessage = await fetch(`${window.location.href}`);
+            const resMessage = await getNewMessage.text();
+
+            let parser = new DOMParser();
+            const doc = parser.parseFromString(resMessage, "text/html");
+            let newContent = doc.querySelector('#message_list').firstElementChild.childNodes;
+            console.log(newContent);
+            //messageList.innerHTML = newContent;
+
         })
 
     </script>
