@@ -49,16 +49,8 @@
                 body: JSON.stringify({room : parseInt(id), recipient: recipientId, sender: senderId, content: document.querySelector('#message_content').value})
             });
             const res = await sendMessage.json();
+            messageList.firstElementChild.insertAdjacentHTML('beforeend', `<li>${content.value}</li>`);
             content.value = '';
-
-            const getNewMessage = await fetch(`${window.location.href}`);
-            const resMessage = await getNewMessage.text();
-
-            let parser = new DOMParser();
-            const doc = parser.parseFromString(resMessage, "text/html");
-            let newContent = doc.querySelector('#message_list').firstElementChild.childNodes;
-            console.log(newContent);
-            //messageList.innerHTML = newContent;
 
         })
 
