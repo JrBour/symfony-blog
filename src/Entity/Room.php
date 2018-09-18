@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
@@ -143,5 +144,14 @@ class Room
     {
         $this->user[] = $user;
         return $this;
+    }
+
+    /**
+     * Set the user bind to room
+     * @return Collection
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
     }
 }

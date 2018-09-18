@@ -87,9 +87,16 @@ class RoomController extends Controller
         $em = $this->getDoctrine()->getManager();
         $messages = $em->getRepository(Message::class)->findMessagesByRoomId($id);
         $message = reset($messages);
-        $userId = ($message->getSender()->getId() == $this->getUser()->getId()) ? $message->getSender()->getId() : $message->getRecipient()->getId();
+        $users = $room->getUser();
 
-        $form = $this->createForm(MessageType::class, $message);
+        foreach ($users as $user) {
+            if ($user->getId() !== $this->getUser()->getId()) {
+                $userId = $user->getId();
+            }
+        }
+        //$userId = ($message->getSender()->getId() == $this->getUser()->getId()) ? $message->getSender()->getId() : $message->getRecipient()->getId();
+
+        $form = $this->createForm(MessageType::class);
         $form->handleRequest($request);
 
         if ($request->isXmlHttpRequest()) {
