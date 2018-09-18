@@ -9,10 +9,8 @@
             {% if user.room %}
                 <a href="{{ path('room_show', {'id' : user.room.id}) }}">{{ user.username }}</a>
             {% else %}
-                <div class="room__list_content">
-                    <img src="{{ user.image }}" alt="{{ user.username }}">
-                    <p class="create-new-room">{{ user.username }}</p>
-                </div>
+                <img src="{{ user.image }}" alt="{{ user.username }}">
+                <p class="create-new-room">{{ user.username }}</p>
             {% endif %}
             </li>
         {% else %}
