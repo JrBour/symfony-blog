@@ -59,7 +59,7 @@ class RoomController extends Controller
             $em->persist($room);
             $em->flush();
 
-            $data['success'] = "The room have been created with the name" . $room['name'];
+            $data['success'] = "The room have been created with the name" . $room->getId();
 
             return $this->json($data, 201);
         }

@@ -47,6 +47,7 @@ class CategoryController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $category = $form->getData();
             $file = $category->getImage();
+
             $user = $this->getUser();
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move(
@@ -54,6 +55,7 @@ class CategoryController extends Controller
                 $fileName
             );
             $name = "/images/posts/" . $fileName;
+
             $category->setImage($name);
             $category->setName($category->getName());
             $category->setCreatedAt(new DateTime());

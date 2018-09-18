@@ -5,14 +5,16 @@
 
     <ul class="room">
         {% for user in users %}
-            <li class="room__list">
             {% if user.room %}
-                <a href="{{ path('room_show', {'id' : user.room.id}) }}">{{ user.username }}</a>
+                <li class="room__list">
+                    <a href="{{ path('room_show', {'id' : user.room.id}) }}">{{ user.username }}</a>
+                </li>
             {% else %}
-                <img src="{{ user.image }}" alt="{{ user.username }}">
-                <p class="create-new-room">{{ user.username }}</p>
+                <li class="room__list create-new-room">
+                    <img src="{{ user.image }}" alt="{{ user.username }}">
+                    <p class="create-new-room">{{ user.username }}</p>
+                </li>
             {% endif %}
-            </li>
         {% else %}
             <li>Vous n'avez aucun amis !</li>
         {% endfor %}
@@ -29,7 +31,10 @@
             const create = await fetch(`${window.location.origin}/room/new`, {
                 method : 'post',
                 headers : {'X-Requested-With': 'XMLHttpRequest'},
-                body: JSON.stringify({'name' : createRoom.textContent})
+                body: JSON.stringify({
+                    'name' : createRoom.textContent,
+                    'picture' : createRoom.firstElementChild.getAttribute('src')
+                })
             });
             const response = await create.json();
 
