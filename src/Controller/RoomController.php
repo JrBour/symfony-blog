@@ -35,9 +35,7 @@ class RoomController extends Controller
             }
         }
 
-        return $this->render('room/index.html.twig', [
-            'users' => $followings
-        ]);
+        return $this->render('room/index.html.twig', ['users' => $followings]);
     }
 
     /**
@@ -57,8 +55,8 @@ class RoomController extends Controller
             $room->setTitle($data['name']);
             $room->setPicture($data['picture']);
             $room->setCreatedAt(new \DateTime());
-            $room->setUser($friend);
             $room->setUser($this->getUser());
+            $room->setUser($friend);
 
             $friend ->setRoom($room);
             $this->getUser()->setRoom($room);
@@ -68,7 +66,8 @@ class RoomController extends Controller
             $em->persist($this->getUser());
             $em->flush();
 
-            $data['success'] = "The room have been created with the name " . $room->getId();
+            $data['id'] = $room->getId();
+            $data['success'] = "Un nouveau salon a été crée !";
 
             return $this->json($data, 201);
         }

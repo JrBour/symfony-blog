@@ -29,14 +29,14 @@
             const create = await fetch(`${window.location.origin}/room/new`, {
                 method : 'post',
                 headers : {'X-Requested-With': 'XMLHttpRequest'},
-                body: JSON.stringify({
+                body:JSON.stringify({
                     'name' : createRoom.textContent,
                     'picture' : createRoom.firstElementChild.getAttribute('src'),
                     'id' : createRoom.getAttribute('id')
                 })
             });
             const response = await create.json();
-
+            window.location.replace(window.location.href+`${response.id}`)
         })
 
     </script>
