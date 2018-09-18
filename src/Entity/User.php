@@ -111,9 +111,13 @@ class User implements UserInterface, \Serializable
      */
     private $following;
 
-    /*
-     * The room bind to user
-     * @var Room
+    /**
+     * The user id join to a room
+     * @ORM\ManyToMany(targetEntity="App\Entity\Room", inversedBy="user")
+     * @ORM\JoinTable(name="room_user",
+     *      joinColumns={@ORM\JoinColumn(name="room_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     * )
      */
     private $room;
 
@@ -403,22 +407,6 @@ class User implements UserInterface, \Serializable
     {
         $this->follower[] = $follower;
         return $this;
-    }
-
-    /**
-     * Set the room bind to user
-     * @param Room $room
-     * @return Room
-     */
-    public function setRoom(Room $room): self
-    {
-        $this->room = $room;
-        return $this;
-    }
-
-    public function getRoom(): ?Room
-    {
-        return $this->room;
     }
 
     /**
