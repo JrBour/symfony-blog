@@ -49,7 +49,7 @@ class RoomController extends Controller
     {
         if($request->isXmlHttpRequest()) {
             $room = new Room();
-            $data = $request->attributes->all();
+            $data = json_decode($request->getContent(), true);
             $em = $this->getDoctrine()->getManager();
 
             $room->setTitle($data['name']);
@@ -58,6 +58,7 @@ class RoomController extends Controller
 
             $em->persist($room);
             $em->flush();
+
             $data['success'] = "The room have been created with the name" . $room['name'];
 
             return $this->json($data, 201);
@@ -75,7 +76,6 @@ class RoomController extends Controller
      */
     public function show(Request $request, Room $room, int $id): Response
     {
-        $message = new Message();
         $em = $this->getDoctrine()->getManager();
         $messages = $em->getRepository(Message::class)->findMessagesByRoomId($id);
         $message = reset($messages);

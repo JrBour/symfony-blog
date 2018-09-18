@@ -3,13 +3,16 @@
 {% block body %}
     <h1>Salons</h1>
 
-    <ul>
+    <ul class="room">
         {% for user in users %}
-            <li>
+            <li class="room__list">
             {% if user.room %}
                 <a href="{{ path('room_show', {'id' : user.room.id}) }}">{{ user.username }}</a>
             {% else %}
-                <a href="">{{ user.username }}</a>
+                <div class="room__list_content">
+                    <img src="{{ user.image }}" alt="{{ user.username }}">
+                    <p class="create-new-room">{{ user.username }}</p>
+                </div>
             {% endif %}
             </li>
         {% else %}
@@ -18,4 +21,22 @@
     </ul>
 
     <a href="{{ path('room_new') }}"><button class="btn btn-primary">{% trans %}crud.add{% endtrans %}</button></a>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        const createRoom = document.querySelector('.create-new-room');
+        createRoom.addEventListener('click', async ()=> {
+
+            const create = await fetch(`${window.location.origin}/room/new`, {
+                method : 'post',
+                headers : {'X-Requested-With': 'XMLHttpRequest'},
+                body: JSON.stringify({'name' : createRoom.textContent})
+            });
+            const response = await create.json();
+
+            console.log(response);
+        })
+
+    </script>
 {% endblock %}
