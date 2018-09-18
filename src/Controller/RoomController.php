@@ -34,6 +34,7 @@ class RoomController extends Controller
                 $following->setRoom($message->getRoom());
             }
         }
+
         return $this->render('room/index.html.twig', [
             'users' => $followings
         ]);
@@ -51,12 +52,20 @@ class RoomController extends Controller
             $room = new Room();
             $data = json_decode($request->getContent(), true);
             $em = $this->getDoctrine()->getManager();
+            $friend = $em->getRepository(User::class)->find($data['id']);
 
             $room->setTitle($data['name']);
             $room->setPicture($data['picture']);
             $room->setCreatedAt(new \DateTime());
+            $room->setUser($friend);
+            $room->setUser($this->getUser());
+
+            $friend ->setRoom($room);
+            $this->getUser()->setRoom($room);
 
             $em->persist($room);
+            $em->persist($friend);
+            $em->persist($this->getUser());
             $em->flush();
 
             $data['success'] = "The room have been created with the name " . $room->getId();

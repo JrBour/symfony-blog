@@ -5,15 +5,13 @@
 
     <ul class="room">
         {% for user in users %}
-            {% if user.room %}
-                <li class="room__list">
-                    <a href="{{ path('room_show', {'id' : user.room.id}) }}">{{ user.username }}</a>
-                </li>
-            {% else %}
-                <li class="room__list create-new-room">
+            {% if user.id %}
+                <li class="room__list create-new-room" id="{{ user.id }}">
                     <img src="{{ user.image }}" alt="{{ user.username }}">
                     <p class="create-new-room">{{ user.username }}</p>
                 </li>
+                {#<a href="{{ path('room_show', {'id' : user.room.id}) }}">{{ user.username }}</a>#}
+            {% else %}
             {% endif %}
         {% else %}
             <li>Vous n'avez aucun amis !</li>
@@ -33,12 +31,12 @@
                 headers : {'X-Requested-With': 'XMLHttpRequest'},
                 body: JSON.stringify({
                     'name' : createRoom.textContent,
-                    'picture' : createRoom.firstElementChild.getAttribute('src')
+                    'picture' : createRoom.firstElementChild.getAttribute('src'),
+                    'id' : createRoom.getAttribute('id')
                 })
             });
             const response = await create.json();
 
-            console.log(response);
         })
 
     </script>
