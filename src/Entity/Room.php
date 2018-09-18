@@ -44,6 +44,12 @@ class Room
     private $updated_at;
 
     /**
+     * User id following
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="room")
+     */
+    private $user;
+
+    /**
      * Get the room id
      * @return mixed
      */
@@ -126,5 +132,16 @@ class Room
     public function setUpdatedAt(DateTime $updated_at): void
     {
         $this->updated_at = $updated_at;
+    }
+
+    /**
+     * Set the user bind to room
+     * @param User  $user   The user object
+     * @return Room
+     */
+    public function setUser(User $user): self
+    {
+        $this->user[] = $user;
+        return $this;
     }
 }

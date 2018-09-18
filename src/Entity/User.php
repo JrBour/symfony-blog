@@ -400,6 +400,26 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * Get the room bind to user
+     * @return Collection
+     */
+    public function getRoom(): Collection
+    {
+        return $this->room;
+    }
+
+    /**
+     * Set room join to user
+     * @param Room      $room       The room object
+     * @return self
+     */
+    public function setRoom(Room $room): self
+    {
+        $this->room[] = $room;
+        return $this;
+    }
+
+    /**
      * @param $follower
      * @return User
      */
