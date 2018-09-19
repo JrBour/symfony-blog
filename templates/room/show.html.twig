@@ -37,7 +37,7 @@
         let arr = window.location.href.split('/');
         const id = arr[arr.length-1];
         const content = document.querySelector('#message_content');
-        const messageList = document.querySelector('#messages_list');
+        const messageList = document.querySelector('#messages__list');
         const submit = document.querySelector('#message_submit');
         const senderId = document.querySelector('#sender').value;
         const recipientId = document.querySelector('#recipient').value;
@@ -53,7 +53,13 @@
                 body: JSON.stringify({room : parseInt(id), recipient: recipientId, sender: senderId, content: document.querySelector('#message_content').value})
             });
             const res = await sendMessage.json();
-            messageList.firstElementChild.insertAdjacentHTML('beforeend', `<li>${content.value}</li>`);
+
+
+            if (document.querySelector('.messages__list_error') == null) {
+                messageList.firstElementChild.insertAdjacentHTML('beforeend', `<li class="messages__list_content messages__list_sender">${content.value}</li>`);
+            } else {
+                messageList.innerHTML = `<li class="messages__list_content messages__list_sender">${content.value}</li>`;
+            }
             content.value = '';
 
         })
