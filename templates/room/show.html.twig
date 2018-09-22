@@ -33,7 +33,9 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
+{% endblock %}
+<script>
+    document.addEventListener('DOMContentload', ()=> {
         let arr = window.location.href.split('/');
         const id = arr[arr.length-1];
         const content = document.querySelector('#message_content');
@@ -41,9 +43,6 @@
         const submit = document.querySelector('#message_submit');
         const senderId = document.querySelector('#sender').value;
         const recipientId = document.querySelector('#recipient').value;
-        const recipient = document.querySelector('#recipient')
-
-        content.value = '';
 
         submit.addEventListener('click', async e => {
             e.preventDefault();
@@ -65,6 +64,6 @@
             content.value = '';
 
         })
+    })
 
-    </script>
-{% endblock %}
+</script>
