@@ -53,7 +53,6 @@
                 body: JSON.stringify({room : parseInt(id), recipient: recipientId, sender: senderId, content: document.querySelector('#message_content').value})
             });
             const res = await sendMessage.json();
-            const getMessage = await fetch('/message');
 
 
             if (document.querySelector('.messages__list_error') == null) {
