@@ -33,9 +33,8 @@
 {% endblock %}
 
 {% block javascripts %}
-{% endblock %}
 <script>
-    document.addEventListener('DOMContentload', ()=> {
+    document.addEventListener('DOMContentLoaded', ()=> {
         let arr = window.location.href.split('/');
         const id = arr[arr.length-1];
         const content = document.querySelector('#message_content');
@@ -46,8 +45,6 @@
 
         submit.addEventListener('click', async e => {
             e.preventDefault();
-            //$('#messageList').load(document.URL +  ' #messageList');
-            console.log(document.URL)
 
             const sendMessage = await fetch('/message/create', {
                 method: 'post',
@@ -56,15 +53,19 @@
             });
             const res = await sendMessage.json();
 
+            const getMessage = await fetch(document.URL);
+            const resMessages = await $.parseHTML(getMessage).find('#messages__list');
+            console.log(res.messages);
 
-            if (document.querySelector('.messages__list_error') == null) {
+            /*if (document.querySelector('.messages__list_error') == null) {
                 messageList.firstElementChild.insertAdjacentHTML('beforeend', `<li class="messages__list_content messages__list_sender">${content.value}</li>`);
             } else {
-                messageList.innerHTML = `<li class="messages__list_content messages__list_sender">${content.value}</li>`;
-            }
+            }*/
+            //$('#messages__list').load(document.URL +  ' #messages__list');
             content.value = '';
 
         })
     })
 
 </script>
+{% endblock %}

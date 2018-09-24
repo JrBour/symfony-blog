@@ -284,7 +284,7 @@ hr {
 
 #messages__list{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 .messages__list_sender{
     align-self: flex-end;
@@ -292,7 +292,6 @@ hr {
 .messages__list_recipient{
     align-self: flex-start;
 }
-
 
 .messages__list_content {
     list-style: none;

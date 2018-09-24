@@ -94,12 +94,12 @@ class RoomController extends Controller
                 $userId = $user->getId();
             }
         }
-        //$userId = ($message->getSender()->getId() == $this->getUser()->getId()) ? $message->getSender()->getId() : $message->getRecipient()->getId();
+        $userId = ($message->getSender()->getId() == $this->getUser()->getId()) ? $message->getSender()->getId() : $message->getRecipient()->getId();
 
         $form = $this->createForm(MessageType::class);
         $form->handleRequest($request);
 
-        if ($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest() && $request->getMethod() == "POST") {
             $data = $request->attributes->all();
 
             $roomToSet = $em->getRepository(Room::class)->find($room->getId());
