@@ -46,6 +46,8 @@
 
         submit.addEventListener('click', async e => {
             e.preventDefault();
+            //$('#messageList').load(document.URL +  ' #messageList');
+            console.log(document.URL)
 
             const sendMessage = await fetch('/message/create', {
                 method: 'post',

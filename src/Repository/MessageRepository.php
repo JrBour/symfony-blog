@@ -36,6 +36,7 @@ class MessageRepository extends ServiceEntityRepository
             ->andWhere('m.recipient = :idRecipient')
             ->andWhere('m.sender = :idSender')
             ->setParameters(['idRecipient' => $recipientId, 'idSender' => $senderId])
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }
