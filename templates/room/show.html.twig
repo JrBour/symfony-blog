@@ -5,7 +5,7 @@
 {% block body %}
     <h1 class="text-center">{{ room.title }}</h1>
 
-    <div class="messages">
+    <div class="messages" id="test_messages">
         <ul id="messages__list">
             {% for message in messages %}
                 {% if message.sender.id == app.user.id %}
@@ -37,6 +37,7 @@
     document.addEventListener('DOMContentLoaded', ()=> {
         let arr = window.location.href.split('/');
         const id = arr[arr.length-1];
+        const messages = document.querySelector('#test_messages');
         const content = document.querySelector('#message_content');
         const messageList = document.querySelector('#messages__list');
         const submit = document.querySelector('#message_submit');
@@ -45,6 +46,8 @@
 
         submit.addEventListener('click', async e => {
             e.preventDefault();
+
+            let parse = new DOMParser();
 
             const sendMessage = await fetch('/message/create', {
                 method: 'post',
@@ -55,15 +58,17 @@
 
             const getMessage = await fetch(document.URL);
             const resMessage = await getMessage.text();
-            console.log(resMessage);
+            let tmps = parse.parseFromString(resMessage, "text/html");
+            messages.innerHTML = tmps.getElementsByTagName('ul')[2].outerHTML;
+            content.value = '';
+
             //$('#messages__list').append($.parseHTML(getMessage)).find('#messages__list');
 
             /*if (document.querySelector('.messages__list_error') == null) {
                 messageList.firstElementChild.insertAdjacentHTML('beforeend', `<li class="messages__list_content messages__list_sender">${content.value}</li>`);
             } else {
             }*/
-            /*$('#messages__list').load(document.URL +  ' #messages__list');
-            content.value = '';*/
+            /*$('#messages__list').load(document.URL +  ' #messages__list');*/
 
         })
     })
