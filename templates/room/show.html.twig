@@ -48,21 +48,22 @@
 
             const sendMessage = await fetch('/message/create', {
                 method: 'post',
-                headers: {'X-Requested-With' : 'XMLHttpRequest'},
+                headers: {'X-Requested-With' : 'XMLHttpRequest','Content-Type' : 'text/html'},
                 body: JSON.stringify({room : parseInt(id), recipient: recipientId, sender: senderId, content: document.querySelector('#message_content').value})
             });
             const res = await sendMessage.json();
 
             const getMessage = await fetch(document.URL);
-            const resMessages = await $.parseHTML(getMessage).find('#messages__list');
-            console.log(res.messages);
+            const resMessage = await getMessage.text();
+            console.log(resMessage);
+            //$('#messages__list').append($.parseHTML(getMessage)).find('#messages__list');
 
             /*if (document.querySelector('.messages__list_error') == null) {
                 messageList.firstElementChild.insertAdjacentHTML('beforeend', `<li class="messages__list_content messages__list_sender">${content.value}</li>`);
             } else {
             }*/
-            //$('#messages__list').load(document.URL +  ' #messages__list');
-            content.value = '';
+            /*$('#messages__list').load(document.URL +  ' #messages__list');
+            content.value = '';*/
 
         })
     })
