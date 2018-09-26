@@ -5,13 +5,15 @@
 
     <ul class="room">
         {% for user in users %}
-            {% if user.id %}
+            {% if user.room is not null %}
+                <li>
+                    <a href="{{ path('room_show', {'id' : user.room[0].id }) }}">{{ user.username }}</a>
+                </li>
+            {% else %}
                 <li class="room__list create-new-room" id="{{ user.id }}">
                     <img src="{{ user.image }}" alt="{{ user.username }}">
                     <p class="create-new-room">{{ user.username }}</p>
                 </li>
-                {#<a href="{{ path('room_show', {'id' : user.room.id}) }}">{{ user.username }}</a>#}
-            {% else %}
             {% endif %}
         {% else %}
             <li>Vous n'avez aucun amis !</li>
