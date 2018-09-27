@@ -27,7 +27,7 @@
     <script>
         const createRoom = document.querySelector('.create-new-room');
         createRoom.addEventListener('click', async ()=> {
-
+            // TODO Test try catch
             const create = await fetch(`${window.location.origin}/room/new`, {
                 method : 'post',
                 headers : {'X-Requested-With': 'XMLHttpRequest'},
@@ -38,7 +38,7 @@
                 })
             });
             const response = await create.json();
-            window.location.replace(window.location.href+`${response.id}`)
+            window.location.replace(window.location.href+`${response.id}`);
         })
 
     </script>
