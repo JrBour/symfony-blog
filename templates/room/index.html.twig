@@ -27,17 +27,21 @@
     <script>
         const createRoom = document.querySelector('.create-new-room');
         createRoom.addEventListener('click', async ()=> {
-            // TODO Test try catch
-            const create = await fetch(`${window.location.origin}/room/new`, {
-                method : 'post',
-                headers : {'X-Requested-With': 'XMLHttpRequest'},
-                body:JSON.stringify({
-                    'name' : createRoom.textContent,
-                    'picture' : createRoom.firstElementChild.getAttribute('src'),
-                    'id' : createRoom.getAttribute('id')
-                })
-            });
-            const response = await create.json();
+
+            try {
+                const create = await fetch(`${window.location.origin}/room/new`, {
+                    method : 'post',
+                    headers : {'X-Requested-With': 'XMLHttpRequest'},
+                    body:JSON.stringify({
+                        'name' : createRoom.textContent,
+                        'picture' : createRoom.firstElementChild.getAttribute('src'),
+                        'id' : createRoom.getAttribute('id')
+                    })
+                });
+                const response = await create.json();
+            } catch (e) {
+                console.log(e);
+            }
             window.location.replace(window.location.href+`${response.id}`);
         })
 
