@@ -378,6 +378,18 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * Get the user following and follower
+     * @return ArrayCollection
+     */
+    public function getFollowingAndFollower(): Collection
+    {
+        foreach ($this->follower as $follower) {
+            $this->following[] = $follower;
+        }
+        return  $this->following;
+    }
+
+    /**
      *
      * @return bool
      */

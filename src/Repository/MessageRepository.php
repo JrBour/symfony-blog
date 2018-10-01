@@ -33,8 +33,10 @@ class MessageRepository extends ServiceEntityRepository
     public function findOneByRecipientAndSender (int $recipientId, int $senderId): ?Message
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.recipient = :idRecipient')
             ->andWhere('m.sender = :idSender')
+            ->andWhere('m.recipient = :idRecipient')
+            ->orWhere('m.sender = :idRecipient')
+            ->orWhere('m.sender = :idRecipient')
             ->setParameters(['idRecipient' => $recipientId, 'idSender' => $senderId])
             ->setMaxResults(1)
             ->getQuery()

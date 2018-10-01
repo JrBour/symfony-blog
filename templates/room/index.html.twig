@@ -5,7 +5,7 @@
 
     <ul class="room">
         {% for user in users %}
-            {% if user.room is not null %}
+            {% if user.room[0] is defined %}
                 <li>
                     <a href="{{ path('room_show', {'id' : user.room[0].id }) }}">{{ user.username }}</a>
                 </li>
@@ -39,10 +39,10 @@
                     })
                 });
                 const response = await create.json();
+                window.location.replace(window.location.href+`${response.id}`);
             } catch (e) {
-                console.log(e);
+                console.error(e);
             }
-            window.location.replace(window.location.href+`${response.id}`);
         })
 
     </script>

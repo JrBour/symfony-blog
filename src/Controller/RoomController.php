@@ -26,7 +26,7 @@ class RoomController extends Controller
     public function index(): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $followings = $this->getUser()->getFollowing();
+        $followings = $this->getUser()->getFollowingAndFollower();
 
         foreach ($followings as $following) {
             $message = $em->getRepository(Message::class)->findOneByRecipientAndSender($following->getId(), $this->getUser()->getId());
@@ -92,9 +92,9 @@ class RoomController extends Controller
         foreach ($users as $user) {
             if ($user->getId() !== $this->getUser()->getId()) {
                 $userId = $user->getId();
+                break;
             }
         }
-        $userId = ($message->getSender()->getId() == $this->getUser()->getId()) ? $message->getSender()->getId() : $message->getRecipient()->getId();
 
         $form = $this->createForm(MessageType::class);
         $form->handleRequest($request);
