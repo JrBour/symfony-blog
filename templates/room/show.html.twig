@@ -21,14 +21,16 @@
 
 
     {{ form_start(form) }}
-        <div class="form-group">
-            {{ form_row(form.content, {'attr': {
-                'class' : 'form-control'
-            }}) }}
-        </div>
+
+        {{ form_row(form.content, {'attr': {
+            'class' : 'form__content_textarea'
+        }}) }}
+
         <input type="hidden" id="sender" value="{{ app.user.id }}">
         <input type="hidden" id="recipient" value="{{ userId }}">
-    {{ form_row(form.submit) }}
+    {{ form_row(form.submit, {'attr' : {
+            'class' : 'form__content_send'
+    }}) }}
     {{ form_end(form) }}
 {% endblock %}
 
@@ -39,36 +41,35 @@
         const id = arr[arr.length-1];
         const messages = document.querySelector('#test_messages');
         const content = document.querySelector('#message_content');
-        const messageList = document.querySelector('#messages__list');
         const submit = document.querySelector('#message_submit');
         const senderId = document.querySelector('#sender').value;
         const recipientId = document.querySelector('#recipient').value;
 
         submit.addEventListener('click', async e => {
             e.preventDefault();
-
             let parse = new DOMParser();
 
-            const sendMessage = await fetch('/message/create', {
-                method: 'post',
-                headers: {'X-Requested-With' : 'XMLHttpRequest','Content-Type' : 'text/html'},
-                body: JSON.stringify({room : parseInt(id), recipient: recipientId, sender: senderId, content: document.querySelector('#message_content').value})
-            });
-            const res = await sendMessage.json();
+            try {
+                const sendMessage = await fetch('/message/create', {
+                    method: 'post',
+                    headers: {'X-Requested-With' : 'XMLHttpRequest','Content-Type' : 'text/html'},
+                    body: JSON.stringify({room : parseInt(id), recipient: recipientId, sender: senderId, content: document.querySelector('#message_content').value})
+                });
+                const res = await sendMessage.json();
+            } catch (e) {
+                console.error(e);
+            }
 
-            const getMessage = await fetch(document.URL);
-            const resMessage = await getMessage.text();
-            let tmps = parse.parseFromString(resMessage, "text/html");
-            messages.innerHTML = tmps.getElementsByTagName('ul')[2].outerHTML;
+            try {
+                const getMessage = await fetch(document.URL);
+                const resMessage = await getMessage.text();
+                let tmps = parse.parseFromString(resMessage, "text/html");
+                messages.innerHTML = tmps.getElementsByTagName('ul')[2].outerHTML;
+            } catch (e) {
+                console.error(e);
+            }
+
             content.value = '';
-
-            //$('#messages__list').append($.parseHTML(getMessage)).find('#messages__list');
-
-            /*if (document.querySelector('.messages__list_error') == null) {
-                messageList.firstElementChild.insertAdjacentHTML('beforeend', `<li class="messages__list_content messages__list_sender">${content.value}</li>`);
-            } else {
-            }*/
-            /*$('#messages__list').load(document.URL +  ' #messages__list');*/
 
         })
     })

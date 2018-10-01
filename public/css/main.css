@@ -11,6 +11,10 @@ p {
     margin-bottom: 20px;
     padding: 0;
 }
+.container {
+    position: relative;
+    min-height: 100vh;
+}
 .text_post {
     display: flex;
     flex-direction: column;
@@ -285,6 +289,8 @@ hr {
 #messages__list{
     display: flex;
     flex-direction: column;
+    max-height: 67vh;
+    overflow: scroll;
 }
 .messages__list_sender, .messages__list_recipient {
     border-radius: 1.3rem;
@@ -322,4 +328,31 @@ hr {
     width: 40px;
     border-radius: 50%;
     margin-right: 30px;
+}
+.form__content_send {
+    margin-top: 10px;
+    border: 2px solid rgb(44, 138, 243);
+    background: none;
+    border-radius: 3px;
+    color: rgb(44, 138, 243);
+    padding: 10px 25px;
+    transition: .3s ease-in-out;
+}
+form[name="message"] {
+    position: absolute;
+    bottom: 90px;
+    right: 0;
+    left: 0;
+}
+.form__content_send:hover {
+    background: rgb(44, 138, 243);
+    color: white;
+}
+.form__content_textarea {
+    height: 70px;
+    border: none;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 0 5px -3px black;
+    padding: 10px;
+    width: 100%;
 }
