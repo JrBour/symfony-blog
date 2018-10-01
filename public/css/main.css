@@ -286,11 +286,19 @@ hr {
     display: flex;
     flex-direction: column;
 }
+.messages__list_sender, .messages__list_recipient {
+    border-radius: 1.3rem;
+    padding: 6px 14px;
+    margin-top: 10px;
+}
 .messages__list_sender{
     align-self: flex-end;
+    background: rgb(44, 138, 243);
+    color: white;
 }
 .messages__list_recipient{
     align-self: flex-start;
+    background: #f1f0f0;
 }
 
 .messages__list_content {
