@@ -42,8 +42,11 @@
         const messages = document.querySelector('#test_messages');
         const content = document.querySelector('#message_content');
         const submit = document.querySelector('#message_submit');
+        const messageList = document.querySelector('#messages__list');
         const senderId = document.querySelector('#sender').value;
         const recipientId = document.querySelector('#recipient').value;
+
+        messageList.scrollTo(0, messageList.scrollHeight);
 
         submit.addEventListener('click', async e => {
             e.preventDefault();
@@ -63,8 +66,11 @@
             try {
                 const getMessage = await fetch(document.URL);
                 const resMessage = await getMessage.text();
-                let tmps = parse.parseFromString(resMessage, "text/html");
-                messages.innerHTML = tmps.getElementsByTagName('ul')[2].outerHTML;
+                let parserHTML = await parse.parseFromString(resMessage, "text/html");
+                messages.innerHTML = await parserHTML.getElementsByTagName('ul')[2].outerHTML;
+                messages.firstChild.scrollTo(0, messages.firstChild.scrollHeight)
+                //messages.firstChild.scrollIntoView({behavior : "smooth", block: "center", inline: "end"});
+
             } catch (e) {
                 console.error(e);
             }
