@@ -292,23 +292,34 @@ hr {
     max-height: 67vh;
     overflow: scroll;
 }
-.messages__list_sender, .messages__list_recipient {
+.messages__list_sender, .messages__text_recipient {
     border-radius: 1.3rem;
     padding: 6px 14px;
-    margin-top: 10px;
 }
 .messages__list_sender{
     align-self: flex-end;
+    margin-top: 10px;
     background: rgb(44, 138, 243);
     color: white;
 }
-.messages__list_recipient{
-    align-self: flex-start;
+.messages__text_recipient {
     background: #f1f0f0;
+    margin-left: 10px;
 }
 
+.messages__list_recipient{
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+}
+.messages__list_recipient img {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
 .messages__list_content {
     list-style: none;
+    margin-top: 10px;
 }
 .room__list {
     display: flex;
