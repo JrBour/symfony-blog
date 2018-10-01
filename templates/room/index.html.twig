@@ -6,8 +6,11 @@
     <ul class="room">
         {% for user in users %}
             {% if user.room[0] is defined %}
-                <li>
-                    <a href="{{ path('room_show', {'id' : user.room[0].id }) }}">{{ user.username }}</a>
+                <li class="room__list">
+                    <a href="{{ path('room_show', {'id' : user.room[0].id }) }}">
+                        <img src="{{ user.image }}" alt="{{ user.username }}">
+                        <p class="create-new-room">{{ user.username }}</p>
+                    </a>
                 </li>
             {% else %}
                 <li class="room__list create-new-room" id="{{ user.id }}">
@@ -19,8 +22,6 @@
             <li>Vous n'avez aucun amis !</li>
         {% endfor %}
     </ul>
-
-    <a href="{{ path('room_new') }}"><button class="btn btn-primary">{% trans %}crud.add{% endtrans %}</button></a>
 {% endblock %}
 
 {% block javascripts %}
