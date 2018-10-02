@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout/layout.html.twig' %}
 {% block title %}{% trans %}signin.sign_in{% endtrans %}{% endblock %}
 {% block body %}
     <form action="{{ path('login') }}" method="post">
