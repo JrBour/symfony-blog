@@ -1,6 +1,6 @@
 {% extends 'layout/layout.html.twig' %}
 {% block title %}{% trans %}menu.register{% endtrans %}{% endblock %}
-{% block body %}
+{% block section %}
     {{ form_start(form) }}
   <div class="form-group">
       {{ form_row(form.username,{ 'attr': {

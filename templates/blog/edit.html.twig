@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout/layout.html.twig' %}
 {% block title %}Editer un post{% endblock %}
-{% block body %}
+{% block section %}
     {{form_start(form)}}
     {{form_widget(form)}}
     {{form_end(form)}}

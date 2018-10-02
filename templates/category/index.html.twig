@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout/layout.html.twig' %}
 {% block title %}Category{% endblock %}
-{% block body %}
+{% block section %}
     <ul class="categories">
         {% for category in categories %}
             <li class="category" style="background: url('{{asset(category.image)}}'); background-position: center; background-size: cover">

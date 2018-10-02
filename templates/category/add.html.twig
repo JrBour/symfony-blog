@@ -1,6 +1,5 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
+{% extends 'layout/layout.html.twig' %}
+{% block section %}
     {{form_start(form)}}
     <div class="form-group">
         {{form_row(form.name, {'attr' : {

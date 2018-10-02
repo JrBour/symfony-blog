@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout/layout.html.twig' %}
 {% block title %}Message envoyé par {{ contact.firstname }}{% endblock %}
-{% block body %}
+{% block section %}
   <p>{{ contact.firstname }}</p>
   <p>{{ contact.message }}</p>
 {% endblock %}

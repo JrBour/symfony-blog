@@ -1,6 +1,6 @@
 {% extends 'layout/layout.html.twig' %}
 {% block title %}{% trans %}signin.sign_in{% endtrans %}{% endblock %}
-{% block body %}
+{% block section %}
     <form action="{{ path('login') }}" method="post">
         <div class="form-group">
             <label for="username">{% trans %}form.username{% endtrans %}</label>

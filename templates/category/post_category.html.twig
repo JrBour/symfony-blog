@@ -1,5 +1,5 @@
-{% extends 'base.html.twig' %}
-{% block body %}
+{% extends 'layout/layout.html.twig' %}
+{% block section %}
     <h1>{{ category.name }}</h1>
     <ul class="articles">
         {% for post in posts %}

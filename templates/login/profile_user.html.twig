@@ -1,6 +1,6 @@
 {% extends 'layout/layout.html.twig' %}
 {% block title %}{{ user.username | capitalize }}{% endblock %}
-{% block body %}
+{% block section %}
     {% if user %}
         <h1 class="text-center" style="text-transform:uppercase;" id="username">{{ user.username }}</h1>
         <div id="loadButton">
