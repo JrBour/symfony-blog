@@ -12,47 +12,46 @@
 <body>
 <script src="{{ asset('js/jquery.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li ><a href="{{ path('home') }}">{% trans %}menu.home{% endtrans %}</a></li>
-                <li><a href="{{ path('blog') }}">Blog</a></li>
-                <li><a href="{{ path('forum') }}">Forum</a></li>
-                <li><a href="{{ path('contact') }}">Contact</a></li>
-                {% if app.user.id is not defined %}
-                    <li ><a href="{{ path('user_registration') }}">{% trans %}menu.register{% endtrans %}</a></li>
-                    <li ><a href="{{ path('login') }}">{% trans %}menu.signin{% endtrans %}</a></li>
-                {% else %}
-                    <li><a href="{{ path('room_index') }}">Messages</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <img src="{{ app.user.image }}" alt="" class="profil_picture">
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('user_edit', {'id' : app.user.id}) }}">{% trans %}crud.edit{% endtrans %}</a></li>
-                            <li><a href="{{ path('profil') }}">Profil</a></li>
-                            <li><a href="{{ path('logout') }}">{% trans %}menu.signout{% endtrans %}</a></li>
-                        </ul>
-                    </li>
-                {% endif %}
-            </ul>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li ><a href="{{ path('home') }}">{% trans %}menu.home{% endtrans %}</a></li>
+                    <li><a href="{{ path('blog') }}">Blog</a></li>
+                    <li><a href="{{ path('forum') }}">Forum</a></li>
+                    <li><a href="{{ path('contact') }}">Contact</a></li>
+                    {% if app.user.id is not defined %}
+                        <li ><a href="{{ path('user_registration') }}">{% trans %}menu.register{% endtrans %}</a></li>
+                        <li ><a href="{{ path('login') }}">{% trans %}menu.signin{% endtrans %}</a></li>
+                    {% else %}
+                        <li><a href="{{ path('room_index') }}">Messages</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <img src="{{ app.user.image }}" alt="" class="profil_picture">
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('user_edit', {'id' : app.user.id}) }}">{% trans %}crud.edit{% endtrans %}</a></li>
+                                <li><a href="{{ path('profil') }}">Profil</a></li>
+                                <li><a href="{{ path('logout') }}">{% trans %}menu.signout{% endtrans %}</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<div class="container">
     {% block body %}{% endblock %}
-</div>
+
 {% block javascripts %}{% endblock %}
 </body>
 </html>
