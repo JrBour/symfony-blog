@@ -323,14 +323,23 @@ hr {
     list-style: none;
     margin-top: 10px;
 }
+.room {
+    width: 30vw;
+}
+.room__content {
+    display: flex;
+}
+#messages__container {
+    width: 69vw;
+}
 .room__list , .room__list > a{
     display: flex;
     align-items: center;
+    width: 100%;
     padding: 20px;
     margin-top: 10px;
     background: white;
     cursor: pointer;
-    width: 30%;
     font-weight: 600;
     font-size: 1.1em;
     border-radius: 5px;

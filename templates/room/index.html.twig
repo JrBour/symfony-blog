@@ -11,12 +11,12 @@
                 {% if user.room[0] is defined %}
                     <li class="room__list display_room" id="{{ user.room[0].id }}">
                         <img src="{{ user.image }}" alt="{{ user.username }}">
-                        <p class="create-new-room">{{ user.username }}</p>
+                        <p>{{ user.username }}</p>
                     </li>
                 {% else %}
                     <li class="room__list create-new-room" id="{{ user.id }}">
                         <img src="{{ user.image }}" alt="{{ user.username }}">
-                        <p class="create-new-room">{{ user.username }}</p>
+                        <p>{{ user.username }}</p>
                     </li>
                 {% endif %}
             {% else %}
@@ -32,15 +32,12 @@
 
 {% block javascripts %}
     <script>
-        const createRoom = document.querySelectorAll('.create-new-room');
-        const displayRoom = document.querySelectorAll('.display_room');
-        const messageContainer = document.querySelector('#messages__container');
+        document.addEventListener('DOMContentLoaded', () => {
+            const createRoom = document.querySelectorAll('.create-new-room');
+            const displayRoom = document.querySelectorAll('.display_room');
+            const messageContainer = document.querySelector('#messages__container');
 
-
-        displayRoom.forEach(elem => {
-
-            elem.addEventListener('click', async () => {
-                console.log('un petit display ici')
+            const displayMessageByRoom = async (elem) => {
                 let parse = new DOMParser();
 
                 try {
@@ -48,6 +45,7 @@
                     if (response.ok) {
                         let data = await response.text();
                         let elementHTML = await parse.parseFromString(data, 'text/html');
+                        messageContainer.innerHTML = "";
                         messageContainer.append(elementHTML.querySelector('#messages__list'));
                     } else {
                         console.error(response.status)
@@ -55,14 +53,9 @@
                 } catch (e) {
                     console.error(e)
                 }
-            });
+            };
 
-        })
-
-
-        createRoom.forEach(elem =>{
-
-            elem.addEventListener('click', async ()=> {
+            const createRoomByUser = async (elem) => {
 
                 try {
                     let response = await fetch(`${window.location.origin}/room/new`, {
@@ -70,22 +63,23 @@
                         headers : {'X-Requested-With': 'XMLHttpRequest'},
                         body:JSON.stringify({
                             'name' : elem.textContent,
-                            'picture' : elem.firstElementChild.getAttribute('src'),
+                            'picture' : elem.firstChild.getAttribute('src'),
                             'id' : elem.getAttribute('id')
                         })
                     });
                     if (response.ok) {
                         let data = await response.json();
-                        window.location.replace(window.location.href+`${data.id}`);
+                        //window.location.replace(window.location.href+`${data.id}`);
                     } else {
                         console.error(response.status);
                     }
                 } catch (e) {
                     console.error(e);
                 }
-                console.log(data);
-            })
+            };
 
+            displayRoom.forEach(element => element.addEventListener('click', displayMessageByRoom(element)));
+            createRoom.forEach(elemen => elemen.addEventListener('click', createRoomByUser(elemen)));
         })
 
     </script>
