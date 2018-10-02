@@ -32,47 +32,60 @@
 
 {% block javascripts %}
     <script>
-        const createRoom = document.querySelector('.create-new-room');
-        const displayRoom = document.querySelector('.display_room');
-        const messageContainer = document.querySelector('#messages_container');
+        const createRoom = document.querySelectorAll('.create-new-room');
+        const displayRoom = document.querySelectorAll('.display_room');
+        const messageContainer = document.querySelector('#messages__container');
 
-        displayRoom.addEventListener('click', async () => {
 
-            let parse = new DOMParser();
+        displayRoom.forEach(elem => {
 
-            try {
-                let response = await fetch(`${window.location.origin}/room/${displayRoom.getAttribute('id')}`);
-                if (response.ok) {
-                    let data = await response.text();
-                    let elementHTML = await parse.parseFromString(data, 'text/html');
-                    messageContainer.append(elementHTML.querySelector('#messages__list'));
+            elem.addEventListener('click', async () => {
+                console.log('un petit display ici')
+                let parse = new DOMParser();
+
+                try {
+                    let response = await fetch(`${window.location.origin}/room/${elem.getAttribute('id')}`);
+                    if (response.ok) {
+                        let data = await response.text();
+                        let elementHTML = await parse.parseFromString(data, 'text/html');
+                        messageContainer.append(elementHTML.querySelector('#messages__list'));
+                    } else {
+                        console.error(response.status)
+                    }
+                } catch (e) {
+                    console.error(e)
                 }
-            }
-        });
+            });
+
+        })
 
 
-        createRoom.addEventListener('click', async ()=> {
+        createRoom.forEach(elem =>{
 
-            try {
-                let response = await fetch(`${window.location.origin}/room/new`, {
-                    method : 'post',
-                    headers : {'X-Requested-With': 'XMLHttpRequest'},
-                    body:JSON.stringify({
-                        'name' : createRoom.textContent,
-                        'picture' : createRoom.firstElementChild.getAttribute('src'),
-                        'id' : createRoom.getAttribute('id')
-                    })
-                });
-                if (response.ok) {
-                    let data = await response.json();
-                    window.location.replace(window.location.href+`${data.id}`);
-                } else {
-                    console.error(response.status);
+            elem.addEventListener('click', async ()=> {
+
+                try {
+                    let response = await fetch(`${window.location.origin}/room/new`, {
+                        method : 'post',
+                        headers : {'X-Requested-With': 'XMLHttpRequest'},
+                        body:JSON.stringify({
+                            'name' : elem.textContent,
+                            'picture' : elem.firstElementChild.getAttribute('src'),
+                            'id' : elem.getAttribute('id')
+                        })
+                    });
+                    if (response.ok) {
+                        let data = await response.json();
+                        window.location.replace(window.location.href+`${data.id}`);
+                    } else {
+                        console.error(response.status);
+                    }
+                } catch (e) {
+                    console.error(e);
                 }
-            } catch (e) {
-                console.error(e);
-            }
-            console.log(data);
+                console.log(data);
+            })
+
         })
 
     </script>

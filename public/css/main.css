@@ -326,7 +326,7 @@ hr {
 .room__list , .room__list > a{
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 20px;
     margin-top: 10px;
     background: white;
     cursor: pointer;
