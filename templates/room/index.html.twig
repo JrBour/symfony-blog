@@ -4,12 +4,13 @@
 
 {% block body %}
     <h1>Salons</h1>
-
+    <h2></h2>
     <div class="room__content">
         <ul class="room">
+
             {% for user in users %}
                 {% if user.room[0] is defined %}
-                    <li class="room__list display_room" id="{{ user.room[0].id }}">
+                    <li class="room__list display_room" id="{{ user.room[0].id }}" data-id="{{ user.id }}">
                         <img src="{{ user.image }}" alt="{{ user.username }}">
                         <p>{{ user.username }}</p>
                     </li>
@@ -22,6 +23,7 @@
             {% else %}
                 <li>Vous n'avez aucun amis !</li>
             {% endfor %}
+
         </ul>
         <div id="messages__container">
 
@@ -36,6 +38,7 @@
             const createRoom = document.querySelectorAll('.create-new-room');
             const displayRoom = document.querySelectorAll('.display_room');
             const messageContainer = document.querySelector('#messages__container');
+            const userName = document.querySelector('h2');
 
             const displayMessageByRoom = async (elem) => {
                 let parse = new DOMParser();
@@ -52,6 +55,23 @@
                     }
                 } catch (e) {
                     console.error(e)
+                }
+
+                try {
+                    let response = await fetch(`${window.location.origin}/user/info`, {
+                        method: 'post',
+                        body: JSON.stringify({ id : elem.dataset.id })
+                    });
+                    if (response.ok) {
+                        let data = await response.json();
+                        console.log(userName);
+                        userName.textContent = data.user;
+                    } else {
+                        console.error(response.status)
+                    }
+
+                } catch (e) {
+                    console.error(e);
                 }
             };
 

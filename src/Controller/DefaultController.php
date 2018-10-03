@@ -97,6 +97,27 @@ class DefaultController extends Controller
     }
 
     /**
+     * Get the user informations by id
+     * @param       Request         $request        The request send to the controller
+     * @return JsonResponse         The response in json
+     * @Route("/user/info", name="user_info")
+     */
+    public function userInformations(Request $request): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($data['id']);
+
+        if ($user) {
+
+            return $this->json(['user' => $user->getUsername()], 200);
+        }
+
+        return $this->json(['error' => 'Id incorrect'], 400);
+
+    }
+
+    /**
      * Add a new user to follow for the current user
      * @param       Request         $request        The ajax request
      * @return      Response        The json response
