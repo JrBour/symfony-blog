@@ -34,8 +34,6 @@
                     'class' : 'form__content_textarea'
                 }}) }}
 
-
-
                 {{ form_row(form.submit, { 'attr' : {
                     'class' : 'form__content_send'
                 }}) }}
@@ -53,7 +51,13 @@
             const messageContainer = document.querySelector('#messages__container');
             const messageContent = document.querySelector('#message_content');
             const messageSubmit = document.querySelector('#message_submit');
+            const form = document.querySelector('form[name="message"]');
             const userName = document.querySelector('h2');
+            const informationsToSend = {
+                recipient: null,
+                room: null,
+                content: null
+            };
 
             /**
              * Display messages when the user select another user in his list
@@ -68,6 +72,9 @@
                     if (response.ok) {
                         let data = await response.text();
                         let elementHTML = await parse.parseFromString(data, 'text/html');
+
+                        informationsToSend.room = elem.getAttribute('id');
+                        informationsToSend.recipient = elem.dataset.id;
                         messageContainer.innerHTML = "";
                         messageContainer.append(elementHTML.querySelector('#messages__list'));
                     } else {
@@ -84,7 +91,6 @@
                     });
                     if (response.ok) {
                         let data = await response.json();
-                        console.log(userName);
                         userName.textContent = data.user;
                     } else {
                         console.error(response.status)
@@ -99,16 +105,18 @@
              * Submit the content for create new message
              * @returns {Promise<void>}
              */
-            const submitInformations = async () => {
+            const submitInformations = async (e) => {
+                e.preventDefault();
+                informationsToSend.content = messageContent.value;
 
                 try {
-                    let response = async fetch(`${window.location.origin}/message/create`, {
+                    let response = await fetch(`${window.location.origin}/message/create`, {
                         method: 'post',
                         headers: {'X-Requested-With' : 'XMLHttpRequest'},
-                        body: json.stringify({content: messageContent.value, recipient : cc, room : })
+                        body: JSON.stringify(informationsToSend)
                     })
                     if (response.ok) {
-                        let data = reponse.json();
+                        let data = await reponse.json();
                     } else {
                         console.log(response.status);
                     }
@@ -148,7 +156,7 @@
 
             displayRoom.forEach(element => element.addEventListener('click', () => displayMessageByRoom(element)));
             createRoom.forEach(elemen => elemen.addEventListener('click', () => createRoomByUser(elemen)));
-            messageSubmit.addEventListener('click', () => submitInformations());
+            form.addEventListener('submit', (e) => submitInformations(e));
         })
 
     </script>

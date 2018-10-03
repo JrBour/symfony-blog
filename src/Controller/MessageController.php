@@ -25,12 +25,12 @@ class MessageController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $recipient = $em->getRepository(User::class)->find($data['recipient']);
-            $sender = $em->getRepository(User::class)->find($data['sender']);
             $room = $em->getRepository(Room::class)->find($data['room']);
+            //$sender = $em->getRepository(User::class)->find($data['sender']);
 
             $message->setContent($data['content']);
             $message->setRecipient($recipient);
-            $message->setSender($sender);
+            $message->setSender($this->getUser());
             $message->setCreatedAt(new \DateTime());
             $message->setRoom($room);
 
