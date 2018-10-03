@@ -50,7 +50,6 @@
             const displayRoom = document.querySelectorAll('.display_room');
             const messageContainer = document.querySelector('#messages__container');
             const messageContent = document.querySelector('#message_content');
-            const messageSubmit = document.querySelector('#message_submit');
             const form = document.querySelector('form[name="message"]');
             const userName = document.querySelector('h2');
             const informationsToSend = {
@@ -59,9 +58,11 @@
                 content: null
             };
 
+            messageContent.value = "";
+
             /**
              * Display messages when the user select another user in his list
-             * @param   elem     HTMLElement        The element select by the user
+             * @param   elem     Element        The element select by the user
              * @returns {Promise<void>}
              */
             const displayMessageByRoom = async (elem) => {
@@ -107,6 +108,7 @@
              */
             const submitInformations = async (e) => {
                 e.preventDefault();
+                let parse = new DOMParser();
                 informationsToSend.content = messageContent.value;
 
                 try {
@@ -116,12 +118,27 @@
                         body: JSON.stringify(informationsToSend)
                     })
                     if (response.ok) {
-                        let data = await reponse.json();
+                        messageContent.value = ""
                     } else {
                         console.log(response.status);
                     }
                 } catch (e) {
                     console.log(e)
+                }
+
+                try {
+                    let response = await fetch(`${window.location.origin}/room/${informationsToSend.room}`);
+                    if (response.ok) {
+                        let data = await response.text();
+                        let elementHTML = await parse.parseFromString(data, 'text/html');
+
+                        messageContainer.innerHTML = "";
+                        messageContainer.append(elementHTML.querySelector('#messages__list'));
+                    } else {
+                        console.error(response.status)
+                    }
+                } catch (e) {
+                    console.error(e)
                 }
 
             };
