@@ -78,8 +78,8 @@
                 }
             };
 
-            displayRoom.forEach(element => element.addEventListener('click', displayMessageByRoom(element)));
-            createRoom.forEach(elemen => elemen.addEventListener('click', createRoomByUser(elemen)));
+            displayRoom.forEach(element => element.addEventListener('click', () => displayMessageByRoom(element)));
+            createRoom.forEach(elemen => elemen.addEventListener('click', () => createRoomByUser(elemen)));
         })
 
     </script>
