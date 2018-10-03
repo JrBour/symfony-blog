@@ -13,14 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class MessageController extends Controller
 {
     /**
-     * @Route("/message", name="message")
-     */
-    public function index(Request $request)
-    {
-        return $this->render('message/index.html.twig', ['controller_name' => 'MessageController']);
-    }
-
-    /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @Route("/message/create", name="message_create")

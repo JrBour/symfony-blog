@@ -51,8 +51,15 @@
             const createRoom = document.querySelectorAll('.create-new-room');
             const displayRoom = document.querySelectorAll('.display_room');
             const messageContainer = document.querySelector('#messages__container');
+            const messageContent = document.querySelector('#message_content');
+            const messageSubmit = document.querySelector('#message_submit');
             const userName = document.querySelector('h2');
 
+            /**
+             * Display messages when the user select another user in his list
+             * @param   elem     HTMLElement        The element select by the user
+             * @returns {Promise<void>}
+             */
             const displayMessageByRoom = async (elem) => {
                 let parse = new DOMParser();
 
@@ -88,6 +95,34 @@
                 }
             };
 
+            /**
+             * Submit the content for create new message
+             * @returns {Promise<void>}
+             */
+            const submitInformations = async () => {
+
+                try {
+                    let response = async fetch(`${window.location.origin}/message/create`, {
+                        method: 'post',
+                        headers: {'X-Requested-With' : 'XMLHttpRequest'},
+                        body: json.stringify({content: messageContent.value, recipient : cc, room : })
+                    })
+                    if (response.ok) {
+                        let data = reponse.json();
+                    } else {
+                        console.log(response.status);
+                    }
+                } catch (e) {
+                    console.log(e)
+                }
+
+            };
+
+            /**
+             * Create room for talk to another user
+             * @param elem      HTMLElement     The element select by the user for talk to another user
+             * @returns {Promise<void>}
+             */
             const createRoomByUser = async (elem) => {
 
                 try {
@@ -113,6 +148,7 @@
 
             displayRoom.forEach(element => element.addEventListener('click', () => displayMessageByRoom(element)));
             createRoom.forEach(elemen => elemen.addEventListener('click', () => createRoomByUser(elemen)));
+            messageSubmit.addEventListener('click', () => submitInformations());
         })
 
     </script>
