@@ -328,9 +328,17 @@ hr {
 }
 .room__content {
     display: flex;
+    flex-wrap: wrap;
 }
 #messages__container {
     width: 69vw;
+    height: 67vh;
+}
+.form__messages{
+    width: 69%;
+    position: relative;
+    display: block;
+    margin-left: auto;
 }
 .room__list , .room__list > a{
     display: flex;
@@ -362,12 +370,6 @@ hr {
     color: rgb(44, 138, 243);
     padding: 10px 25px;
     transition: .3s ease-in-out;
-}
-form[name="message"] {
-    position: absolute;
-    bottom: 90px;
-    right: 0;
-    left: 0;
 }
 .form__content_send:hover {
     background: rgb(44, 138, 243);

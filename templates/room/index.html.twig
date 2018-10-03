@@ -28,6 +28,19 @@
         <div id="messages__container">
 
         </div>
+        <div class="form__messages">
+            {{ form_start(form) }}
+                {{ form_row(form.content,{'attr' : {
+                    'class' : 'form__content_textarea'
+                }}) }}
+
+
+
+                {{ form_row(form.submit, { 'attr' : {
+                    'class' : 'form__content_send'
+                }}) }}
+            {{ form_end(form) }}
+        </div>
     </div>
 
 {% endblock %}

@@ -28,6 +28,8 @@ class RoomController extends Controller
         $em = $this->getDoctrine()->getManager();
         $followings = $this->getUser()->getFollowingAndFollower();
 
+        $form = $this->createForm(MessageType::class);
+
         foreach ($followings as $following) {
             $message = $em->getRepository(Message::class)->findOneByRecipientAndSender($following->getId(), $this->getUser()->getId());
             if (!is_null($message)) {
@@ -35,7 +37,7 @@ class RoomController extends Controller
             }
         }
 
-        return $this->render('room/index.html.twig', ['users' => $followings]);
+        return $this->render('room/index.html.twig', ['users' => $followings, 'form' => $form->createView()]);
     }
 
     /**
