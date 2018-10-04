@@ -146,7 +146,7 @@
                         headers : {'X-Requested-With': 'XMLHttpRequest'},
                         body:JSON.stringify({
                             'name' : elem.textContent,
-                            'picture' : elem.firstChild.getAttribute('src'),
+                            'picture' : elem.children[0].getAttribute("src"),
                             'id' : elem.getAttribute('id')
                         })
                     });
@@ -157,6 +157,25 @@
                     }
                 } catch (e) {
                     console.error(e);
+                }
+
+                try {
+                    let response = await fetch(`${window.location.origin}/room/15`);
+                    if (response.ok) {
+                        let data = await response.text();
+                        let elementHTML = await parse.parseFromString(data, 'text/html');
+
+                        informationsToSend.room = elem.getAttribute('id');
+                        informationsToSend.recipient = elem.dataset.id;
+                        messageContainer.innerHTML = "";
+                        await messageContainer.append(elementHTML.querySelector('#messages__list'));
+                        if (messageList !== 1)
+                            messageList.scrollTo(0, messageList.scrollHeight);
+                    } else {
+                        console.error(response.status)
+                    }
+                } catch (e) {
+                    console.error(e)
                 }
             };
 
