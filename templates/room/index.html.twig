@@ -52,6 +52,7 @@
             const messageContent = document.querySelector('#message_content');
             const form = document.querySelector('form[name="message"]');
             const userName = document.querySelector('h2');
+            let messageList = document.querySelector('#messages__list') || 1;
             const informationsToSend = {
                 recipient: null,
                 room: null,
@@ -60,11 +61,6 @@
 
             messageContent.value = "";
 
-            /**
-             * Display messages when the user select another user in his list
-             * @param   elem     Element        The element select by the user
-             * @returns {Promise<void>}
-             */
             const displayMessageByRoom = async (elem) => {
                 let parse = new DOMParser();
 
@@ -77,7 +73,9 @@
                         informationsToSend.room = elem.getAttribute('id');
                         informationsToSend.recipient = elem.dataset.id;
                         messageContainer.innerHTML = "";
-                        messageContainer.append(elementHTML.querySelector('#messages__list'));
+                        await messageContainer.append(elementHTML.querySelector('#messages__list'));
+                        if (messageList !== 1)
+                            messageList.scrollTo(0, messageList.scrollHeight);
                     } else {
                         console.error(response.status)
                     }
@@ -102,10 +100,6 @@
                 }
             };
 
-            /**
-             * Submit the content for create new message
-             * @returns {Promise<void>}
-             */
             const submitInformations = async (e) => {
                 e.preventDefault();
                 let parse = new DOMParser();
@@ -134,6 +128,7 @@
 
                         messageContainer.innerHTML = "";
                         messageContainer.append(elementHTML.querySelector('#messages__list'));
+                        messageContainer.firstChild.scrollTo(0, messageContainer.firstChild.scrollHeight);
                     } else {
                         console.error(response.status)
                     }
@@ -143,11 +138,6 @@
 
             };
 
-            /**
-             * Create room for talk to another user
-             * @param elem      HTMLElement     The element select by the user for talk to another user
-             * @returns {Promise<void>}
-             */
             const createRoomByUser = async (elem) => {
 
                 try {
@@ -162,7 +152,6 @@
                     });
                     if (response.ok) {
                         let data = await response.json();
-                        //window.location.replace(window.location.href+`${data.id}`);
                     } else {
                         console.error(response.status);
                     }
