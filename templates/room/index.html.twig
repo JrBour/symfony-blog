@@ -139,7 +139,7 @@
             };
 
             const createRoomByUser = async (elem) => {
-
+                let data;
                 try {
                     let response = await fetch(`${window.location.origin}/room/new`, {
                         method : 'post',
@@ -151,7 +151,8 @@
                         })
                     });
                     if (response.ok) {
-                        let data = await response.json();
+                        data = await response.json();
+
                     } else {
                         console.error(response.status);
                     }
@@ -160,12 +161,12 @@
                 }
 
                 try {
-                    let response = await fetch(`${window.location.origin}/room/15`);
+                    let response = await fetch(`${window.location.origin}/room/${data['id']}`);
                     if (response.ok) {
                         let data = await response.text();
                         let elementHTML = await parse.parseFromString(data, 'text/html');
 
-                        informationsToSend.room = elem.getAttribute('id');
+                        informationsToSend.room = data['id'];
                         informationsToSend.recipient = elem.dataset.id;
                         messageContainer.innerHTML = "";
                         await messageContainer.append(elementHTML.querySelector('#messages__list'));
