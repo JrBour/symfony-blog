@@ -139,7 +139,8 @@
             };
 
             const createRoomByUser = async (elem) => {
-                let data;
+                let data, parse = new DOMParser();
+
                 try {
                     let response = await fetch(`${window.location.origin}/room/new`, {
                         method : 'post',
@@ -150,9 +151,10 @@
                             'id' : elem.getAttribute('id')
                         })
                     });
+
                     if (response.ok) {
                         data = await response.json();
-
+                        console.log(data['id']);
                     } else {
                         console.error(response.status);
                     }
@@ -162,6 +164,7 @@
 
                 try {
                     let response = await fetch(`${window.location.origin}/room/${data['id']}`);
+
                     if (response.ok) {
                         let data = await response.text();
                         let elementHTML = await parse.parseFromString(data, 'text/html');
@@ -175,6 +178,7 @@
                     } else {
                         console.error(response.status)
                     }
+
                 } catch (e) {
                     console.error(e)
                 }
