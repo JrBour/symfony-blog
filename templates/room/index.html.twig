@@ -15,7 +15,7 @@
                         <p>{{ user.username }}</p>
                     </li>
                 {% else %}
-                    <li class="room__list create-new-room" id="{{ user.id }}">
+                    <li class="room__list create-new-room" id="{{ user.id }}" data-id="{{ user.id }}">
                         <img src="{{ user.image }}" alt="{{ user.username }}">
                         <p>{{ user.username }}</p>
                     </li>
@@ -154,7 +154,10 @@
 
                     if (response.ok) {
                         data = await response.json();
-                        console.log(data['id']);
+                        elem.classList.remove('create-new-room');
+                        elem.classList.add('display_room');
+                        informationsToSend.room = data['id'];
+                        informationsToSend.recipient = elem.dataset.id;
                     } else {
                         console.error(response.status);
                     }
@@ -169,9 +172,9 @@
                         let data = await response.text();
                         let elementHTML = await parse.parseFromString(data, 'text/html');
 
-                        informationsToSend.room = data['id'];
-                        informationsToSend.recipient = elem.dataset.id;
                         messageContainer.innerHTML = "";
+                        console.log(informationsToSend);
+
                         await messageContainer.append(elementHTML.querySelector('#messages__list'));
                         if (messageList !== 1)
                             messageList.scrollTo(0, messageList.scrollHeight);
