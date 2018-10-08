@@ -56,13 +56,50 @@
             const messageContainer = document.querySelector('#messages__container');
             const messageContent = document.querySelector('#message_content');
             const form = document.querySelector('form[name="message"]');
+            const messageMedia = document.querySelector('#message_media');
             const userName = document.querySelector('h2');
+
             let messageList = document.querySelector('#messages__list') || 1;
+            const reader = new FileReader();
             const informationsToSend = {
                 recipient: null,
                 room: null,
                 content: null
             };
+
+
+            messageMedia.addEventListener('change', async e => {
+                /*const formData = new FormData();
+                formData.append("file",e.target.files[0]);*/
+
+                let wsh;
+
+                reader.addEventListener("load", function () {
+                    wsh = reader.result;
+                }, false);
+
+                reader.readAsDataURL(messageMedia.files[0]);
+                console.log(wsh);
+                return;
+
+                try {
+                    let response = await fetch(`${window.location.origin}/message/create`, {
+                        method: 'post',
+                        headers: {'X-Requested-With' : 'XMLHttpRequest', 'Content-Type' : "multipart/form-data"},
+                        body: JSON.stringify(formData)
+                    })
+
+                    if (response.ok) {
+                        console.log('gg');
+                    } else {
+                        console.log(response.status);
+                    }
+                } catch (e) {
+                    console.log(e)
+                }
+
+                console.log(e.target.files[0]);
+            });
 
             messageContent.value = "";
 

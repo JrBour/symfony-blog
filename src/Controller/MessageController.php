@@ -22,6 +22,8 @@ class MessageController extends Controller
         if ($request->isXmlHttpRequest()) {
             $message = new Message();
             $data = json_decode($request->getContent(), true);
+
+            var_dump($data);
             $em = $this->getDoctrine()->getManager();
 
             $recipient = $em->getRepository(User::class)->find($data['recipient']);
