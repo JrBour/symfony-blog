@@ -362,18 +362,40 @@ hr {
     border-radius: 50%;
     margin-right: 30px;
 }
-.form__content_send {
+.form__content_media {
+    position: absolute;
+    top: 50%;
+    right: 60px;
+    height: 40px;
+    width: 40px;
+    border: none;
+    background: rgb(255, 255, 255) url('../images/attachment.svg');
+    background-size: 75%;
+    background-position: 50% 87%;
+    background-repeat: no-repeat;
     margin-top: 10px;
-    border: 2px solid rgb(44, 138, 243);
-    background: none;
-    border-radius: 3px;
-    color: rgb(44, 138, 243);
-    padding: 10px 25px;
+    border: none;
+    transform: translate(-50%, -70%);
+    transition: .3s ease-in-out;
+}
+.form__content_send {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    height: 40px;
+    width: 40px;
+    border: none;
+    background: rgb(44, 138, 243) url('../images/send.svg');
+    background-size: 75%;
+    background-position: 50% 87%;
+    background-repeat: no-repeat;
+    margin-top: 10px;
+    border-radius: 50%;
+    transform: translate(-50%, -70%);
     transition: .3s ease-in-out;
 }
 .form__content_send:hover {
-    background: rgb(44, 138, 243);
-    color: white;
+    transform: translate(-50%, -70%) scale(1.05);
 }
 .form__content_textarea {
     height: 70px;

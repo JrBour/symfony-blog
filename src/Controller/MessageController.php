@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class MessageController extends Controller
 {
     /**
-     * @param Request $request
+     * @param       Request         $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @Route("/message/create", name="message_create")
      */
@@ -26,7 +26,6 @@ class MessageController extends Controller
 
             $recipient = $em->getRepository(User::class)->find($data['recipient']);
             $room = $em->getRepository(Room::class)->find($data['room']);
-            //$sender = $em->getRepository(User::class)->find($data['sender']);
 
             $message->setContent($data['content']);
             $message->setRecipient($recipient);
