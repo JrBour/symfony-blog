@@ -8,6 +8,8 @@ use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Normalizer\DataUriNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MessageController extends Controller
@@ -22,14 +24,27 @@ class MessageController extends Controller
         if ($request->isXmlHttpRequest()) {
             $message = new Message();
             $data = json_decode($request->getContent(), true);
-
-            var_dump($data);
             $em = $this->getDoctrine()->getManager();
-
             $recipient = $em->getRepository(User::class)->find($data['recipient']);
             $room = $em->getRepository(Room::class)->find($data['room']);
 
-            $message->setContent($data['content']);
+            if ($data['image']) {
+                $normalizer = new DataUriNormalizer();
+                $file = $normalizer->denormalize($data['image'], 'Symfony\Component\HttpFoundation\File\File');
+
+                //$file = $post->getImage();
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                $file->move(
+                    $this->getParameter('images'),
+                    $fileName
+                );
+                $content = "/images/posts/" . $fileName;
+            } else {
+                $content = $data['content'];
+            }
+
+
+            $message->setContent($content);
             $message->setRecipient($recipient);
             $message->setSender($this->getUser());
             $message->setCreatedAt(new \DateTime());

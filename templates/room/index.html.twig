@@ -69,36 +69,30 @@
 
 
             messageMedia.addEventListener('change', async e => {
-                /*const formData = new FormData();
-                formData.append("file",e.target.files[0]);*/
-
                 let wsh;
 
-                reader.addEventListener("load", function () {
-                    wsh = reader.result;
+                reader.addEventListener("load", async () => {
+
+                    try {
+                        let response = await fetch(`${window.location.origin}/message/create`, {
+                            method: 'post',
+                            headers: {'X-Requested-With' : 'XMLHttpRequest', 'Content-Type' : "multipart/form-data"},
+                            body: JSON.stringify({'image': reader.result, 'recipient' : 10, 'room' : 13})
+                        })
+
+                        if (response.ok) {
+                            console.log('gg');
+                        } else {
+                            console.log(response.status);
+                        }
+                    } catch (e) {
+                        console.log(e)
+                    }
+
                 }, false);
 
-                reader.readAsDataURL(messageMedia.files[0]);
-                console.log(wsh);
-                return;
+                await reader.readAsDataURL(messageMedia.files[0]);
 
-                try {
-                    let response = await fetch(`${window.location.origin}/message/create`, {
-                        method: 'post',
-                        headers: {'X-Requested-With' : 'XMLHttpRequest', 'Content-Type' : "multipart/form-data"},
-                        body: JSON.stringify(formData)
-                    })
-
-                    if (response.ok) {
-                        console.log('gg');
-                    } else {
-                        console.log(response.status);
-                    }
-                } catch (e) {
-                    console.log(e)
-                }
-
-                console.log(e.target.files[0]);
             });
 
             messageContent.value = "";
