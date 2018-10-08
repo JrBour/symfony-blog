@@ -364,19 +364,31 @@ hr {
 }
 .form__content_media {
     position: absolute;
-    top: 50%;
     right: 60px;
+    top: 50%;
     height: 40px;
     width: 40px;
-    border: none;
-    background: rgb(255, 255, 255) url('../images/attachment.svg');
+    background: rgb(0, 0 ,0);
+    z-index: 200;
     background-size: 75%;
     background-position: 50% 87%;
     background-repeat: no-repeat;
-    margin-top: 10px;
+    transform: translate(-50%, -50%);
     border: none;
-    transform: translate(-50%, -70%);
     transition: .3s ease-in-out;
+}
+label[for="message_media"] {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    height: 60px;
+    width: 40px;
+    background: white url('../images/attachment.svg');
+    z-index: 200;
+    background-size: 50%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    transform: translate(-50%, -50%);
 }
 .form__content_send {
     position: absolute;
