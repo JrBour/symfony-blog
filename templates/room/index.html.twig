@@ -72,7 +72,7 @@
             const messageMedia = document.querySelector('#message_media');
             const userName = document.querySelector('h2');
 
-            let messageList = document.querySelector('#messages__list') || 1;
+            let messageList = document.querySelector('#messages__list');
             const reader = new FileReader();
             const parse = new DOMParser();
             const informationsToSend = {
@@ -85,8 +85,6 @@
 
 
             messageMedia.addEventListener('change', async e => {
-                let wsh;
-
                 reader.addEventListener("load", async () => {
 
                     try {
@@ -94,7 +92,7 @@
                             method: 'post',
                             headers: {'X-Requested-With' : 'XMLHttpRequest', 'Content-Type' : "multipart/form-data"},
                             body: JSON.stringify({'image': reader.result, 'recipient' : 10, 'room' : 13})
-                        })
+                        });
 
                         if (response.ok) {
                             console.log('gg');
@@ -125,8 +123,8 @@
                         informationsToSend.recipient = elem.dataset.id;
                         messageContainer.innerHTML = "";
                         await messageContainer.append(elementHTML.querySelector('#messages__list'));
-                        if (messageList !== 1)
-                            messageList.scrollTo(0, messageList.scrollHeight);
+
+                        messageContainer.firstChild.scrollTo(0, messageContainer.firstChild.scrollHeight);
                     } else {
                         console.error(response.status)
                     }
