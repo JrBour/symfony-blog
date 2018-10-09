@@ -25,11 +25,15 @@ class RoomController extends Controller
      */
     public function index(): Response
     {
+        $user = null;
+        $messages = null;
+
         $em = $this->getDoctrine()->getManager();
         $message = $em->getRepository(Message::class)->findLastMessage($this->getUser()->getId());
 
         if (!is_null($message)) {
             $room = $message->getRoom()->getId();
+            $user = ($message->getRecipient()->getId() === $this->getUser()->getId()) ? $message->getSender() : $message->getRecipient();
             $messages = $em->getRepository(Message::class)->findMessagesByRoomId($message->getRoom()->getId());
         }
 
@@ -47,7 +51,8 @@ class RoomController extends Controller
             'users' => $followings,
             'form' => $form->createView(),
             'messages' => $messages,
-            'room' => $room
+            'room' => $room,
+            'user' => $user
         ]);
     }
 
