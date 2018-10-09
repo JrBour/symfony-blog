@@ -74,11 +74,14 @@
 
             let messageList = document.querySelector('#messages__list') || 1;
             const reader = new FileReader();
+            const parse = new DOMParser();
             const informationsToSend = {
                 recipient: null,
                 room: null,
                 content: null
             };
+
+            messageList.scrollTo(0, messageList.scrollHeight);
 
 
             messageMedia.addEventListener('change', async e => {
@@ -111,7 +114,6 @@
             messageContent.value = "";
 
             const displayMessageByRoom = async (elem) => {
-                let parse = new DOMParser();
 
                 try {
                     let response = await fetch(`${window.location.origin}/room/${elem.getAttribute('id')}`);

@@ -28,7 +28,7 @@ class MessageController extends Controller
             $recipient = $em->getRepository(User::class)->find($data['recipient']);
             $room = $em->getRepository(Room::class)->find($data['room']);
 
-            if ($data['image']) {
+            if (isset($data['image'])) {
                 $normalizer = new DataUriNormalizer();
                 $file = $normalizer->denormalize($data['image'], 'Symfony\Component\HttpFoundation\File\File');
 
