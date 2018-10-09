@@ -26,18 +26,29 @@ class RoomController extends Controller
     public function index(): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $followings = $this->getUser()->getFollowingAndFollower();
+        $message = $em->getRepository(Message::class)->findLastMessage($this->getUser()->getId());
 
+        if (!is_null($message)) {
+            $room = $message->getRoom()->getId();
+            $messages = $em->getRepository(Message::class)->findMessagesByRoomId($message->getRoom()->getId());
+        }
+
+        $followings = $this->getUser()->getFollowingAndFollower();
         $form = $this->createForm(MessageType::class);
 
         foreach ($followings as $following) {
-            $message = $em->getRepository(Message::class)->findOneByRecipientAndSender($following->getId(), $this->getUser()->getId());
-            if (!is_null($message)) {
-                $following->setRoom($message->getRoom());
+            $messageUser = $em->getRepository(Message::class)->findOneByRecipientAndSender($following->getId(), $this->getUser()->getId());
+            if (!is_null($messageUser)) {
+                $following->setRoom($messageUser->getRoom());
             }
         }
 
-        return $this->render('room/index.html.twig', ['users' => $followings, 'form' => $form->createView()]);
+        return $this->render('room/index.html.twig', [
+            'users' => $followings,
+            'form' => $form->createView(),
+            'messages' => $messages,
+            'room' => $room
+        ]);
     }
 
     /**

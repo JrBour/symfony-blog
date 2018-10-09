@@ -26,18 +26,20 @@
 
         </ul>
         <div id="messages__container">
-            {% for message in messages %}
-                {% if message.sender.id == app.user.id %}
-                    <li class="messages__list_content messages__list_sender">{{ message.content }}</li>
+            <ul id="messages__list">
+                {% for message in messages %}
+                    {% if message.sender.id == app.user.id %}
+                        <li class="messages__list_content messages__list_sender">{{ message.content }}</li>
+                    {% else %}
+                        <li class="messages__list_content messages__list_recipient">
+                            <img src="{{ message.sender.image }}" alt="{{ message.sender.username }}">
+                            <p class="messages__text_recipient">{{ message.content }}</p>
+                        </li>
+                    {% endif %}
                 {% else %}
-                    <li class="messages__list_content messages__list_recipient">
-                        <img src="{{ message.sender.image }}" alt="{{ message.sender.username }}">
-                        <p class="messages__text_recipient">{{ message.content }}</p>
-                    </li>
-                {% endif %}
-            {% else %}
-                <li class="messages__list_error">Commencez par écrire votre premier message !</li>
-            {% endfor %}
+                    <li class="messages__list_error">Commencez par écrire votre premier message !</li>
+                {% endfor %}
+            </ul>
         </div>
         <div class="form__messages">
             {{ form_start(form) }}

@@ -29,18 +29,12 @@ class MessageController extends Controller
             $room = $em->getRepository(Room::class)->find($data['room']);
 
             if ($data['image']) {
-                //$data['image'] = str_replace(' ','+',$data['image']);
-                //$data['image'] = base64_decode($data['image']);
-
                 $normalizer = new DataUriNormalizer();
                 $file = $normalizer->denormalize($data['image'], 'Symfony\Component\HttpFoundation\File\File');
 
                 if ($file) {
                     $fileName = md5(uniqid()) . '.jpg';
-                    $file->move(
-                        $this->getParameter('images'),
-                        $fileName
-                    );
+                    $file->move( $this->getParameter('images'), $fileName );
                     $content = "/images/posts/" . $fileName;
                 }
             } else {
