@@ -12,6 +12,9 @@
                     <li class="room__list display_room" id="{{ user.room[0].id }}" data-id="{{ user.id }}">
                         <img src="{{ user.image }}" alt="{{ user.username }}">
                         <p>{{ user.username }}</p>
+                        {% if user.message is not null %}
+                            <p>{{ user.message.content }}</p>
+                        {% endif %}
                     </li>
                 {% else %}
                     <li class="room__list create-new-room" id="{{ user.id }}" data-id="{{ user.id }}">

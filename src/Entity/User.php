@@ -119,6 +119,12 @@ class User implements UserInterface, \Serializable
     private $room;
 
     /**
+     * The last message send or receipt
+     * @var Message
+     */
+    private $message;
+
+    /**
      * User constructor
      */
     public function __construct()
@@ -426,6 +432,25 @@ class User implements UserInterface, \Serializable
     {
         $this->room[] = $room;
         return $this;
+    }
+
+    /**
+     * Get the last message sent or receipt
+     * @return Message  The Message object
+     */
+    public function getMessage(): ?Message
+    {
+        return $this->message;
+    }
+
+    /**
+     * Set the last message sent or receipt
+     * @param Message $message
+     * @return Void
+     */
+    public function setMessage(Message $message): void
+    {
+        $this->message = $message;
     }
 
     /**

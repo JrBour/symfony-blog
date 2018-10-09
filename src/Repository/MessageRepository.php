@@ -42,6 +42,23 @@ class MessageRepository extends ServiceEntityRepository
     }
 
     /**
+     * Find the last message sent by the user
+     * @param       int         $id     The user ID
+     * @return Message|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findLastMessageByRoom(int $id): ?Message
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.room = :room')
+            ->setParameters(['room' => $id])
+            ->orderBy('m.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
      * Check if a message exist between two peoples
      * @param       int         $recipientId        The recipient id
      * @param       int         $senderId           The sender id
@@ -54,7 +71,7 @@ class MessageRepository extends ServiceEntityRepository
             ->andWhere('m.sender = :idSender')
             ->andWhere('m.recipient = :idRecipient')
             ->orWhere('m.sender = :idRecipient')
-            ->orWhere('m.recipient = :idSender')
+            ->andWhere('m.recipient = :idSender')
             ->setParameters(['idRecipient' => $recipientId, 'idSender' => $senderId])
             ->setMaxResults(1)
             ->getQuery()
