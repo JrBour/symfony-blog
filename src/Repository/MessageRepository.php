@@ -89,6 +89,7 @@ class MessageRepository extends ServiceEntityRepository
             ->andWhere('m.room = :id')
             ->setParameter('id', $id)
             ->orderBy('m.id', 'ASC')
+            ->setMaxResults(30)
             ->getQuery()
             ->getResult();
     }
