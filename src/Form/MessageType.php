@@ -21,7 +21,11 @@ class MessageType extends AbstractType
                     'placeholder' => 'Type a message…'
                 ]
             ])
-            ->add('media', FileType::class, ['label' => ' ', 'data_class' => null])
+            ->add('media', FileType::class, [
+                'label' => ' ',
+                'data_class' => null,
+                'required' => false
+            ])
             ->add('submit', SubmitType::class, ['label' => false])
         ;
     }

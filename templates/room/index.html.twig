@@ -27,6 +27,8 @@
             {% endfor %}
 
         </ul>
+        <input type="hidden" id="room" value="{{ room }}">
+        <input type="hidden" id="recipient" value="{{ recipient }}">
         <div id="messages__container">
             <ul id="messages__list">
                 {% for message in messages %}
@@ -72,14 +74,16 @@
             const messageContent = document.querySelector('#message_content');
             const form = document.querySelector('form[name="message"]');
             const messageMedia = document.querySelector('#message_media');
+            const room = document.querySelector('#room').value;
+            const recipient = document.querySelector('#recipient').value;
             const userName = document.querySelector('h1');
 
             let messageList = document.querySelector('#messages__list');
             const reader = new FileReader();
             const parse = new DOMParser();
             const informationsToSend = {
-                recipient: null,
-                room: null,
+                recipient: recipient,
+                room: room,
                 content: null
             };
 
