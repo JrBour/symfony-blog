@@ -43,10 +43,9 @@ class RoomController extends Controller
 
         foreach ($followings as $following) {
             $messageUser = $em->getRepository(Message::class)->findOneByRecipientAndSender($following->getId(), $this->getUser()->getId());
-
+            //var_dump($lastMessage->getId());
             if (!is_null($messageUser)) {
                 $lastMessage = $em->getRepository(Message::class)->findLastMessageByRoom($messageUser->getRoom()->getId());
-                //var_dump($lastMessage->getId());
                 $following->setRoom($messageUser->getRoom());
                 $following->setMessage($lastMessage);
             }

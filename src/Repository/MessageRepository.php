@@ -65,13 +65,11 @@ class MessageRepository extends ServiceEntityRepository
      * @return    mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findOneByRecipientAndSender (int $recipientId, int $senderId): ?Message
+    public function findOneByRecipientAndSender(int $recipientId, int $senderId): ?Message
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.sender = :idSender')
-            ->andWhere('m.recipient = :idRecipient')
-            ->orWhere('m.sender = :idRecipient')
-            ->andWhere('m.recipient = :idSender')
+            ->andWhere('m.sender = :idSender OR m.sender = :idRecipient')
+            ->andWhere('m.recipient = :idRecipient OR m.recipient = :idSender')
             ->setParameters(['idRecipient' => $recipientId, 'idSender' => $senderId])
             ->setMaxResults(1)
             ->getQuery()
@@ -89,7 +87,6 @@ class MessageRepository extends ServiceEntityRepository
             ->andWhere('m.room = :id')
             ->setParameter('id', $id)
             ->orderBy('m.id', 'ASC')
-            ->setMaxResults(30)
             ->getQuery()
             ->getResult();
     }
