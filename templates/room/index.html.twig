@@ -3,7 +3,7 @@
 {% block title %}Messages{% endblock %}
 
 {% block body %}
-    <h1>{{ user.username }}</h1>
+    <h1>{{ recipient.username }}</h1>
     <div class="room__content">
         <ul class="room">
 
@@ -30,7 +30,7 @@
 
         </ul>
         <input type="hidden" id="room" value="{{ room }}">
-        <input type="hidden" id="recipient" value="{{ recipient }}">
+        <input type="hidden" id="recipient" value="{{ recipient.id }}">
         <div id="messages__container">
             <ul id="messages__list">
                 {% for message in messages %}
@@ -198,7 +198,9 @@
             const createRoomByUser = async (elem) => {
                 let data, parse = new DOMParser();
 
-                try {
+                const roomName = document.querySelector(`#${elem.getAttribute('id')} p`).innerHTML;
+                console.log(roomName);
+                /*try {
                     let response = await fetch(`${window.location.origin}/room/new`, {
                         method : 'post',
                         headers : {'X-Requested-With': 'XMLHttpRequest'},
@@ -241,7 +243,7 @@
 
                 } catch (e) {
                     console.error(e)
-                }
+                }*/
             };
 
             displayRoom.forEach(element => element.addEventListener('click', () => displayMessageByRoom(element)));

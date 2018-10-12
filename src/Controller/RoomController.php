@@ -33,8 +33,7 @@ class RoomController extends Controller
 
         if (!is_null($message)) {
             $room = $message->getRoom()->getId();
-            $user = ($message->getRecipient()->getId() === $this->getUser()->getId()) ? $message->getSender() : $message->getRecipient();
-            $recipient = ($message->getRecipient()->getId() === $this->getUser()->getId()) ? $message->getRecipient() : $message->getSender();
+            $recipient = ($message->getRecipient()->getId() === $this->getUser()->getId()) ? $message->getSender() : $message->getRecipient();
             $messages = $em->getRepository(Message::class)->findMessagesByRoomId($message->getRoom()->getId());
         }
 
@@ -43,7 +42,6 @@ class RoomController extends Controller
 
         foreach ($followings as $following) {
             $messageUser = $em->getRepository(Message::class)->findOneByRecipientAndSender($following->getId(), $this->getUser()->getId());
-            //var_dump($lastMessage->getId());
             if (!is_null($messageUser)) {
                 $lastMessage = $em->getRepository(Message::class)->findLastMessageByRoom($messageUser->getRoom()->getId());
                 $following->setRoom($messageUser->getRoom());
@@ -56,8 +54,7 @@ class RoomController extends Controller
             'form' => $form->createView(),
             'messages' => $messages,
             'room' => $room,
-            'user' => $user,
-            'recipient' => $recipient->getId()
+            'recipient' => $recipient
         ]);
     }
 

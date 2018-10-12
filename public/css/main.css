@@ -377,6 +377,11 @@ hr {
     border: none;
     transition: .3s ease-in-out;
 }
+.room__list_content{
+    font-size: 1em;
+    font-weight: 300;
+    color: grey;
+}
 label[for="message_media"] {
     position: absolute;
     right: 60px;
