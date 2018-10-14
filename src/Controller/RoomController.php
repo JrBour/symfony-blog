@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * Room Controller
  * @Route("/room")
  */
 class RoomController extends Controller
