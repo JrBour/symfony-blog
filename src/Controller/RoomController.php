@@ -180,7 +180,7 @@ class RoomController extends Controller
      * @param           Room            $room           The room object
      * @return          Response        The redirection to another route
      */
-    public function delete(Request $request, Room $room): Response
+    /*public function delete(Request $request, Room $room): Response
     {
         if ($this->isCsrfTokenValid('delete'.$room->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
@@ -189,5 +189,5 @@ class RoomController extends Controller
         }
 
         return $this->redirectToRoute('room_index');
-    }
+    }*/
 }
