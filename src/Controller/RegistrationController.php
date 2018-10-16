@@ -92,19 +92,21 @@ class RegistrationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $roles = $em->getRepository(Role::class)->findAll();
         $user = $em->getRepository(User::class)->find($id);
-        $form = $this->createForm(UserType::class, $user, array('choices' => $roles));
+        $currentPicture = $user->getImage();
+
+        $form = $this->createForm(UserType::class, $user, ['choices' => $roles]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $user->getImage();
+            $user->setRole($user->getRole());
+
             if ($user->getPlainPassword()) {
                 $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                 $user->setPassword($password);
-            } else {
-                $user->setPassword($user->getPassword());
             }
 
-            $file = $user->getImage();
-            if($file) {
+            if (!is_null($file)) {
                 $fileName = md5(uniqid()) . '.' . $file->guessExtension();
                 $file->move(
                     $this->getParameter('images'),
@@ -113,11 +115,9 @@ class RegistrationController extends Controller
                 $name = "/images/posts/" . $fileName;
                 $user->setImage($name);
             } else {
-                $user->setImage($user->getImage());
+                $user->setImage($currentPicture);
             }
 
-            $user->setRole($user->getRole());
-            $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
