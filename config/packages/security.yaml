@@ -40,11 +40,9 @@ security:
         - { path: ^/blog/edit, roles: ROLE_ADMIN }
         - { path: ^/blog/delete, roles: ROLE_ADMIN }
 
-        - { path: ^/forum, roles: ROLE_ADMIN }
         - { path: ^/forum/add, roles: ROLE_ADMIN }
         - { path: ^/forum/edit, roles: ROLE_ADMIN }
         - { path: ^/user, roles: ROLE_ADMIN }
 
-        - { path: ^/category, roles: ROLE_ADMIN }
         - { path: ^/category/add, roles: ROLE_ADMIN }
         - { path: ^/category/edit, roles: ROLE_ADMIN }
