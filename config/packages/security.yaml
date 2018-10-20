@@ -42,6 +42,7 @@ security:
 
         - { path: ^/forum/add, roles: ROLE_ADMIN }
         - { path: ^/forum/edit, roles: ROLE_ADMIN }
+
         - { path: ^/user, roles: ROLE_ADMIN }
 
         - { path: ^/category/add, roles: ROLE_ADMIN }
