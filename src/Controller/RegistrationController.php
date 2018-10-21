@@ -72,7 +72,7 @@ class RegistrationController extends Controller
      *
      * @Route("/user/show", name="user_show")
      */
-    public function allUserRegister(UserRepository $userRepository)
+    public function allUserRegister(UserRepository $userRepository): Response
     {
         return $this->render('login/show_user.html.twig', ['users' => $userRepository]);
     }
