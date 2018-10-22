@@ -87,7 +87,7 @@ class RegistrationController extends Controller
      *
      * @Route("/user/{id}", name="user_edit")
      */
-    public function editUser(Request $request, UserPasswordEncoderInterface $passwordEncoder, int $id)
+    public function editUser(Request $request, UserPasswordEncoderInterface $passwordEncoder, int $id): Response
     {
         $em = $this->getDoctrine()->getManager();
         $roles = $em->getRepository(Role::class)->findAll();
