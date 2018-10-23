@@ -13,7 +13,7 @@
     </header>
 
     <p>{{ blog.description }}</p>
-    <p>{{ blog.createdAt|date("d-m-Y")  }}</p>
+    <p>{{ blog.createdAt|date("d/m/Y")  }}</p>
 
     {{form_start(form)}}
     <div class="form-group">
@@ -55,7 +55,6 @@
 {% block javascripts %}
     <script type="text/javascript">
 
-
         const show = document.querySelector('.show');
         const edit = document.querySelector('.edit');
         const removeComment = document.querySelector('.remove_comment');
@@ -64,6 +63,7 @@
         const commentList = document.querySelector('#commentList');
         const commentContainer = document.querySelector('#comment__container');
         const parse = new DOMParser();
+
         let displayForm = false;
         let features = document.querySelector('.features');
         let success = document.querySelector('.success');
@@ -169,7 +169,9 @@
                     const elementHtml = await parse.parseFromString(data, 'text/html');
                     document.querySelector('#comment_content').value = '';
                     commentContainer.innerHTML = "";
-                    commentContainer.append(elementHtml.querySelector('#commentList'))
+                    commentContainer.append(elementHtml.querySelector('#commentList'));
+
+                    features.style.display = 'none';
 
                 } else {
                     console.error(htmlResponse.status);
