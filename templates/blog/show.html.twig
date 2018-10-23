@@ -27,26 +27,28 @@
     {{form_end(form)}}
 
     {% if comments %}
-        <div class="comments_list" id="commentList">
-            {% for comment in comments %}
-                <div class="comments" data-id="{{comment.id}}">
-                    <div class="card-header">
-                        <img src="{{ comment.author.image}}" alt="" class="profil_picture_post">
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="card-text"><a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil">{{comment.author.username}}</a><span class="content">{{ comment.content }}</span></p>
+        <div id="comment__container">
+            <div class="comments_list" id="commentList">
+                {% for comment in comments %}
+                    <div class="comments" data-id="{{comment.id}}">
+                        <div class="card-header">
+                            <img src="{{ comment.author.image}}" alt="" class="profil_picture_post">
                         </div>
-                        {% if app.user.id is defined and app.user.id == comment.author.id %}
-                            <button type="button" name="button" class="show">...</button>
-                            <div class="features">
-                                <p class="edit" data-id="{{comment.id}}">Editer</p>
-                                <p class="remove_comment" data-id="{{comment.id}}">Supprimer</p>
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text"><a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil">{{comment.author.username}}</a><span class="content">{{ comment.content }}</span></p>
                             </div>
-                        {% endif %}
+                            {% if app.user.id is defined and app.user.id == comment.author.id %}
+                                <button type="button" name="button" class="show">...</button>
+                                <div class="features">
+                                    <p class="edit" data-id="{{comment.id}}">Editer</p>
+                                    <p class="remove_comment" data-id="{{comment.id}}">Supprimer</p>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     {% endif %}
 {% endblock %}
@@ -59,7 +61,9 @@
         const removeComment = document.querySelector('.remove_comment');
         const comments = document.querySelector('.comments');
         const editContent = document.querySelector('.editContentForm');
-        const commentList = document.querySelector('.comments_list');
+        const commentList = document.querySelector('#commentList');
+        const commentContainer = document.querySelector('#comment__container');
+        const parse = new DOMParser();
         let displayForm = false;
         let features = document.querySelector('.features');
         let success = document.querySelector('.success');
@@ -91,6 +95,7 @@
             removeComment.addEventListener('click', async e => {
                 e.preventDefault();
 
+
                 const elementToRemove = document.querySelector(`.comments[data-id="${removeComment.dataset.id}"]`);
                 commentList.removeChild(elementToRemove);
 
@@ -103,7 +108,6 @@
                 success.style.display = 'block';
                 success.firstElementChild.innerHTML = res.success;
                 setTimeout(()=> {success.style.display = 'none'}, 2000);
-
 
             })
         }
@@ -141,26 +145,40 @@
             e.preventDefault();
             const split = window.location.href.split('/');
 
-            const sendComment = await fetch(`/blog/${parseFloat(split[split.length - 1])}`, {
-                method : 'post',
-                headers: {'X-Requested-With' : 'XMLHttpRequest'},
-                body: JSON.stringify({content : $('#comment_content').val()})
-            });
-            const res = await sendComment.json();
+            try {
+                const response = await fetch(`/blog/${parseFloat(split[split.length - 1])}`, {
+                    method : 'post',
+                    headers: {'X-Requested-With' : 'XMLHttpRequest'},
+                    body: JSON.stringify({content : $('#comment_content').val()})
+                });
 
-            document.querySelector('#comment_content').value = '';
-            document.querySelector('.comments_list').insertAdjacentHTML('beforeend', `
-                <div class="comments">
-                    <div class="card-header">
-                        <img src="${res['image']}" alt="" class="profil_picture_post">
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="card-text"><a href="/profil/${res['id']}" class="profil" >${res['username']}</a> ${res['content']} </p>
-                        </div>
-                    </div>
-                </div>
-            `);
+                if (response.ok) {
+                    const data = await response.json();
+                } else {
+                    console.error(response.status);
+                }
+
+            } catch(e) {
+                console.error(e);
+            }
+
+            try {
+                const htmlResponse = await fetch(`/blog/${parseFloat(split[split.length - 1])}`);
+                if (htmlResponse.ok) {
+                    const data = await htmlResponse.text();
+                    const elementHtml = await parse.parseFromString(data, 'text/html');
+                    document.querySelector('#comment_content').value = '';
+                    commentContainer.innerHTML = "";
+                    commentContainer.append(elementHtml.querySelector('#commentList'))
+
+                } else {
+                    console.error(htmlResponse.status);
+                }
+            } catch (e) {
+                console.error(e);
+            }
+
+
         });
 
 
