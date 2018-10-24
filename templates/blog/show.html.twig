@@ -167,8 +167,8 @@
                 if (htmlResponse.ok) {
                     const data = await htmlResponse.text();
                     const elementHtml = await parse.parseFromString(data, 'text/html');
-                    document.querySelector('#comment_content').value = '';
                     commentContainer.innerHTML = "";
+                    document.querySelector('#comment_content').value = '';
                     commentContainer.append(elementHtml.querySelector('#commentList'));
 
                     features.style.display = 'none';
