@@ -158,7 +158,6 @@
 
             const submitInformations = async (e) => {
                 e.preventDefault();
-                let parse = new DOMParser();
                 informationsToSend.content = messageContent.value;
 
                 try {
@@ -195,7 +194,7 @@
             };
 
             const createRoomByUser = async (elem) => {
-                let data, parse = new DOMParser();
+                let data;
 
                 const roomName = document.querySelector(`#${elem.getAttribute('id')} p`).innerHTML;
                 console.log(roomName);
