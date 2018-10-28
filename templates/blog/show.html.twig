@@ -55,17 +55,17 @@
 {% block javascripts %}
     <script type="text/javascript">
 
-        const show = document.querySelector('.show');
+        const show = document.querySelectorAll('.show');
         const edit = document.querySelector('.edit');
         const removeComment = document.querySelector('.remove_comment');
         const comments = document.querySelector('.comments');
         const editContent = document.querySelector('.editContentForm');
         const commentList = document.querySelector('#commentList');
         const commentContainer = document.querySelector('#comment__container');
+        const features = document.querySelectorAll('.features');
         const parse = new DOMParser();
 
         let displayForm = false;
-        let features = document.querySelectorAll('.features');
         let success = document.querySelector('.success');
 
 
@@ -73,10 +73,12 @@
 
             features.forEach(e => e.style.display = (e.style.display == 'none') ? 'block' : 'none' );
 
-            show.addEventListener('click', (e) => {
-                e.preventDefault();
+            show.forEach(element => element.addEventListener('click', () => toggleSubNav(element)));
 
-            })
+            const toggleSubNav = e => {
+                const feature = e.parentElement.querySelector('.features');
+                feature.style.display = (feature.style.display == 'none') ? 'block' : 'none'
+            };
 
             edit.addEventListener('click', e => {
                 e.preventDefault();
@@ -91,7 +93,7 @@
                 cardText.insertAdjacentHTML('beforeend',`<form name="editContent" onsubmit="editFormSubmit(event)" class="editContentForm"><input type="text" value="${textContent}" data-id="${dataId}" class="editContent" autofocus/></form>`)
 
                 displayForm = true
-            })
+            });
 
             removeComment.addEventListener('click', async e => {
                 e.preventDefault();
