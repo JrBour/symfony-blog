@@ -65,16 +65,17 @@
         const parse = new DOMParser();
 
         let displayForm = false;
-        let features = document.querySelector('.features');
+        let features = document.querySelectorAll('.features');
         let success = document.querySelector('.success');
 
 
         if (show){
-            features.style.display = 'none';
+
+            features.forEach(e => e.style.display = (e.style.display == 'none') ? 'block' : 'none' );
 
             show.addEventListener('click', (e) => {
                 e.preventDefault();
-                features.style.display = (features.style.display == 'none') ? 'block' : 'none';
+
             })
 
             edit.addEventListener('click', e => {
@@ -107,7 +108,7 @@
 
                 success.style.display = 'block';
                 success.firstElementChild.innerHTML = res.success;
-                setTimeout(()=> {success.style.display = 'none'}, 2000);
+                setTimeout(() => {success.style.display = 'none'}, 2000);
 
             })
         }
@@ -118,7 +119,7 @@
          * @param e       Event         The event
          * @returns Void
          */
-        async function editFormSubmit (e) {
+        const editFormSubmit = async e => {
             e.preventDefault();
 
             const dataId = document.querySelector('.editContent').dataset.id;
@@ -130,7 +131,7 @@
                 method: 'post',
                 headers: {'X-Requested-With': 'XMLHttpRequest'},
                 body: JSON.stringify({id: dataId, content: textContent})
-            })
+            });
             const res = await editComment.json();
 
             success.style.display = 'block';
