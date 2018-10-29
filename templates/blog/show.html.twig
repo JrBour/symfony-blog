@@ -26,8 +26,8 @@
     }})}}
     {{form_end(form)}}
 
-    {% if comments %}
-        <div id="comment__container">
+    <div id="comment__container">
+        {% if comments %}
             <div class="comments_list" id="commentList">
                 {% for comment in comments %}
                     <div class="comments" data-id="{{comment.id}}">
@@ -49,8 +49,8 @@
                     </div>
                 {% endfor %}
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
 {% endblock %}
 {% block javascripts %}
     <script type="text/javascript">
