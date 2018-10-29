@@ -71,17 +71,14 @@
 
         if (show){
 
-            features.forEach(e => e.style.display = (e.style.display == 'none') ? 'block' : 'none' );
-
-            show.forEach(element => element.addEventListener('click', () => toggleSubNav(element)));
+            features.forEach(e => e.style.display = (e.style.display == 'none') ? 'flex' : 'none' );
 
             const toggleSubNav = e => {
                 const feature = e.parentElement.querySelector('.features');
-                feature.style.display = (feature.style.display == 'none') ? 'block' : 'none'
+                feature.style.display = (feature.style.display == 'none') ? 'flex' : 'none'
             };
 
-            const edit = async elem => {
-                features.style.display = 'none';
+            const edit = () => {
 
                 const dataId = edit.dataset.id;
                 const card = edit.parentElement.parentElement;
@@ -99,19 +96,28 @@
                 const elementToRemove = document.querySelector(`.comments[data-id="${elem.dataset.id}"]`);
                 commentList.removeChild(elementToRemove);
 
-                const deleteComment = await fetch(`/comment/remove/${elem.dataset.id}`,{
-                    method: 'get',
-                    headers: {'X-Requested-With' : 'XMLHttpRequest'}
-                });
-                const res = await deleteComment.json();
+                try {
+                    const response = await fetch(`/comment/remove/${elem.dataset.id}`, {
+                        method: 'get',
+                        headers: {'X-Requested-With' : 'XMLHttpRequest'}
+                    });
 
-                success.style.display = 'block';
-                success.firstElementChild.innerHTML = res.success;
-                setTimeout(() => {success.style.display = 'none'}, 2000);
+                    if (response.ok) {
+                        const data = await response.json();
+                        success.style.display = 'block';
+                        success.firstElementChild.innerHTML = data.success;
+                        setTimeout(() => {success.style.display = 'none'}, 2000);
+                    } else {
+                        console.error(response.status);
+                    }
+                } catch(e) {
+                    console.error(e);
+                }
             };
 
             removeComments.forEach(e => e.addEventListener('click', () => remove(e)));
             editComments.forEach(e => e.addEventListener('click', () => edit(e)));
+            show.forEach(element => element.addEventListener('click', () => toggleSubNav(element)));
         }
 
 
@@ -166,9 +172,7 @@
                     const elementHtml = await parse.parseFromString(data, 'text/html');
                     commentContainer.innerHTML = "";
                     document.querySelector('#comment_content').value = '';
-                    await commentContainer.append(elementHtml.querySelector('#commentList'));
-                    console.log(features);
-                    features.forEach(e => e.style.display = 'none');
+                    commentContainer.append(elementHtml.querySelector('#commentList'));
 
                 } else {
                     console.error(htmlResponse.status);
