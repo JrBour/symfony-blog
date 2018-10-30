@@ -33,7 +33,9 @@
                     <div class="comments" data-id="{{comment.id}}">
                         <div class="card">
                             <div class="card__header">
-                                <img src="{{ comment.author.image}}" alt="" class="profil_picture_post">
+                                <a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil">
+                                    <img src="{{ comment.author.image}}" alt="" class="profil_picture_post">
+                                </a>
                                 <div class="card__subinformations">
                                     <a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil">{{comment.author.username}}</a>
                                     <p>{{ comment.createdAt|date('M d') }}</p>
@@ -45,10 +47,9 @@
                             </div>
 
                             {% if app.user.id is defined and app.user.id == comment.author.id %}
-                                <button type="button" name="button" class="show">...</button>
-                                <div class="features">
-                                    <p class="edit" data-id="{{comment.id}}">Editer</p>
-                                    <p class="remove_comment" data-id="{{comment.id}}">Supprimer</p>
+                                <div class="card__settings">
+                                    <i class="far fa-edit edit" data-id="{{comment.id}}"></i>
+                                    <i class="fas fa-times remove_comment" data-id="{{comment.id}}"></i>
                                 </div>
                             {% endif %}
                         </div>
@@ -61,28 +62,19 @@
 {% block javascripts %}
     <script type="text/javascript">
 
-        const show = document.querySelectorAll('.show');
         const editComments = document.querySelectorAll('.edit');
         const removeComments = document.querySelectorAll('.remove_comment');
         const comments = document.querySelector('.comments');
         const editContent = document.querySelectorAll('.editContentForm');
         const commentList = document.querySelector('#commentList');
         const commentContainer = document.querySelector('#comment__container');
-        const features = document.querySelectorAll('.features');
         const parse = new DOMParser();
 
         let displayForm = false;
         let success = document.querySelector('.success');
 
 
-        if (show){
-
-            features.forEach(e => e.style.display = (e.style.display == 'none') ? 'flex' : 'none' );
-
-            const toggleSubNav = e => {
-                const feature = e.parentElement.querySelector('.features');
-                feature.style.display = (feature.style.display == 'none') ? 'flex' : 'none'
-            };
+        if (removeComments.length){
 
             const edit = value => {
 
@@ -123,7 +115,6 @@
 
             removeComments.forEach(e => e.addEventListener('click', () => remove(e)));
             editComments.forEach(e => e.addEventListener('click', () => edit(e)));
-            show.forEach(element => element.addEventListener('click', () => toggleSubNav(element)));
         }
 
 

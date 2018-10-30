@@ -116,9 +116,6 @@ hr {
     align-items: center;
     margin-top: 5vh;
 }
-.profil {
-    color: blue;
-}
 .header_post {
     width: 100%;
     height: 20vh;
@@ -140,7 +137,10 @@ hr {
     flex-direction: column;
     width: 100%;
     padding: 20px;
-    box-shadow:0 20px 20px rgba(0,0,0,.08);
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    border: 1px solid rgba(0,0,0,.09);
+    border-radius: 3px;
     margin-left: 1vw
 }
 .card__header {
@@ -148,8 +148,12 @@ hr {
     display: flex;
     align-items: center;
 }
-.card__subinformations{
-
+.card__settings {
+    margin-top: 20px;
+    align-self: end;
+}
+.edit {
+    margin-right: 15px;
 }
 .card-body {
     width: 100%;
@@ -163,19 +167,6 @@ hr {
 }
 .comments_list {
     margin-bottom: 9vh;
-}
-.features {
-    position: absolute;
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background: black;
-    color: white;
-    padding: 2px 5px;
-    right: -2%;
-    bottom: -100%;
-    z-index: 2;
 }
 .editContent {
     width: 100%;
