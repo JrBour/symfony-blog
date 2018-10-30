@@ -104,20 +104,11 @@ hr {
 .profil_picture {
     height: 30px;
 }
-.card {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    padding: 10px;
-    box-shadow:0 20px 20px rgba(0,0,0,.08);
-    margin-left: 1vw
-}
 .profil_picture_post {
     height: 40px;
     width: 40px;
     border-radius: 50%;
+    margin-right: 23px;
 }
 .comments {
     display: flex;
@@ -142,6 +133,23 @@ hr {
 }
 .navbar {
     margin-bottom: 0;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    box-shadow:0 20px 20px rgba(0,0,0,.08);
+    margin-left: 1vw
+}
+.card__header {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+.card__subinformations{
+
 }
 .card-body {
     width: 100%;
@@ -172,9 +180,6 @@ hr {
 .editContent {
     width: 100%;
     border: none;
-}
-.content{
-    padding-left: 1vw;
 }
 .success{
     display: none;

@@ -31,13 +31,19 @@
             <div class="comments_list" id="commentList">
                 {% for comment in comments %}
                     <div class="comments" data-id="{{comment.id}}">
-                        <div class="card-header">
-                            <img src="{{ comment.author.image}}" alt="" class="profil_picture_post">
-                        </div>
                         <div class="card">
-                            <div class="card-body">
-                                <p class="card-text"><a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil">{{comment.author.username}}</a><span class="content">{{ comment.content }}</span></p>
+                            <div class="card__header">
+                                <img src="{{ comment.author.image}}" alt="" class="profil_picture_post">
+                                <div class="card__subinformations">
+                                    <a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil">{{comment.author.username}}</a>
+                                    <p>{{ comment.createdAt|date('M d') }}</p>
+                                </div>
                             </div>
+
+                            <div class="card-body">
+                                <p class="card-text"><span class="content">{{ comment.content }}</span></p>
+                            </div>
+
                             {% if app.user.id is defined and app.user.id == comment.author.id %}
                                 <button type="button" name="button" class="show">...</button>
                                 <div class="features">
