@@ -17,6 +17,7 @@
                             {{ post.description }}
                         {% endif %}<br>
                         <h4>by <a href="{{ path('profil_user', {'id' : post.author.id}) }}"><em>{{ post.author.username }}</em></a></h4>
+
                         {% if app.user and is_granted('ROLE_ADMIN') %}
                             <hr>
                             <div class="post__edit">

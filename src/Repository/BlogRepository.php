@@ -17,6 +17,19 @@ class BlogRepository extends ServiceEntityRepository
         parent::__construct($registry, Blog::class);
     }
 
+    public function findRandomArticles()
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT id, title, description, author_id, image, created_at FROM blog ORDER BY RAND() LIMIT 3';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+
+    }
+
     /**
      * Find blog by category
      * @param   int     $id         The category id

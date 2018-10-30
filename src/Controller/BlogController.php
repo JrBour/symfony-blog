@@ -90,6 +90,11 @@ class BlogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $blog = $this->getDoctrine()->getRepository(Blog::class)->find($id);
         $comments = $this->getDoctrine()->getRepository(Comment::class)->findByPost($id);
+        $randomArticles = $this->getDoctrine()->getRepository(Blog::class)->findRandomArticles();
+
+        foreach($randomArticles as $key => $article) {
+
+        }
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -115,7 +120,8 @@ class BlogController extends Controller
         return $this->render('blog/show.html.twig', array(
             'blog' => $blog,
             'form' => $form->createView(),
-            'comments' => $comments
+            'comments' => $comments,
+            'randomArticles' => $randomArticles
         ));
     }
 

@@ -15,6 +15,34 @@
     <p>{{ blog.description }}</p>
     <p>{{ blog.createdAt|date("d/m/Y")  }}</p>
 
+    <ul class="articles">
+        {% for article in randomArticles %}
+            <a href="{{ path('blog_show', { 'id' : article.id }) }}">
+                <li class="post">
+                    <div style="background:url('{{ asset(article.image) }}'); height: 200px; width: 100%; background-position: center; background-size: cover"></div>
+                    <div class="text_post">
+                        <h2>{{ article.title }}</h2>
+                        {% if article.description|length > 200 %}
+                            {{article.description|slice(0,200) }}...
+                        {% else %}
+                            {{ article.description }}
+                        {% endif %}<br>
+                        <h4>by <a href="{{ path('profil_user', {'id' : article.author.id}) }}"><em>{{ article.author.username }}</em></a></h4>
+
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                            <hr>
+                            <div class="post__edit">
+                                <a href="{{ path('blog_edit', { 'id' : article.id}) }}"><i class="far fa-edit"></i></a>
+                                <a href="{{ path('blog_remove', { 'id' : article.id }) }}"><i class="fas fa-times"></i></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </li>
+            </a>
+        {% endfor %}
+    </ul>
+
+
     {{form_start(form)}}
     <div class="form-group">
         {{form_row(form.content,{ 'attr' : {
@@ -25,6 +53,7 @@
         'class' : 'btn btn-primary'
     }})}}
     {{form_end(form)}}
+
 
     <div id="comment__container">
         {% if comments %}
@@ -77,7 +106,6 @@
         if (removeComments.length){
 
             const edit = value => {
-
                 const dataId = value.dataset.id;
                 const card = value.parentElement.parentElement;
                 const cardText = card.firstElementChild.firstElementChild.lastElementChild
@@ -130,7 +158,6 @@
             const input = document.querySelector('input.editContent');
             const textContent = input.value;
             const content = input.parentElement.parentElement;
-            const removeElem = input.parentNode;
 
             const editComment = await fetch(`/comment/edit/${dataId}`, {
                 method: 'post',
