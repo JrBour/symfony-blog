@@ -67,7 +67,7 @@
                                 <a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil">
                                     <img src="{{ comment.author.image}}" alt="" class="profil_picture_post">
                                 </a>
-                                <div class="card__subinformations">
+                                <div>
                                     <a href="{{ path('profil_user', {id : comment.author.id}) }}" class="profil">{{comment.author.username}}</a>
                                     <p>{{ comment.createdAt|date('M d') }}</p>
                                 </div>
