@@ -12,6 +12,7 @@ use App\Repository\CategoryRepository;
 use App\Form\BlogType;
 use App\Form\CommentType;
 use App\Entity\Blog;
+use App\Entity\User;
 use App\Entity\Comment;
 use App\Entity\Category;
 use \DateTime;
@@ -91,10 +92,13 @@ class BlogController extends Controller
         $blog = $this->getDoctrine()->getRepository(Blog::class)->find($id);
         $comments = $this->getDoctrine()->getRepository(Comment::class)->findByPost($id);
         $randomArticles = $this->getDoctrine()->getRepository(Blog::class)->findRandomArticles();
+        $arr = [];
 
-        foreach($randomArticles as $key => $article) {
-
+        foreach ($randomArticles as $article) {
+            $article["author"] = $this->getDoctrine()->getRepository(User::class)->find(intval($article['author_id']))->getUsername();
+            $arr[] = $article;
         }
+
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -121,7 +125,7 @@ class BlogController extends Controller
             'blog' => $blog,
             'form' => $form->createView(),
             'comments' => $comments,
-            'randomArticles' => $randomArticles
+            'randomArticles' => $arr
         ));
     }
 
