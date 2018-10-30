@@ -167,6 +167,7 @@ hr {
     padding: 2px 5px;
     right: -2%;
     bottom: -100%;
+    z-index: 2;
 }
 .editContent {
     width: 100%;

@@ -78,10 +78,10 @@
                 feature.style.display = (feature.style.display == 'none') ? 'flex' : 'none'
             };
 
-            const edit = () => {
+            const edit = value => {
 
-                const dataId = edit.dataset.id;
-                const card = edit.parentElement.parentElement;
+                const dataId = value.dataset.id;
+                const card = value.parentElement.parentElement;
                 const cardText = card.firstElementChild.firstElementChild.lastElementChild
                 const textContent = cardText.textContent;
 
@@ -133,6 +133,7 @@
             const input = document.querySelector('input.editContent');
             const textContent = input.value;
             const content = input.parentElement.parentElement;
+            const removeElem = input.parentNode;
 
             const editComment = await fetch(`/comment/edit/${dataId}`, {
                 method: 'post',
@@ -145,7 +146,6 @@
             success.firstElementChild.innerHTML = res.success;
             setTimeout(() => success.style.display = 'none', 2000);
             content.innerText = input.value;
-            content.removeChild(input.parentElement);
         }
 
 
