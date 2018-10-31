@@ -175,8 +175,7 @@
         }
 
 
-        document.querySelector('[name=comment]').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        document.querySelector('[name=comment]').addEventListener('submit', async () => {
             const split = window.location.href.split('/');
 
             try {
@@ -186,9 +185,7 @@
                     body: JSON.stringify({content : $('#comment_content').val()})
                 });
 
-                if (response.ok) {
-                    const data = await response.json();
-                } else {
+                if (!response.ok) {
                     console.error(response.status);
                 }
 
