@@ -170,7 +170,7 @@
 
 
         document.querySelector('[name=comment]').addEventListener('submit', async () => {
-            const split = window.location.href.split('/');
+
 
             try {
                 const response = await fetch(`/blog/${parseFloat(split[split.length - 1])}`, {
