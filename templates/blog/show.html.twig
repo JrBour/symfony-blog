@@ -155,17 +155,26 @@
             const textContent = input.value;
             const content = input.parentElement.parentElement;
 
-            const editComment = await fetch(`/comment/edit/${dataId}`, {
-                method: 'post',
-                headers: {'X-Requested-With': 'XMLHttpRequest'},
-                body: JSON.stringify({id: dataId, content: textContent})
-            });
-            const res = await editComment.json();
+            try{
+                const response = await fetch(`/comment/edit/${dataId}`, {
+                    method: 'post',
+                    headers: {'X-Requested-With': 'XMLHttpRequest'},
+                    body: JSON.stringify({id: dataId, content: textContent})
+                });
+                if (response.ok) {
+                    const data = await response.json();
 
-            success.style.display = 'block';
-            success.firstElementChild.innerHTML = res.success;
-            setTimeout(() => success.style.display = 'none', 2000);
-            content.innerText = input.value;
+                    success.style.display = 'block';
+                    success.firstElementChild.innerHTML = data.success;
+                    setTimeout(() => success.style.display = 'none', 2000);
+                    content.innerText = input.value;
+                } else {
+                    console.error(response.status);
+                }
+            } catch(e) {
+                console.error(e);
+            }
+
         }
 
 
