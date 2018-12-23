@@ -34,10 +34,11 @@
         <a href="{{ path('blog_post') }}"><button type="button" name="button" class="btn btn-primary">Ajouter</button></a>
     {% endif %}
 {% endblock %}
+
 {% block javascripts %}
     <script>
-        let cat = document.querySelector('#category');
-        let toggle = document.querySelector('#toggle');
+        const cat = document.querySelector('#category');
+        const toggle = document.querySelector('#toggle');
 
         function toggleCat() {
             cat.classList.toggle('cat__hide');
