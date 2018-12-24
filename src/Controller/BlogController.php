@@ -79,7 +79,7 @@ class BlogController extends Controller
     }
 
     /**
-     * Return the page for show only one articles
+     * Return the page for show only one article
      * @param Request      $request     The request send by the form
      * @param Comment      $comment     The comment object
      * @param int          $id          The article id
